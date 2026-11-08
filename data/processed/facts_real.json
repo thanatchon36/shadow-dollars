@@ -1,0 +1,78 @@
+{
+  "supply_last_date": "2026-05-23",
+  "tron_supply_bn": 89.36258781044869,
+  "eth_supply_bn": 97.0718759625535,
+  "tron_share_last": 0.47239384685133967,
+  "tron_share_2019": 0.19213848623322063,
+  "tron_share_2023": 0.5274660089420725,
+  "covered_supply_bn": 189.16966934704953,
+  "usdt_aggregate_bn": 193.00957755076598,
+  "two_rails": {
+    "USDT \u00b7 Tron": {
+      "holders_m": 74.487383,
+      "mean_bal": 1194.7008447638173,
+      "tfr_per_m": 28.518592432532785,
+      "tfr_per_m_med_2024_26": 31.987634061466878
+    },
+    "USDT \u00b7 Ethereum": {
+      "holders_m": 14.0148,
+      "mean_bal": 7059.7305656585595,
+      "tfr_per_m": 6.217504346876928,
+      "tfr_per_m_med_2024_26": 3.4280497479295287
+    },
+    "USDC \u00b7 Ethereum": {
+      "holders_m": 6.989228,
+      "mean_bal": 7988.454120921765,
+      "tfr_per_m": 8.528485412296812,
+      "tfr_per_m_med_2024_26": 4.794745955232656
+    }
+  },
+  "ratio_mean_balance_eth_over_tron": 5.909203627502424,
+  "ratio_intensity_tron_over_eth": 9.33114639914043,
+  "usdc_trx_peak_date": "2022-08-22",
+  "usdc_trx_peak_m": 3458.94718523,
+  "usdc_trx_last_m": 28.369863964965997,
+  "cpi_thailand_mean": 1.679325077389202,
+  "cpi_rank_thailand": 4,
+  "cpi_n": 23,
+  "fx_vol_thailand": 7.806279419967168,
+  "fx_vol_rank_thailand": 10,
+  "fx_n": 21,
+  "fx_last_date": "2026-10-30",
+  "cpi_mekong": {
+    "Cambodia": 3.0549551083593136,
+    "Lao PDR": 14.916529681581034,
+    "Myanmar": 8.82506696804558
+  },
+  "ofac_total": 1073,
+  "ofac_tron_format": 352,
+  "ofac_usdt": 94,
+  "ofac_trx": 272,
+  "ofac_usdt_trx_tron_share": 0.9538043478260869,
+  "snapshot_date": "2026-05-23",
+  "placebo_n": 149,
+  "placebo_overreject": 0.5771812080536913,
+  "event_results": [
+    {
+      "event": "Border power cut (2025-02-05)",
+      "car30": -0.008414725556328051,
+      "lo": -3.670912505542567,
+      "hi": 3.8188317508238057,
+      "p_calibrated": 1.0
+    },
+    {
+      "event": "Offshore exchanges blocked (2025-06-28)",
+      "car30": -2.8260121727652887,
+      "lo": -2.4609987746030275,
+      "hi": 2.430857769841971,
+      "p_calibrated": 0.6933333333333334
+    },
+    {
+      "event": "Prince Group sanctions (2025-10-14)",
+      "car30": 2.542087544144021,
+      "lo": -1.0718265467746222,
+      "hi": 1.0598016287625327,
+      "p_calibrated": 0.7266666666666667
+    }
+  ]
+}

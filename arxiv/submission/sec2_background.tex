@@ -1,0 +1,79 @@
+\section{Institutional background}\label{sec:background}
+
+This section summarises the rules that shape how stablecoins can be used in Thailand and the regional criminal economy
+that motivates the paper.\footnote{Institutional details and dates in this section were compiled from public announcements and are stated at the precision available, often the month. They should be checked against primary legal sources before being relied upon.}
+
+\subsection{Thailand's digital-asset regime}
+
+Crypto exchanges, brokers and dealers serving Thai residents must be licensed by the Securities and Exchange
+Commission under the Emergency Decree on Digital Asset Businesses of 2018. The licensed market has long been
+concentrated, with Bitkub holding a dominant share, and it was joined in early 2024 by a joint venture between Gulf
+Energy and Binance. Five features of the regime matter for stablecoin behaviour.
+
+\begin{enumerate}[leftmargin=1.4em,label=(\roman*)]
+\item \emph{Baht-quoted trading.} Licensed venues have historically quoted assets against the baht; USDT and USDC were
+added to the list of crypto-assets that may serve as quote assets only in early 2025. Before then the USDT/THB pair was
+the main gate between baht and on-chain dollars.
+\item \emph{No domestic derivatives.} Licensed exchanges do not offer leveraged crypto derivatives. Residents who want
+leverage buy USDT at home and withdraw it to an offshore venue, which mechanically raises the withdrawal rate of USDT
+relative to other assets.
+\item \emph{No payments.} Since 2022 licensed businesses may not facilitate the use of crypto-assets to pay for goods and
+services, so payment use, where it exists, migrates to peer-to-peer and over-the-counter channels that are harder to
+observe.
+\item \emph{Tax.} In 2025 the government approved a five-year exemption from personal income tax on gains from sales
+through licensed Thai providers (2025--2029), raising the return to trading onshore.
+\item \emph{Access to offshore venues.} In mid-2025 the authorities blocked access to several unlicensed foreign
+exchanges, a shock that should displace some activity towards peer-to-peer markets and virtual private networks.
+\end{enumerate}
+
+\subsection{The anti-fraud architecture}
+
+Thailand's response to online fraud has concentrated on the bank accounts through which victims' money first moves.
+The Emergency Decree on Measures for the Prevention and Suppression of Technology Crimes of 2023 made it an offence to
+open, rent out or sell accounts for others to use, and it allowed financial institutions to suspend suspicious
+transfers and share information. An amendment in 2025 extended these duties to digital-asset business operators and
+introduced liability for institutions whose negligence enables losses. The police established the Anti Online Scam
+Operation Center, reachable through the 1441 hotline, in late 2023. Since 2023 banks have also required facial
+biometric verification for transfers of roughly 50,000 baht or more per transaction, or 200,000 baht or more per day,
+and for raising transfer limits.
+
+These measures raise the cost of the classic chain in which a victim's transfer passes through several layers of mule
+bank accounts before being withdrawn in cash. They create two predictions that this paper turns into tests. The
+verification threshold should generate structuring---deposits placed just below 50,000 baht---in the channel that
+launderers use (\cref{sec:bunching}). And tighter bank-side controls should displace laundering towards channels in
+which baht leave the banking system quickly, of which converting them into USDT is the most liquid (\cref{sec:displacement}).
+
+\subsection{The regional scam economy}
+
+UNODC's 2024 report on casinos, underground banking and transnational organised crime in East and Southeast Asia
+describes how criminal groups that grew out of junket and casino operations moved into large-scale online fraud run
+from compounds in Myanmar, Cambodia and Laos, staffed in part by trafficked workers, and how they settle and launder
+proceeds through underground banking and stablecoins, with USDT on Tron prominent among them \citep{unodc2024casinos}.
+A 2025 follow-up documents the industry's spread to other regions \citep{unodc2025inflection}. The FATF's report on
+cyber-enabled fraud describes the same pipeline from the perspective of financial intelligence units
+\citep{fatf2023cyberfraud}, and its 2025 update on virtual assets highlights the growing use of stablecoins by illicit
+actors \citep{fatf2025targeted}. Industry analysts report that stablecoins account for a majority of the transaction
+volume received by addresses they classify as illicit \citep{chainalysis2025crime}.
+
+Enforcement against this infrastructure intensified in 2024 and 2025. Tether, the Tron Foundation and TRM Labs formed a
+financial crime unit to freeze USDT linked to crime. Research by blockchain analytics firms exposed Telegram-based
+``guarantee'' marketplaces associated with the Cambodian conglomerate Huione Group, several of which Telegram removed in
+2025 \citep{elliptic2024huione}. In February 2025 Thailand cut electricity, internet and fuel supplies to areas across
+the Myanmar border that host scam compounds. In October 2025 the U.S.\ and U.K.\ governments sanctioned the Cambodian
+Prince Group and associated individuals and entities, the U.S.\ Department of Justice filed a forfeiture complaint
+against roughly 127,000 bitcoin, and FinCEN acted to sever Huione Group from the U.S.\ financial system
+\citep{ustreasury2025prince,fincen2025huione}. In the same month Myanmar's military raided the KK Park compound.
+
+\Cref{fig:timeline} places these events on one time axis. Its message for empirical work is simple: nine of the
+sixteen events fall in the nine months between February and October 2025. Any design that attributes a change in
+Thai stablecoin flows to one of them must contend with the others, which is why the pre-registered plan relies on
+narrow windows, control assets and placebo inference.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_timeline}
+\caption{Policy, enforcement and market events relevant to Thai stablecoin flows, 2022--2025. Dots on the left axis
+sit at the true date; labels on the right are in chronological order. Colours mark the type of event. Month-level
+dates are shown without a day and should be verified against primary sources.}
+\label{fig:timeline}
+\end{figure}

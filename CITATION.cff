@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the paper."
+title: "Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand"
+type: software
+version: 0.1.0
+date-released: 2026-11-08
+license: MIT
+authors:
+  - given-names: Thanatchon
+    family-names: Chongmankhong
+keywords:
+  - stablecoins
+  - USDT
+  - Tron
+  - money laundering
+  - scam centres
+  - bunching
+  - synthetic control
+  - Thailand
+preferred-citation:
+  type: generic
+  title: "Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand"
+  authors:
+    - given-names: Thanatchon
+      family-names: Chongmankhong
+  year: 2026
+  notes: "Preprint"

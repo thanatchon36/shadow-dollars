@@ -1,0 +1,261 @@
+\begin{thebibliography}{39}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abadie(2021)]{abadie2021using}
+Alberto Abadie.
+\newblock Using synthetic controls: Feasibility, data requirements, and
+  methodological aspects.
+\newblock \emph{Journal of Economic Literature}, 59\penalty0 (2):\penalty0
+  391--425, 2021.
+
+\bibitem[Abadie et~al.(2010)Abadie, Diamond, and Hainmueller]{abadie2010synth}
+Alberto Abadie, Alexis Diamond, and Jens Hainmueller.
+\newblock Synthetic control methods for comparative case studies: Estimating
+  the effect of {California}'s tobacco control program.
+\newblock \emph{Journal of the American Statistical Association}, 105\penalty0
+  (490):\penalty0 493--505, 2010.
+
+\bibitem[Ante et~al.(2021)Ante, Fiedler, and Strehle]{ante2021issuance}
+Lennart Ante, Ingo Fiedler, and Elias Strehle.
+\newblock The influence of stablecoin issuances on cryptocurrency markets.
+\newblock \emph{Finance Research Letters}, 41:\penalty0 101867, 2021.
+
+\bibitem[Arkhangelsky et~al.(2021)Arkhangelsky, Athey, Hirshberg, Imbens, and
+  Wager]{arkhangelsky2021sdid}
+Dmitry Arkhangelsky, Susan Athey, David~A. Hirshberg, Guido~W. Imbens, and
+  Stefan Wager.
+\newblock Synthetic difference-in-differences.
+\newblock \emph{American Economic Review}, 111\penalty0 (12):\penalty0
+  4088--4118, 2021.
+
+\bibitem[Arner et~al.(2020)Arner, Auer, and Frost]{arner2020stablecoins}
+Douglas~W. Arner, Raphael Auer, and Jon Frost.
+\newblock Stablecoins: Risks, potential and regulation.
+\newblock BIS Working Papers 905, Bank for International Settlements, 2020.
+
+\bibitem[Auer et~al.(2022)Auer, Cornelli, Doerr, Frost, and
+  Gambacorta]{auer2022retail}
+Raphael Auer, Giulio Cornelli, Sebastian Doerr, Jon Frost, and Leonardo
+  Gambacorta.
+\newblock Crypto trading and {Bitcoin} prices: Evidence from a new database of
+  retail adoption.
+\newblock BIS Working Papers 1049, Bank for International Settlements, 2022.
+
+\bibitem[{Bank for International Settlements}(2025)]{bis2025aer}
+{Bank for International Settlements}.
+\newblock The next-generation monetary and financial system.
+\newblock In \emph{Annual Economic Report 2025}, chapter III. BIS, Basel, 2025.
+
+\bibitem[Blondel et~al.(2008)Blondel, Guillaume, Lambiotte, and
+  Lefebvre]{blondel2008louvain}
+Vincent~D. Blondel, Jean-Loup Guillaume, Renaud Lambiotte, and Etienne
+  Lefebvre.
+\newblock Fast unfolding of communities in large networks.
+\newblock \emph{Journal of Statistical Mechanics: Theory and Experiment},
+  2008\penalty0 (10):\penalty0 P10008, 2008.
+
+\bibitem[{Board of Governors of the Federal Reserve System}(2026)]{fred2026h10}
+{Board of Governors of the Federal Reserve System}.
+\newblock Foreign exchange rates ({H.10}): Daily noon buying rates.
+\newblock Mirrored in GitHub repository \texttt{datasets/exchange-rates}, 2026.
+\newblock Data through 30 October 2026; retrieved 8 November 2026.
+
+\bibitem[{Chainalysis}(2025)]{chainalysis2025crime}
+{Chainalysis}.
+\newblock The 2025 crypto crime report.
+\newblock Technical report, Chainalysis Inc., 2025.
+
+\bibitem[Chetty et~al.(2011)Chetty, Friedman, Olsen, and
+  Pistaferri]{chetty2011adjustment}
+Raj Chetty, John~N. Friedman, Tore Olsen, and Luigi Pistaferri.
+\newblock Adjustment costs, firm responses, and micro vs. macro labor supply
+  elasticities: Evidence from {Danish} tax records.
+\newblock \emph{Quarterly Journal of Economics}, 126\penalty0 (2):\penalty0
+  749--804, 2011.
+
+\bibitem[Chinn and Ito(2006)]{chinn2006capital}
+Menzie~D. Chinn and Hiro Ito.
+\newblock What matters for financial development? {Capital} controls,
+  institutions, and interactions.
+\newblock \emph{Journal of Development Economics}, 81\penalty0 (1):\penalty0
+  163--192, 2006.
+
+\bibitem[{Coin Metrics}(2026)]{coinmetrics2026}
+{Coin Metrics}.
+\newblock Coin metrics community data.
+\newblock GitHub repository \texttt{coinmetrics/data}, 2026.
+\newblock Data through 23 May 2026; retrieved 8 November 2026.
+
+\bibitem[Cong et~al.(2023{\natexlab{a}})Cong, Harvey, Rabetti, and
+  Wu]{cong2023anatomy}
+Lin~William Cong, Campbell~R. Harvey, Daniel Rabetti, and Zong-Yu Wu.
+\newblock An anatomy of crypto-enabled cybercrimes.
+\newblock NBER Working Paper 30834, National Bureau of Economic Research,
+  2023{\natexlab{a}}.
+
+\bibitem[Cong et~al.(2023{\natexlab{b}})Cong, Li, Tang, and Yang]{cong2023wash}
+Lin~William Cong, Xi~Li, Ke~Tang, and Yang Yang.
+\newblock Crypto wash trading.
+\newblock \emph{Management Science}, 69\penalty0 (11):\penalty0 6427--6454,
+  2023{\natexlab{b}}.
+
+\bibitem[{Elliptic}(2024)]{elliptic2024huione}
+{Elliptic}.
+\newblock Research notes on {Huione Guarantee} and {Telegram}-based guarantee
+  marketplaces, 2024.
+\newblock Elliptic research blog, series continued in 2025; exact titles to be
+  verified.
+
+\bibitem[{Financial Action Task Force}(2020)]{fatf2020redflags}
+{Financial Action Task Force}.
+\newblock Virtual assets: Red flag indicators of money laundering and terrorist
+  financing.
+\newblock Technical report, FATF, Paris, 2020.
+
+\bibitem[{Financial Action Task Force}(2023)]{fatf2023cyberfraud}
+{Financial Action Task Force}.
+\newblock Illicit financial flows from cyber-enabled fraud.
+\newblock Technical report, FATF, Paris, 2023.
+
+\bibitem[{Financial Action Task Force}(2025)]{fatf2025targeted}
+{Financial Action Task Force}.
+\newblock Targeted update on implementation of the {FATF} standards on virtual
+  assets and virtual asset service providers.
+\newblock Technical report, FATF, Paris, 2025.
+
+\bibitem[{Financial Crimes Enforcement Network}(2025)]{fincen2025huione}
+{Financial Crimes Enforcement Network}.
+\newblock Action against {Huione Group} under section 311 of the {USA PATRIOT
+  Act}, 2025.
+\newblock Proposed in May 2025 and finalised in October 2025; to be verified.
+
+\bibitem[Foley et~al.(2019)Foley, Karlsen, and
+  Putni{\c{n}}{\v{s}}]{foley2019sex}
+Sean Foley, Jonathan~R. Karlsen, and T{\={a}}lis~J. Putni{\c{n}}{\v{s}}.
+\newblock Sex, drugs, and bitcoin: How much illegal activity is financed
+  through cryptocurrencies?
+\newblock \emph{Review of Financial Studies}, 32\penalty0 (5):\penalty0
+  1798--1853, 2019.
+
+\bibitem[Gorton and Zhang(2023)]{gorton2023wildcat}
+Gary~B. Gorton and Jeffery~Y. Zhang.
+\newblock Taming wildcat stablecoins.
+\newblock \emph{University of Chicago Law Review}, 90\penalty0 (3):\penalty0
+  909--971, 2023.
+
+\bibitem[Griffin and Mei(2024)]{griffin2024slavery}
+John~M. Griffin and Kevin Mei.
+\newblock How do crypto flows finance slavery? {The} economics of pig
+  butchering.
+\newblock Working paper, SSRN, 2024.
+
+\bibitem[Griffin and Shams(2020)]{griffin2020tether}
+John~M. Griffin and Amin Shams.
+\newblock Is {Bitcoin} really untethered?
+\newblock \emph{Journal of Finance}, 75\penalty0 (4):\penalty0 1913--1964,
+  2020.
+
+\bibitem[Kleven(2016)]{kleven2016bunching}
+Henrik~J. Kleven.
+\newblock Bunching.
+\newblock \emph{Annual Review of Economics}, 8:\penalty0 435--464, 2016.
+
+\bibitem[Kleven and Waseem(2013)]{kleven2013notches}
+Henrik~J. Kleven and Mazhar Waseem.
+\newblock Using notches to uncover optimization frictions and structural
+  elasticities: Theory and evidence from {Pakistan}.
+\newblock \emph{Quarterly Journal of Economics}, 128\penalty0 (2):\penalty0
+  669--723, 2013.
+
+\bibitem[Kristoufek(2021)]{kristoufek2021tethered}
+Ladislav Kristoufek.
+\newblock Tethered, or untethered? {On} the interplay between stablecoins and
+  major cryptoassets.
+\newblock \emph{Finance Research Letters}, 43:\penalty0 101991, 2021.
+
+\bibitem[Liao and Caramichael(2022)]{liao2022stablecoins}
+Gordon~Y. Liao and John Caramichael.
+\newblock Stablecoins: Growth potential and impact on banking.
+\newblock International Finance Discussion Papers 1334, Board of Governors of
+  the Federal Reserve System, 2022.
+
+\bibitem[Liu et~al.(2008)Liu, Ting, and Zhou]{liu2008iforest}
+Fei~Tony Liu, Kai~Ming Ting, and Zhi-Hua Zhou.
+\newblock Isolation forest.
+\newblock In \emph{Proceedings of the Eighth IEEE International Conference on
+  Data Mining}, pages 413--422, 2008.
+
+\bibitem[Lyons and Viswanath-Natraj(2023)]{lyons2023stable}
+Richard~K. Lyons and Ganesh Viswanath-Natraj.
+\newblock What keeps stablecoins stable?
+\newblock \emph{Journal of International Money and Finance}, 131:\penalty0
+  102777, 2023.
+
+\bibitem[Makarov and Schoar(2020)]{makarov2020arbitrage}
+Igor Makarov and Antoinette Schoar.
+\newblock Trading and arbitrage in cryptocurrency markets.
+\newblock \emph{Journal of Financial Economics}, 135\penalty0 (2):\penalty0
+  293--319, 2020.
+
+\bibitem[Meiklejohn et~al.(2013)Meiklejohn, Pomarole, Jordan, Levchenko, McCoy,
+  Voelker, and Savage]{meiklejohn2013fistful}
+Sarah Meiklejohn, Marjori Pomarole, Grant Jordan, Kirill Levchenko, Damon
+  McCoy, Geoffrey~M. Voelker, and Stefan Savage.
+\newblock A fistful of bitcoins: Characterizing payments among men with no
+  names.
+\newblock In \emph{Proceedings of the 2013 Internet Measurement Conference},
+  pages 127--140, 2013.
+
+\bibitem[{Office of Foreign Assets Control}(2026)]{ofac2026sdn}
+{Office of Foreign Assets Control}.
+\newblock Specially designated nationals list: Digital currency addresses.
+\newblock Extracted lists in GitHub repository
+  \texttt{0xB10C/ofac-sanctioned-digital-currency-addresses}, 2026.
+\newblock Mirror updated 7 November 2026; retrieved 8 November 2026.
+
+\bibitem[Saez(2010)]{saez2010bunch}
+Emmanuel Saez.
+\newblock Do taxpayers bunch at kink points?
+\newblock \emph{American Economic Journal: Economic Policy}, 2\penalty0
+  (3):\penalty0 180--212, 2010.
+
+\bibitem[{United Nations Office on Drugs and Crime}(2024)]{unodc2024casinos}
+{United Nations Office on Drugs and Crime}.
+\newblock Casinos, money laundering, underground banking, and transnational
+  organized crime in {East} and {Southeast Asia}: A hidden and accelerating
+  threat.
+\newblock Technical report, UNODC Regional Office for Southeast Asia and the
+  Pacific, Bangkok, 2024.
+
+\bibitem[{United Nations Office on Drugs and Crime}(2025)]{unodc2025inflection}
+{United Nations Office on Drugs and Crime}.
+\newblock Inflection point: Global implications of scam centres, underground
+  banking and illicit online marketplaces in {Southeast Asia}.
+\newblock Technical report, UNODC, Bangkok, 2025.
+
+\bibitem[{U.S. Department of the Treasury}(2025)]{ustreasury2025prince}
+{U.S. Department of the Treasury}.
+\newblock Press release on sanctions against the {Prince Group} transnational
+  criminal organization, 2025.
+\newblock 14 October 2025; exact title to be verified.
+
+\bibitem[Weber et~al.(2019)Weber, Domeniconi, Chen, Weidele, Bellei, Robinson,
+  and Leiserson]{weber2019aml}
+Mark Weber, Giacomo Domeniconi, Jie Chen, Daniel Karl~I. Weidele, Claudio
+  Bellei, Tom Robinson, and Charles~E. Leiserson.
+\newblock Anti-money laundering in {Bitcoin}: Experimenting with graph
+  convolutional networks for financial forensics.
+\newblock arXiv preprint 1908.02591, KDD Workshop on Anomaly Detection in
+  Finance, 2019.
+
+\bibitem[{World Bank}(2026)]{worldbank2026cpi}
+{World Bank}.
+\newblock Inflation, consumer prices (annual \%), indicator {FP.CPI.TOTL.ZG}.
+\newblock Mirrored in GitHub repository \texttt{datasets/inflation}, 2026.
+\newblock Retrieved 8 November 2026; file labels corrected, see Appendix A.
+
+\end{thebibliography}

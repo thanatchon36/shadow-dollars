@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+# LaTeX build artefacts (main.bbl and paper.pdf are tracked on purpose)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.blg
+paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/main.pdf
+# OS
+.DS_Store
+# generated upload archive (rebuild with arxiv/make_arxiv_zip.sh)
+arxiv/arxiv_submission.zip

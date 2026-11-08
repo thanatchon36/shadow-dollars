@@ -1,0 +1,29 @@
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{5}{c}{Share of accounts that are mules} \\
+\cmidrule(lr){2-6}
+Detector & 0.25\% & 0.5\% & 1\% & 2\% & 4\% \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel A. Area under the ROC curve}} \\
+Undirected 2-hop exposure & 0.774 & 0.775 & 0.775 & 0.773 & 0.775 \\
+Dwell time only & 0.826 & 0.827 & 0.828 & 0.829 & 0.827 \\
+Directed 3-hop exposure & 0.981 & 0.981 & 0.980 & 0.981 & 0.982 \\
+Red-flag composite, behaviour & 0.958 & 0.960 & 0.959 & 0.960 & 0.959 \\
+Red-flag composite, all & 0.982 & 0.982 & 0.982 & 0.983 & 0.982 \\
+Isolation forest, behaviour & 0.996 & 0.997 & 0.997 & 0.997 & 0.995 \\
+Isolation forest, all & 0.999 & 0.999 & 0.999 & 0.999 & 0.999 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel B. Precision at $k$}} \\
+Undirected 2-hop exposure & 0.02 & 0.02 & 0.03 & 0.05 & 0.06 \\
+Dwell time only & 0.06 & 0.07 & 0.10 & 0.12 & 0.21 \\
+Directed 3-hop exposure & 0.02 & 0.10 & 0.45 & 0.71 & 0.86 \\
+Red-flag composite, behaviour & 0.58 & 0.60 & 0.60 & 0.60 & 0.60 \\
+Red-flag composite, all & 0.59 & 0.61 & 0.60 & 0.60 & 0.60 \\
+Isolation forest, behaviour & 0.70 & 0.76 & 0.80 & 0.83 & 0.81 \\
+Isolation forest, all & 0.78 & 0.84 & 0.90 & 0.92 & 0.92 \\
+\addlinespace
+\multicolumn{6}{l}{\emph{Panel C. Bunching-difference test}} \\
+Rejection rate at 5\% & 0.10 & 0.30 & 0.38 & 0.88 & 1.00 \\
+Mean $\hat\beta_{\mathrm{USDT}}-\hat\beta_{\mathrm{other}}$ & 0.014 & 0.056 & 0.088 & 0.180 & 0.281 \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,148 @@
+\section{Evidence from public data}\label{sec:evidence}
+
+\subsection{USDT on Tron is a retail dollar rail}\label{sec:rails}
+
+\Cref{fig:supply} shows the migration of USDT onto Tron. At the end of 2019 Tron carried 19\% of the USDT supply on the
+covered chains; by mid-2021 it carried half, and on 23 May 2026 it carried 47\% (US\$89 billion) against 51\% on
+Ethereum (US\$97 billion). The share has oscillated around one half since 2021, so ``Tron versus Ethereum'' is not a
+story of one chain displacing the other but of two rails of similar size.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_rails_supply}
+\caption{USDT supply by blockchain. Top: US\$ billions, stacked. Bottom: Tron's share of the covered supply.}
+\label{fig:supply}
+\end{figure}
+
+The two rails serve different clienteles. \Cref{tab:onchain} reports a snapshot and \cref{fig:tworails} the history. On
+23 May 2026, 74.5 million addresses held USDT on Tron, 5.3 times the 14.0 million on Ethereum, and the mean balance per
+holding address was about US\$1,200 against about US\$6,900. Tron recorded 2.1 million USDT transfers that day, 3.1
+times Ethereum's 0.67 million, with less supply. Measured as transfers per US\$1 million of supply---a count-based
+turnover rate---Tron's median since January 2024 is 32 a day, 9.3 times that of USDT on Ethereum (3.4) and 6.7 times
+that of USDC on Ethereum (4.8). Small balances turned over often are the signature of a payments rail; large balances
+turned over rarely are the signature of a settlement and treasury rail.
+
+\begin{table}[!htbp]
+\centering\small
+\begin{threeparttable}
+\caption{On-chain snapshot of the main dollar-stablecoin rails, 23 May 2026}
+\label{tab:onchain}
+\input{tables/tab_onchain}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} Supply in US\$ billions; holders are addresses with a positive balance (millions); active addresses
+and transfers are daily counts (thousands); 1-yr columns give percentage changes over 365 days. Mean balance is supply
+divided by holders. Source: Coin Metrics Community Data; author's calculations.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_two_rails}
+\caption{Holders, mean balances and turnover of USDT on Tron and Ethereum and of USDC on Ethereum. 30-day rolling
+medians; the middle and right panels use logarithmic scales.}
+\label{fig:tworails}
+\end{figure}
+
+Two caveats apply. An address is not a person: exchanges hold customer funds in omnibus wallets, and individuals hold
+many addresses. Both biases are, if anything, larger on Tron, where exchanges custody much of the retail float and
+address creation is cheap, so the comparison of balances per address is indicative rather than exact. The turnover
+comparison does not depend on address counts and is the more robust of the two.
+
+\subsection{Circle's exit left the cheapest rail to a single issuer}\label{sec:usdcexit}
+
+USDC on Tron grew to US\$3.5 billion in August 2022 and then shrank. After Circle announced that it would stop minting
+USDC on Tron in early 2024, supply fell below US\$30 million (\cref{fig:usdcexit}). For users in Southeast Asia who
+need a cheap, liquid dollar token, USDT on Tron is now, in practice, the only option at scale. This concentration cuts
+both ways for enforcement: one issuer with the technical ability to freeze tokens sits on the main rail, but
+regulatory regimes that would restrict USDT, such as the European Union's, have no regional substitute to push users
+towards.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_usdc_exit}
+\caption{USDC and USDT supply on the Tron blockchain, logarithmic scale. The shaded band marks the approximate
+wind-down period.}
+\label{fig:usdcexit}
+\end{figure}
+
+\subsection{Thailand has little macroeconomic reason to hold dollars on-chain}\label{sec:macro}
+
+Where inflation is high, currencies are volatile or capital is controlled, people hold dollar stablecoins for reasons
+that have nothing to do with crime. \Cref{fig:macro} shows that Thailand is not such a place. Its consumer-price
+inflation averaged 1.7\% a year over 2019--2023, the fourth lowest of 23 economies after Japan, China and Malaysia. The
+baht's volatility against the dollar since January 2021, 7.8\% a year, is in the middle of the 21 currencies in the
+Federal Reserve's H.10 release---below the yen, the won and the Australian dollar.
+
+The neighbourhood is different. Inflation averaged 14.9\% in Laos over 2019--2024 and was 8.8\% in Myanmar in 2019, the
+last year the World Bank reports, before a period of currency collapse and capital controls. Cambodia is largely
+dollarised already. Legitimate dollar demand on the other side of Thailand's borders can and plausibly does flow
+through Thai platforms and peer-to-peer markets, especially given the millions of migrant workers from these countries
+in Thailand. This is the most important legitimate confounder for any claim that Thai stablecoin flows are
+``excessive'', and the pre-registered plan treats it as such (H1 and H6 in \cref{tab:prereg}).
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_macro}
+\caption{(a) Consumer-price inflation, mean of available years 2019--2024 (dot) and range (bar); hollow markers denote
+fewer than three observations. (b) Annualised volatility of daily log changes in each currency's exchange rate against
+the US dollar, January 2021 to October 2026.}
+\label{fig:macro}
+\end{figure}
+
+\subsection{Sanctions lists point to Tron}\label{sec:ofac}
+
+\Cref{tab:ofac} classifies the 1,073 digital-currency addresses on the OFAC list by the currency tag OFAC assigns and by
+address encoding. Of the 368 addresses tagged USDT, TRX or USDC, 351 (95\%) are Tron addresses; among the 94 tagged
+USDT, 79 are Tron addresses, eight are Ethereum-style addresses and seven are Bitcoin-style addresses that operated on
+the legacy Omni layer. Counts of listed addresses are a crude measure: one listing can cover a single wallet or the hub
+of a large network, and listings reflect enforcement priorities. They nonetheless confirm that, for the authority with
+the most active crypto-sanctions programme, the stablecoin activity worth sanctioning happens mainly on Tron.
+
+\begin{table}[!htbp]
+\centering\small
+\begin{threeparttable}
+\caption{OFAC-listed digital-currency addresses by currency tag and address encoding}
+\label{tab:ofac}
+\input{tables/tab_ofac}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} The eight currency tags with the most listed addresses; the remaining nine tags hold 34 addresses.
+Encoding is inferred from address syntax. Source: OFAC SDN list via the \texttt{0xB10C} mirror, updated
+7 November 2026; author's classification.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{What chain-wide data cannot do}\label{sec:eventstudy}
+
+It is tempting to evaluate crackdowns with the free data used above. For each of three shocks dated to the day---the
+power cut to border scam hubs on 5 February 2025, the block on unlicensed offshore exchanges on 28 June 2025 and the
+Prince Group sanctions on 14 October 2025---I estimate a counterfactual for the log of daily Tron USDT transfers from a
+linear trend with day-of-week effects fitted over days $-150$ to $-31$, and cumulate abnormal activity over days 0 to
+30. Bands come from a moving-block bootstrap (14-day blocks) that redraws both the estimation residuals, so that the
+uncertainty of the extrapolated trend is included, and the future shocks.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_event_study}
+\caption{Top: cumulative abnormal log transfers of USDT on Tron after three enforcement shocks, with moving-block
+bootstrap 95\% bands; grey dots are daily abnormal values before the event. Bottom: distribution of the 30-day
+cumulative abnormal value at 149 placebo dates at least 45 days from any of the three shocks.}
+\label{fig:eventstudy}
+\end{figure}
+
+\Cref{fig:eventstudy} reports the result. Two of the three shocks appear ``significant'' with opposite signs: after the
+offshore block, activity falls below the band (cumulative abnormal value $-2.83$ log points by day 30); after the
+sanctions it rises above it ($+2.54$). The bottom panel shows why neither should be believed. Repeating the exercise at
+149 placebo dates spaced a week apart, the nominal bands exclude zero at 58\% of them. Chain-wide activity is driven by
+global market events---the sanctions date, for instance, falls days after one of the largest liquidation episodes in
+crypto history---and by structural breaks that no trend model anticipates. Calibrated against the placebo distribution,
+the shocks have $p$-values of 1.00, 0.69 and 0.73. The 95th percentile of the absolute placebo values is 11.1 log
+points, so a shock would have to move global Tron USDT activity by about 36 log points a day, sustained for a month,
+to stand out. A national crackdown cannot plausibly do that, and by \cref{prop:displacement} it need not change the
+total at all.
+
+The lesson is general. Evaluations of anti-laundering policy that rely on chain-wide aggregates, or on any series
+dominated by global activity, should report placebo-calibrated inference, and null results from such data say little
+about whether a policy worked. Credible evaluation needs data on the composition of flows through the channel that the
+policy targets.

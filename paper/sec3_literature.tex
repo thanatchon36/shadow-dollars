@@ -1,0 +1,46 @@
+\section{Related literature}\label{sec:literature}
+
+The paper connects four literatures.
+
+\paragraph{The economics of stablecoins}
+A first strand studies what keeps stablecoins at par and what they do to the rest of the financial system.
+\citet{lyons2023stable} show how arbitrage capacity and the issuer's balance sheet determine deviations from the peg;
+\citet{gorton2023wildcat} draw the analogy with free-banking-era private money; \citet{arner2020stablecoins} and the
+\citet{bis2025aer} discuss risks and regulation, and \citet{liao2022stablecoins} the implications for bank funding.
+Work on the interaction between stablecoin issuance and crypto prices includes \citet{griffin2020tether},
+\citet{ante2021issuance} and \citet{kristoufek2021tethered}. This literature treats stablecoins mostly as a single
+asset. I show that the same token on different blockchains serves different clienteles---USDT on Tron is a small-balance,
+high-turnover rail, USDT on Ethereum a large-balance one---which matters for any analysis of who uses stablecoins and why.
+
+\paragraph{Illicit finance in crypto-assets}
+\citet{foley2019sex} estimate the share of bitcoin activity associated with illegal goods using network clustering.
+\citet{cong2023anatomy} provide an anatomy of crypto-enabled cybercrime, and \citet{griffin2024slavery} trace the flows
+of ``pig-butchering'' fraud from victims to exchanges, documenting the role of USDT and large centralised exchanges in
+cashing out. Policy reports by \citet{unodc2024casinos,unodc2025inflection} and the
+\citet{fatf2020redflags,fatf2023cyberfraud,fatf2025targeted} describe typologies and red flags. Industry reports such as
+\citet{chainalysis2025crime} provide aggregate estimates whose attribution methods are proprietary. Relative to this
+work I focus on a single jurisdiction at the boundary between the banking system and on-chain rails, and on the
+identification problem: how to distinguish laundering from the legitimate motives that produce similar data.
+
+\paragraph{Market structure and data quality}
+\citet{makarov2020arbitrage} document persistent cross-country price premia in crypto markets, such as the Korean
+``kimchi premium'', that reflect capital controls; I use the analogous USDT/THB premium as a fingerprint of the
+store-of-value motive. \citet{cong2023wash} show that reported exchange volumes are inflated by wash trading, which is
+why the plan relies on ratios within a platform and on adjusted volumes rather than on raw cross-exchange comparisons.
+\citet{auer2022retail} relate retail adoption to prices using app-download data.
+
+\paragraph{Blockchain forensics and anomaly detection}
+Address clustering and labelling go back to \citet{meiklejohn2013fistful}; supervised and graph-based approaches to
+anti-money-laundering on transaction graphs include \citet{weber2019aml}. I use unsupervised scores---the isolation forest
+of \citet{liu2008iforest} and a transparent composite of red flags---because labels are scarce in practice, and I show
+formally and in simulation that the direction of fund flows must be respected when exposure to flagged addresses is
+measured. Community detection, used in the replication package for exploratory clustering, follows
+\citet{blondel2008louvain}.
+
+\paragraph{Methods}
+The bunching estimator adapts the notch and kink designs of \citet{saez2010bunch}, \citet{chetty2011adjustment} and
+\citet{kleven2013notches}, surveyed by \citet{kleven2016bunching}, to a setting in which the notch is a verification
+step rather than a tax, and in which a within-platform comparison across assets removes the honest response. Policy
+evaluation relies on synthetic control \citep{abadie2010synth,abadie2021using} and, as a robustness check, synthetic
+difference-in-differences \citep{arkhangelsky2021sdid}. Cross-country controls include the capital-account openness
+index of \citet{chinn2006capital}.

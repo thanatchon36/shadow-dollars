@@ -1,0 +1,108 @@
+\section{A pre-registered plan for Thailand}\label{sec:plan}
+
+The evidence so far establishes the rail, the weak macroeconomic motive, the regional threat and the limits of
+aggregate data. Whether Thai stablecoin flows actually carry fraud proceeds, and how much, is an empirical question
+that requires data held by exchanges, the Securities and Exchange Commission and the Anti-Money Laundering Office. To
+prevent the specification search that such sensitive questions invite, \cref{tab:prereg} commits in advance to six
+hypotheses, the data each needs, the estimator, the primary statistic and the decision rule.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{Pre-registered hypotheses, data, estimators and decision rules}
+\label{tab:prereg}
+\begin{tabularx}{\textwidth}{L{2.5cm}L{4.35cm}L{4.1cm}X}
+\toprule
+Hypothesis & Data (tier) & Estimator & Decision rule \\
+\midrule
+H1 Excess stablecoin demand & Exchange volumes by quote asset across 20+ countries; inflation, FX volatility,
+remittances, migrant stock, capital-account openness, derivatives access (1--2) & Panel regression of the stablecoin
+share of volume on fundamentals; Thailand's standardised residual & Residual positive and in the top decile of a
+leave-one-country-out distribution \\
+\addlinespace
+H2 USDT exits more than other assets & Daily purchases and on-chain withdrawals by asset on Thai platforms (2--3) &
+Difference between USDT and BTC withdrawal-to-purchase ratios, controlling for volatility and offshore funding rates &
+One-sided test of a positive difference at 5\%; reported net of exchange-labelled destinations \\
+\addlinespace
+H3 Fast pass-through concentrated in young, fan-in accounts & Account-level deposit--purchase--withdrawal cycles (3) &
+Gaussian mixture on log dwell; fast-component share by account age and fan-in & Difference positive with a bootstrap
+interval excluding zero, after removing withdrawals to labelled exchanges \\
+\addlinespace
+H4 Structuring below 50,000 baht & Deposit amounts by funded asset, ideally before and after the verification rule (3)
+& Difference in responding shares (\cref{prop:bunching}); difference-in-difference if pre-rule data exist
+(\cref{cor:didib}) & One-sided $p<0.05$ at 50,000 baht and no significant difference at placebo thresholds of 30,000 and
+70,000 baht \\
+\addlinespace
+H5 Crackdowns change the composition of flows & Weekly composition series (share of fast structured deposits,
+peer-to-peer premium, network mix) for Thailand and donor countries (2--3) & Synthetic control and synthetic
+difference-in-differences; triple difference USDT versus BTC & Rank-based placebo $p\le0.05$ with pre-period fit no
+worse than the median donor's \\
+\addlinespace
+H6 Thai withdrawals are more exposed than peers' & Tron transfers from labelled Thai and peer-country exchange hot
+wallets; issuer freezes; OFAC list (1--3) & Directed, value-weighted three-hop exposure (\cref{eq:exposure}) & Thai
+exposure above the 75th percentile of peer exchanges with a bootstrap interval excluding the peer median \\
+\bottomrule
+\end{tabularx}
+\par\vspace{3pt}{\footnotesize\color{muted}Data tiers: 1 public; 2 commercial or academic licence; 3 partnership under the
+PDPA. H3--H6 form the primary family and are adjusted with the Holm--Bonferroni procedure; H1--H2 are secondary.\par}
+\end{table}
+
+\paragraph{Interpretation}
+The hypotheses are ordered to separate structure from crime. If H1 and H2 hold but H3--H6 do not, Thai stablecoin
+behaviour is unusual because of market structure: the absence of domestic derivatives, the baht-quoted market and
+cross-border demand. If H3--H6 also hold, the residual pattern carries the fingerprints of pass-through laundering,
+and \cref{prop:bunching} converts the bunching estimate into a lower bound on structured volume, since unstructured
+illicit deposits are not counted.
+
+\paragraph{Data access and privacy}
+Tier-3 analyses should follow a ``code goes to the data'' model: the replication package runs on the simulator's
+synthetic ledger, which has the same schema as the exchange data required, so code can be reviewed, tested and
+approved before it touches personal data inside a regulator's or exchange's secure environment. Only aggregate,
+disclosure-controlled outputs leave that environment. No address of a person who has not been charged is published.
+
+\section{Policy implications}\label{sec:policy}
+
+Six implications follow, each conditional on the evidence that the plan would produce.
+
+\begin{enumerate}[leftmargin=1.4em,label=\arabic*.]
+\item \textbf{Monitor differences, not levels.} Supervisors and exchanges should track structuring and pass-through as
+contrasts between the stablecoin channel and other channels on the same platform, with normalisations that do not
+depend on the shape of the amount distribution. Levels confound crime with hassle avoidance and market structure.
+\item \textbf{Make exposure screening direction-aware.} Screening that counts undirected hops to flagged addresses
+mechanically flags the exchange hubs to which ordinary investors withdraw. Exposure should follow funds forward,
+weight by value and decay with distance.
+\item \textbf{Protect honest peer-to-peer dealers.} Honest dealers are the population most easily mistaken for mules and
+the usual victims of ``triangle'' fraud, in which a criminal has a victim pay the dealer directly. Requiring that baht
+payments for peer-to-peer trades come from a bank account in the buyer's verified name, and creating a fast channel to
+review frozen dealer accounts, would reduce both the fraud and its collateral damage.
+\item \textbf{Evaluate crackdowns with composition data and honest inference.} Chain-wide aggregates cannot show whether
+a crackdown worked (\cref{sec:eventstudy}). Publishing weekly, anonymised composition indicators---the share of
+deposits just below verification thresholds, the share of fast exits, the peer-to-peer premium---would make evaluation
+possible without disclosing personal data.
+\item \textbf{Anticipate displacement.} Fixed, publicly known thresholds create the notch that structuring exploits, and
+pressure on one channel moves flows to others (\cref{prop:displacement}). Risk-based verification and coordinated action
+across banks, licensed exchanges and peer-to-peer markets limit the gain from switching.
+\item \textbf{Use the issuer and the ledger.} Because the region's main dollar rail has a single issuer able to freeze
+tokens and a public ledger, regional cooperation with the issuer and with neighbouring authorities can act after the
+conversion boundary, where Thai banks no longer can.
+\end{enumerate}
+
+\section{Limitations and ethics}\label{sec:limits}
+
+The descriptive evidence covers the chains in the Coin Metrics community files and measures turnover by transfer
+counts, not values. Address-based statistics are affected by custodial omnibus wallets. Event dates and institutional
+details were compiled without access to primary legal databases and must be verified. The simulation's absolute
+results depend on stylised parameters; its purpose is to rank methods and reveal failure modes, not to estimate
+prevalence. Statistical anomalies are not evidence of wrongdoing by any person, dealer or exchange, and the paper names
+entities only where public authorities have acted. The laundering typology is described at the level of published
+FATF and UNODC material and omits operational detail.
+
+\section{Conclusion}\label{sec:conclusion}
+
+Thailand's stablecoin question is easy to pose and hard to answer. Public data establish that the region's dominant
+digital dollar, USDT on Tron, is a high-turnover retail rail on which sanctioned activity concentrates; that Thailand,
+unlike its neighbours, has little macroeconomic reason to use it heavily; and that chain-wide data cannot tell whether
+crackdowns work. The answer to whether Thai rails carry scam proceeds lies in the composition of flows at the boundary
+where baht become tokens. This paper supplies the estimators for that boundary---a slope-invariant difference in
+bunching at the face-verification threshold, dwell-time mixtures, direction-aware exposure and synthetic control---shows
+in simulation which of them work and why the common heuristics fail, and commits in advance to how the answer will be
+read once the data are in hand.

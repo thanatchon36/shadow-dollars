@@ -1,0 +1,27 @@
+arXiv submission metadata (copy into the arXiv web form)
+==========================================================
+
+Title:
+Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand
+
+Authors:
+Thanatchon Chongmankhong
+
+Abstract (1780 characters; arXiv limit 1,920):
+Thailand combines low inflation, a licensed and identity-verified crypto exchange sector, and a long border with the scam-compound economy of Myanmar, Cambodia and Laos. I ask whether Thai stablecoin behaviour is anomalous, whether USDT is a plausible channel for laundering transnational fraud proceeds, and how either claim can be tested credibly. Public on-chain data through May 2026 show that USDT on Tron is a retail dollar rail distinct from USDT on Ethereum: it carries 47% of the covered USDT supply, 74.5 million funded addresses (5.3 times Ethereum), mean balances about six times smaller and 9.3 times the transfer intensity per dollar. Ninety-five per cent of U.S. sanctions-list addresses tagged USDT, TRX or USDC are Tron addresses. Thailand itself has little macroeconomic reason to hold dollars on-chain (2019-2023 inflation of 1.7% a year, fourth lowest of 23 comparators), unlike neighbouring Laos and Myanmar. Chain-wide data cannot evaluate national enforcement: nominal 95% bands reject at 58% of 149 placebo dates, and placebo-calibrated p-values for three crackdowns range from 0.69 to 1.00. I therefore develop a pre-registered design with four estimators - a difference-in-bunching test at the 50,000-baht face-verification threshold, dwell-time mixtures, direction-aware graph exposure and synthetic control - and validate them in an agent-based simulation with planted mule accounts. The common undirected two-hop exposure rule attains 2-6% precision among top-ranked accounts; multi-signal scoring reaches 78-92%; the bunching-difference test has close-to-nominal size and 88% power at a 2% mule share. A channel-choice model explains why enforcement that displaces flows leaves chain-wide totals unchanged. Code and data are released for replication.
+
+Comments:
+25 pages, 13 figures, 11 tables. Replication code provided as ancillary files. JEL: E42, G23, G28, K42, C63, O53.
+
+Suggested primary category (choose one):  econ.GN (General Economics)  or  q-fin.GN (General Finance)
+Suggested cross-lists:                    cs.CR (Cryptography and Security), stat.AP (Applications)
+
+Upload:
+arxiv/arxiv_submission.zip, created by `bash arxiv/make_arxiv_zip.sh` from paper/ and the code (top-level main.tex, compiled by arXiv with pdfLaTeX; main.bbl included; anc/ = ancillary files)
+
+Before submitting:
+- Verify every reference against its source; resolve the entries whose notes say "to be verified"
+  (elliptic2024huione, fincen2025huione, ustreasury2025prince) and remove those notes.
+- Verify institutional dates (Section 2 and the timeline) against primary legal sources.
+- Optional: add affiliation and e-mail in \author{...} in main.tex.
+- First-time submitters may need an endorsement for the chosen category.

@@ -1,0 +1,229 @@
+\section{Conceptual framework}\label{sec:framework}
+
+\subsection{Four motives and their fingerprints}\label{sec:motives}
+
+Observed stablecoin flows on Thai rails are the sum of four motives. \emph{Trading and offshore bridging}: residents buy
+USDT as collateral or as the vehicle to reach offshore derivatives. \emph{Dollar saving}: residents hold USDT as a
+store of value. \emph{Cross-border transfer}: migrant workers, traders and tourists move value across borders.
+\emph{Illicit pass-through}: criminal proceeds enter as baht and leave as USDT. Each motive leaves a distinct
+fingerprint, summarised in \cref{tab:motives}, and the identification strategy is to remove the first three before
+interpreting the residual (\cref{fig:funnel}).
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Motives for holding and moving stablecoins on Thai rails, their fingerprints and how they are tested}
+\label{tab:motives}
+\begin{tabularx}{\textwidth}{L{2.6cm}XXc}
+\toprule
+Motive & Fingerprint in the data & Main confounder & Hypothesis \\
+\midrule
+Trading and offshore bridge & USDT volume co-moves with crypto volatility and offshore funding rates; withdrawals go
+to labelled exchange hot wallets and return after gains & Arbitrageurs move as fast as mules & H1, H2 \\
+\addlinespace
+Dollar saving & Long holding periods; USDT/THB premium over the official rate rises when the baht weakens & Little
+in Thailand (low inflation) & H1 \\
+\addlinespace
+Cross-border transfer & Small, regular amounts; peaks after paydays and before festivals; destinations are P2P desks in
+neighbouring countries & Tainted P2P merchants & H1, H6 \\
+\addlinespace
+Illicit pass-through & Young accounts funded by many bank accounts; deposits structured below 50,000 baht; exits within
+minutes; forward paths to flagged addresses; responds to crackdowns, not prices & Honest P2P dealers, camouflaged mules
+& H3--H6 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+  font=\sffamily\scriptsize, >={Stealth[length=2.2mm]}, every node/.append style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  stage/.style={draw=faint, line width=0.5pt, fill=rule!45, text width=2.5cm, align=center, inner sep=4pt},
+  last/.style={draw=thai, line width=1pt, fill=thai!10, text width=2.5cm, align=center, inner sep=4pt},
+  note/.style={text width=2.75cm, align=center, text=muted, font=\sffamily\tiny, inner sep=1pt},
+  test/.style={text width=2.95cm, align=center, text=thai, font=\sffamily\tiny\bfseries, inner sep=1pt}]
+\node[stage, minimum height=3.3cm] (a) at (0,0) {\textbf{All stablecoin flows on Thai rails}\\[3pt]exchange purchases, withdrawals,\\ P2P and OTC trades};
+\node[stage, minimum height=2.7cm, right=0.55cm of a] (b) {\textbf{Net of trading and offshore bridging}};
+\node[stage, minimum height=2.1cm, right=0.55cm of b] (c) {\textbf{Net of dollar saving}};
+\node[stage, minimum height=1.6cm, right=0.55cm of c] (d) {\textbf{Net of cross-border transfers}};
+\node[last, minimum height=1.1cm, right=0.55cm of d] (e) {\textbf{Residual to explain}};
+\foreach \u/\v in {a/b,b/c,c/d,d/e} \draw[->, draw=muted, line width=0.6pt] (\u.east) -- (\v.west);
+\node[note, below=0.25cm of a.south] (na) {observed volume, withdrawals, premium, network mix};
+\node[note, anchor=north] at (na.north -| b) {control asset on the same platform; crypto volatility; exchange-labelled destinations};
+\node[note, anchor=north] at (na.north -| c) {USDT/THB premium versus the reference rate; holding periods};
+\node[note, anchor=north] at (na.north -| d) {payday and festival seasonality; destinations in neighbouring countries};
+\node[note, anchor=north] at (na.north -| e) {structuring, pass-through speed, fan-in, forward exposure};
+\node[test, above=0.2cm of a.north] (ta) {H1 excess demand};
+\node[test, anchor=south] at (ta.south -| b) {H2 USDT vs.\ other assets};
+\node[test, anchor=south] at (ta.south -| c) {H1 premium};
+\node[test, anchor=south] at (ta.south -| d) {H1, H6 destinations};
+\node[test, anchor=south] at (ta.south -| e) {H3 dwell \textperiodcentered{} H4 bunching\\H5 shocks \textperiodcentered{} H6 exposure};
+\end{tikzpicture}
+\caption{Identification strategy. Observed flows are the sum of four motives. Each legitimate motive is removed using
+its fingerprint (grey notes) before the residual is interpreted; red labels give the pre-registered hypotheses of
+\cref{sec:plan} that test each step. Box heights are schematic, not estimates.}
+\label{fig:funnel}
+\end{figure}
+
+\subsection{Structuring at a verification notch}\label{sec:bunching}
+
+Consider deposits of baht onto a licensed platform. Each deposit has an intended amount $z$ and funds an asset class
+$a\in\{S,O\}$, where $S$ denotes USDT and $O$ any other crypto-asset. Banks require face verification for transfers of
+at least $T$ baht. Let $h_a(z)$ be the counterfactual density of intended amounts of honest deposits funding $a$, and
+write $H_a(A)=\int_A h_a(z)\,dz$ for the counterfactual mass in a set $A$.
+
+Honest depositors whose intended amount lies in a response window $[T,T+R)$ relocate to a bunching window $[T-\delta,T)$
+with probability $\pi_a(z)$; they find the scan a hassle, or simply prefer to split the transfer. Launderers add a mass
+$I_a$ of \emph{structured} deposits placed in $[T-\delta,T)$ to avoid the verification step that would expose a mule's
+identity. The observed excess mass below the threshold and the responding share are
+\begin{equation}\label{eq:excess}
+B_a=\int_T^{T+R}\pi_a(z)\,h_a(z)\,dz + I_a,
+\qquad
+\beta_a=\frac{B_a}{H_a\!\left([T,T+R)\right)}=\bar\pi_a+\frac{I_a}{H_a\!\left([T,T+R)\right)},
+\end{equation}
+where $\bar\pi_a$ is the average relocation probability over the response window.
+
+\begin{assumption}[Asset-invariant hassle avoidance]\label{as:a1}
+$\bar\pi_S=\bar\pi_O$: the share of honest deposits intended for the response window that relocate below $T$ does
+not depend on which asset the deposit funds.
+\end{assumption}
+\begin{assumption}[Channel specificity]\label{as:a2}
+$I_O=0$: structured deposits fund the stablecoin channel, which offers immediate, liquid exit.
+\end{assumption}
+\begin{assumption}[Smooth counterfactual]\label{as:a3}
+$h_a$ is smooth in $\log z$ on a neighbourhood of $[T-\delta,T+R)$, so that it is identified from the observed density
+outside that window, up to multiplicative round-number effects.
+\end{assumption}
+
+\begin{proposition}[Difference in bunching]\label{prop:bunching}
+Under \cref{as:a1,as:a2,as:a3},
+\[
+\Delta\beta\equiv\beta_S-\beta_O=\frac{I_S}{H_S\!\left([T,T+R)\right)}\geq 0,
+\]
+with equality if and only if $I_S=0$. The structured stablecoin volume is identified as
+$I_S=\Delta\beta\cdot H_S([T,T+R))$.
+\end{proposition}
+
+The proof is immediate from \cref{eq:excess} and is given in \cref{app:proofs}. Two features matter in practice. First,
+the normalisation: the classic statistic divides the excess by the counterfactual density just below $T$. When the two
+asset classes have amount distributions of different shapes---stablecoin deposits are larger---that statistic differs
+across assets even when $\bar\pi_S=\bar\pi_O$. In the simulation below, a test based on it rejected a true null in 14\%
+of draws at a nominal 5\% level; the responding share $\beta_a$ in \cref{eq:excess} reduced this to 7.5\%. Second,
+\cref{as:a1} can be relaxed. If deposits observed before the verification rule exist, the change in $\Delta\beta$ across
+the rule's introduction identifies $I_S$ under the weaker assumption that asset-specific differences in honest bunching
+are stable over time.
+
+\begin{corollary}[Difference-in-difference-in-bunching]\label{cor:didib}
+If $\bar\pi_S-\bar\pi_O$ is the same before and after the rule's introduction and no structuring occurs at $T$ before
+it, then $\Delta\beta^{\text{post}}-\Delta\beta^{\text{pre}}=I_S^{\text{post}}/H_S^{\text{post}}([T,T+R))$.
+\end{corollary}
+
+A placebo version of the test at amounts where no verification step exists ($T'$ = 30,000 or 70,000 baht) provides a
+specification check: under correct specification $\Delta\beta(T')$ should be zero.
+
+\subsection{Pass-through and the limits of speed}\label{sec:speed}
+
+A mule account exists to move value, so the time between a baht deposit and the withdrawal of the USDT it bought---its
+\emph{dwell time}---is short. But speed is shared with honest populations: arbitrageurs exploit price gaps within
+minutes, and peer-to-peer dealers recycle inventory quickly. The following bound formalises why a speed-only rule
+cannot achieve high precision when such populations exist.
+
+\begin{lemma}[Speed is not sufficient]\label{lem:speed}
+Let $n_M$ mule accounts and $n_F$ honest ``fast'' accounts have dwell times with distribution functions $G_M$ and
+$G_F$, with $G_F(t)\geq G_M(t)$ for all $t$ (honest fast accounts are at least as fast). For any rule that flags
+accounts with dwell time below a threshold $t$, the expected number of flagged mules divided by the expected number of
+flagged accounts is at most $n_M/(n_M+n_F)$.
+\end{lemma}
+
+In the simulated economy of \cref{sec:sim} with 2\% mules, arbitrageurs and honest dealers make the bound about 0.25;
+the speed-only score attains a precision of 0.12. Speed is a useful input to a score, not a test.
+
+\subsection{Exposure to flagged addresses: direction matters}\label{sec:direction}
+
+Compliance systems commonly flag an account if the destination of its withdrawals lies within $k$ hops of a sanctioned
+or frozen address. Let $G=(V,E)$ be the directed graph of transfers, with edges pointing in the direction of funds, and
+let $F\subset V$ be the flagged set. Let $d_u(v,F)$ be the undirected distance from $v$ to $F$ and $d_\to(v,F)$ the length
+of the shortest \emph{forward} path from $v$ into $F$. For an account $i$ with withdrawals $w$ of value $x_w$ to
+destinations $v_w$, define the value-weighted exposure
+\begin{equation}\label{eq:exposure}
+X_i^{(k)}=\frac{\sum_w x_w\,\1\{d(v_w,F)\leq k\}}{\sum_w x_w},\qquad d\in\{d_u,d_\to\}.
+\end{equation}
+
+\begin{proposition}[Hubs and undirected distance]\label{prop:direction}
+Let $h$ be an exchange hot wallet that receives at least one payment from a wallet $\ell$ that pays a flagged address
+($\ell\to f$, $f\in F$), and suppose every forward path from $h$ into $F$ has length at least $m>2$, or none exists. Then
+$d_u(h,F)\leq 2$ while $d_\to(h,F)\geq m$. For $2\le k<m$, every account that withdraws only to $h$ has $X^{(k)}=1$
+under undirected distance and $X^{(k)}=0$ under forward distance.
+\end{proposition}
+
+Large exchanges receive deposits from criminals cashing out, so in real data almost every exchange hot wallet satisfies
+the premise. Because Thai residents who bridge to offshore venues withdraw to exactly these wallets, the undirected rule
+generates false positives on the population that is largest and least suspicious. Forward distance removes this
+artefact but not \emph{taint contagion}: an honest remitter who pays a peer-to-peer merchant that later pays a layering
+wallet is exposed under both definitions, which motivates value weighting and the combination with behavioural signals.
+
+\subsection{Displacement across channels}\label{sec:displacement}
+
+Why might a crackdown leave no trace in chain-wide data? Suppose a laundering network must move a fixed volume $M$ of
+proceeds through channels $j\in J$---for example licensed-exchange mule accounts ($E$), peer-to-peer desks ($P$) and
+over-the-counter underground bankers ($U$)---with strictly convex costs $c_j(q_j)$. Enforcement raises the marginal
+cost of channel $E$ by $\tau$. The network solves
+\begin{equation}\label{eq:channels}
+\min_{\{q_j\geq0\}}\ \sum_{j\in J}c_j(q_j)+\tau q_E\quad\text{subject to}\quad\sum_{j\in J}q_j=M .
+\end{equation}
+
+\begin{proposition}[Displacement]\label{prop:displacement}
+At an interior optimum, $\partial q_E/\partial\tau=-(1-\omega_E)/c_E''<0$ and $\partial q_j/\partial\tau=\omega_E/c_j''>0$
+for $j\neq E$, where $\omega_E=(1/c_E'')/\sum_{l\in J}(1/c_l'')\in(0,1)$. Total flow is unchanged:
+$\sum_j\partial q_j/\partial\tau=0$.
+\end{proposition}
+
+\begin{corollary}[Invisible crackdowns]\label{cor:invisible}
+If all channels terminate in the same on-chain asset, an enforcement shock that leaves $M$ unchanged has no first-order
+effect on chain-level volume. If $M$ responds through deterrence, the effect on chain-level volume is bounded by the
+network's share of that volume.
+\end{corollary}
+
+\Cref{cor:invisible} is the theoretical counterpart of the event-study result in \cref{sec:eventstudy}. It also says
+where to look instead: the composition of flows---the share of fast, structured deposits on licensed platforms, the
+peer-to-peer premium, the network mix---moves even when the total does not.
+
+\subsection{Typology and control points}\label{sec:typology}
+
+\Cref{fig:typology} summarises, at the level of generality used by the FATF and UNODC, the path of fraud proceeds and
+the points at which Thai institutions can intervene. The conversion step is the boundary: before it, funds sit in the
+domestic banking system where they can be frozen quickly; after it, they move on a public ledger where they can be
+traced indefinitely and, for USDT, frozen by the issuer.
+
+\begin{figure}[!htbp]
+\centering
+\begin{tikzpicture}[
+  font=\sffamily\scriptsize, >={Stealth[length=2.2mm]}, every node/.append style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  stg/.style={draw=faint, line width=0.6pt, rounded corners=2pt, text width=3.4cm, minimum height=2.0cm, align=left, inner sep=5pt, fill=white},
+  key/.style={draw=thai, line width=1.1pt, rounded corners=2pt, text width=3.4cm, minimum height=2.0cm, align=left, inner sep=5pt, fill=thai!8},
+  ctl/.style={rounded corners=2pt, text width=3.4cm, minimum height=1.25cm, align=left, inner sep=5pt, fill=rule!70}]
+\node[stg] (s1) at (0,0) {\textbf{1\; Placement}\\[2pt]Victims transfer baht to mule bank accounts after phone, chat or fake-investment
+fraud; funds hop across accounts.};
+\node[key, right=0.4cm of s1] (s2) {\textbf{2\; Conversion}\\[2pt]Baht become USDT via rented exchange accounts, P2P ``triangle'' trades with
+unwitting sellers, or OTC desks.};
+\node[stg, right=0.4cm of s2] (s3) {\textbf{3\; Layering}\\[2pt]USDT hops across Tron wallets, guarantee marketplaces, gambling sites, swaps
+and bridges.};
+\node[stg, right=0.4cm of s3] (s4) {\textbf{4\; Integration}\\[2pt]Exchange for yuan or dollars through USDT dealers and casinos; property and
+front businesses via nominees.};
+\foreach \u/\v in {s1/s2,s2/s3,s3/s4} \draw[->, draw=muted, line width=0.7pt] (\u.east) -- (\v.west);
+\node[ctl, below=0.5cm of s1] (c1) {\textbf{Banks, BOT, police}\\ suspend and freeze; fraud registry; 1441 hotline};
+\node[ctl, below=0.5cm of s2] (c2) {\textbf{Exchanges and SEC}\\ KYC, travel rule, address screening, mule-account bans};
+\node[ctl, below=0.5cm of s3] (c3) {\textbf{Issuer and sanctions}\\ USDT freezes; OFAC listings; analytics};
+\node[ctl, below=0.5cm of s4] (c4) {\textbf{AMLO, DSI, partners}\\ seizure and forfeiture; mutual legal assistance};
+\foreach \s/\c in {s1/c1,s2/c2,s3/c3,s4/c4} \draw[draw=faint, line width=0.6pt, dash pattern=on 2pt off 2pt] (\s.south) -- (\c.north);
+\draw[line width=0.7pt, draw=ethblue] ([yshift=0.35cm]s1.north west) -- ([yshift=0.35cm]s1.north east)
+  node[midway, above, text=ethblue, font=\sffamily\tiny\bfseries] {inside the Thai banking system};
+\draw[line width=0.7pt, draw=teal] ([yshift=0.35cm]s3.north west) -- ([yshift=0.35cm]s4.north east)
+  node[midway, above, text=teal, font=\sffamily\tiny\bfseries] {on a public ledger: traceable, freezable by the issuer};
+\draw[line width=0.7pt, draw=thai] ([yshift=0.35cm]s2.north west) -- ([yshift=0.35cm]s2.north east)
+  node[midway, above, text=thai, font=\sffamily\tiny\bfseries] {the boundary};
+\end{tikzpicture}
+\caption{Laundering typology for fraud proceeds and the corresponding control points, at the level of generality of
+FATF and UNODC typologies. The description is deliberately non-operational. Stage 2 is where funds leave the banking
+system and where data held by Thai exchanges can observe them.}
+\label{fig:typology}
+\end{figure}

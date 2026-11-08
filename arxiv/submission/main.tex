@@ -1,0 +1,174 @@
+\pdfoutput=1
+% arXiv submission: compile with pdfLaTeX (latexmk -pdf main).
+\documentclass{article}
+
+\usepackage{arxiv}% template: github.com/kourgeorge/arxiv-style
+\raggedbottom
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,threeparttable,tabularx,makecell,multirow,array}
+\usepackage{graphicx,float}
+\usepackage[font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false,skip=6pt]{caption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds,shapes.geometric}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[authoryear,round]{natbib}
+\usepackage[most]{tcolorbox}
+\usepackage{url}
+
+\definecolor{ink}{HTML}{1D2330}
+\definecolor{muted}{HTML}{6B7280}
+\definecolor{faint}{HTML}{9CA3AF}
+\definecolor{rule}{HTML}{E6E8EC}
+\definecolor{thai}{HTML}{B5172B}
+\definecolor{tron}{HTML}{E4572E}
+\definecolor{ethblue}{HTML}{3D5A80}
+\definecolor{teal}{HTML}{2A9D8F}
+\definecolor{amber}{HTML}{E09F3E}
+\definecolor{legit}{HTML}{94A3B8}
+
+\usepackage[colorlinks=true,linkcolor=thai,citecolor=ethblue,urlcolor=teal,
+  pdftitle={Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand},
+  pdfauthor={Thanatchon Chongmankhong},
+  pdfkeywords={stablecoins, USDT, Tron, money laundering, scam centres, bunching, synthetic control, Thailand}]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+\setcounter{tocdepth}{1}
+\setlength{\emergencystretch}{1.5em}
+\makeatletter
+% float pages: stack floats from the top instead of centring them vertically
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{14pt plus 4pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+% the template forbids every widow and club line; allow them at a cost so pages fill
+\widowpenalty=1500
+\clubpenalty=1500
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\renewcommand{\theassumption}{A\arabic{assumption}}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\fig}[2]{\includegraphics[width=#1\textwidth]{figures/#2.pdf}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\1}{\mathbf{1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlist{itemsep=0.15em,topsep=0.35em}
+\crefname{assumption}{Assumption}{Assumptions}
+\crefname{proposition}{Proposition}{Propositions}
+
+\tcbset{findings/.style={enhanced,breakable,colback=white,colframe=thai,boxrule=0pt,
+  leftrule=2.2pt,arc=0pt,outer arc=0pt,left=10pt,right=8pt,top=6pt,bottom=6pt,
+  fonttitle=\bfseries\color{thai},coltitle=thai,colbacktitle=white,
+  title style={fill=white},attach title to upper,after title={\par\smallskip}}}
+
+% ------------------------------------------------------------- arXiv template fields
+\renewcommand{\headeright}{A Preprint}
+\renewcommand{\undertitle}{A Preprint}
+\renewcommand{\shorttitle}{Shadow Dollars}
+
+\title{Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand}
+
+\author{Thanatchon Chongmankhong}
+% Optional: add affiliation and e-mail on new lines inside \author{...}, e.g.
+% \author{Thanatchon Chongmankhong\\ Affiliation\\ \texttt{email@example.com}}
+
+\date{November 8, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Thailand combines low inflation, a licensed and identity-verified crypto exchange sector, and a long border with the
+scam-compound economy of Myanmar, Cambodia and Laos. I ask whether Thai stablecoin behaviour is anomalous, whether
+USDT is a plausible channel for laundering transnational fraud proceeds, and how either claim can be tested credibly.
+Public on-chain data through May 2026 show that USDT on Tron is a retail dollar rail distinct from USDT on Ethereum: it
+carries 47\% of the covered USDT supply, 74.5 million funded addresses (5.3 times Ethereum), mean balances about six
+times smaller and 9.3 times the transfer intensity per dollar. Ninety-five per cent of U.S.\ sanctions-list addresses
+tagged USDT, TRX or USDC are Tron addresses. Thailand itself has little macroeconomic reason to hold dollars on-chain
+(2019--2023 inflation of 1.7\% a year, fourth lowest of 23 comparators), unlike neighbouring Laos and Myanmar.
+Chain-wide data cannot evaluate national enforcement: nominal 95\% bands reject at 58\% of 149 placebo dates, and
+placebo-calibrated p-values for three crackdowns range from 0.69 to 1.00. I therefore develop a pre-registered design
+with four estimators---a difference-in-bunching test at the 50,000-baht face-verification threshold, dwell-time
+mixtures, direction-aware graph exposure and synthetic control---and validate them in an agent-based simulation with
+planted mule accounts. The common undirected two-hop exposure rule attains 2--6\% precision among top-ranked accounts;
+multi-signal scoring reaches 78--92\%; the bunching-difference test has close-to-nominal size and 88\% power at a 2\%
+mule share. A channel-choice model explains why enforcement that displaces flows leaves chain-wide totals unchanged.
+Code and data are released for replication.
+\end{abstract}
+
+\keywords{stablecoins \and USDT \and Tron \and money laundering \and scam centres \and bunching \and synthetic control
+\and blockchain forensics \and Thailand}
+
+\smallskip
+\noindent{\bfseries\emph{JEL codes}}\enspace E42, G23, G28, K42, C63, O53
+
+\vspace{1.2em}
+\begin{tcolorbox}[findings,title={Key findings},fontupper=\small]
+\begin{enumerate}[leftmargin=1.4em,label=\textbf{\arabic*.},itemsep=0.05em,topsep=0.1em]
+\item \textbf{A distinct rail.} USDT on Tron is a high-turnover, small-balance dollar rail: 47\% of covered USDT supply,
+74.5 million funded addresses and 9.3 times the transfer intensity of USDT on Ethereum (\cref{sec:rails}).
+\item \textbf{A weak macro motive.} Thai inflation and exchange-rate volatility do not explain heavy stablecoin use; the
+same is not true of neighbouring Laos and Myanmar, whose legitimate dollar demand can flow through Thai channels (\cref{sec:macro}).
+\item \textbf{Aggregate data mislead.} Chain-level event studies over-reject at 58\% of random dates; with honest,
+placebo-calibrated inference no crackdown is detectable, which a displacement model predicts (\cref{sec:eventstudy,sec:displacement}).
+\item \textbf{Detect differences, follow direction.} Structuring is identified by the \emph{difference} in bunching
+between USDT and other assets, not by bunching itself; graph exposure must follow the direction of funds (\cref{sec:sim}).
+\item \textbf{A ready design.} Six pre-registered hypotheses, decision rules and open code make the Thai question
+testable as soon as exchange or regulator data are available under the PDPA (\cref{sec:plan}).
+\end{enumerate}
+\end{tcolorbox}
+
+\newpage
+\input{sec1_intro}
+\input{sec2_background}
+\input{sec3_literature}
+\input{sec4_framework}
+\input{sec5_data}
+\input{sec6_evidence}
+\input{sec7_simulation}
+\input{sec8_plan}
+
+\section*{Data and code availability}
+\addcontentsline{toc}{section}{Data and code availability}
+All data are public. Replication code---the Python package \texttt{shadowdollars}, the scripts that produce every
+figure and table, unit tests and the data manifest---is provided as ancillary files with this submission. The manifest
+records the URL, retrieval time and SHA-256 hash of each raw file in the vintage used here; some sources are updated
+daily, so a fresh download yields a later vintage.
+
+\section*{Acknowledgments and disclosure}
+\addcontentsline{toc}{section}{Acknowledgments and disclosure}
+The author used Claude (Anthropic), an AI assistant, to help draft the text, write the replication code and produce
+the figures. All quantitative results are computed by the code in the replication package from the data it documents.
+Simulated results validate methods against planted ground truth and are not evidence about real markets. No individual
+is accused of wrongdoing; entities are named only where public authorities have acted. Responsibility for any errors
+remains with the author.
+
+\phantomsection
+\addcontentsline{toc}{section}{References}
+{\small\setlength{\bibsep}{3pt plus 1pt}
+\bibliographystyle{plainnat}
+\bibliography{refs}}
+
+\appendix
+\input{appendix}
+
+\end{document}

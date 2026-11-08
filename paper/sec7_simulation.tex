@@ -1,0 +1,192 @@
+\section{Detection design and simulation evidence}\label{sec:sim}
+
+No public dataset links Thai exchange accounts to criminal outcomes, and the data that do exist cannot be shared. To
+learn how the estimators of \cref{sec:framework} behave before such data are available, I simulate exchange-years in
+which the truth is known. The simulator is a method-validation device: it is built to make detection \emph{hard}, its
+parameters are stylised rather than calibrated to any proprietary dataset, and none of its outputs is evidence about
+real markets.
+
+\subsection{The simulated economy}\label{sec:simdesign}
+
+Each draw simulates 8,000 accounts on one licensed platform over 365 days. An account generates \emph{cycles}: a baht
+deposit, the purchase it funds and, possibly, an on-chain withdrawal. Honest accounts belong to five populations that
+embody the legitimate motives of \cref{sec:motives}; \cref{tab:populations} summarises them and \cref{app:simparams}
+lists every parameter.
+
+\begin{table}[!htbp]
+\centering\small
+\begin{threeparttable}
+\caption{Populations in the simulated exchange-year}
+\label{tab:populations}
+\begin{tabularx}{\textwidth}{L{2.7cm}cccL{6.4cm}}
+\toprule
+Population & Share & \makecell{Median\\deposit (THB)} & \makecell{Median\\exit} & Distinguishing behaviour \\
+\midrule
+Domestic traders & 53\% & 4,000 & 3 days & Mostly non-stablecoin purchases; rarely withdraw \\
+Offshore bridge traders & 21\% & 20,000 & 20 min & 90\% USDT; withdraw to exchange hot wallets; 15\% are arbitrageurs exiting in about 5 min \\
+Cross-border remitters & 10\% & 6,000 & 6 hours & Small regular USDT purchases forwarded to P2P merchants abroad, 10\% of whom are tainted \\
+Holders & 13\% & 15,000 & 30 days & Buy USDT and keep it on the platform \\
+Honest P2P merchants & 3\% & 30,000 & 15 min & Many counterparties (70\% of deposits from new bank accounts); fast exits \\
+\midrule
+Mules & 0.25--4\% & structured & 3--90 min & Draw their own tradecraft; 40\% camouflaged on rented aged accounts with pre-layered funding \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} Shares of honest accounts are normalised to sum to one; mules are added at the stated share of all
+accounts. 35\% of honest deposits intended for 50,000--62,500 baht relocate just below 50,000 baht in every population
+(\cref{as:a1}). Amounts heap at multiples of 1,000 (30\% of deposits) and 5,000 baht (12\%).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Mules differ from honest accounts on several dimensions at once, but never on all of them. Each mule draws its own
+exit speed (log-uniform between 3 and 90 minutes), its propensity to structure deposits into the 40,000--50,000-baht
+band (20--90\%) and its share of deposits from fresh bank accounts (40--95\%). Forty per cent are \emph{camouflaged}:
+they operate rented accounts opened up to three years earlier, receive pre-layered funds from one or two bank accounts,
+structure little, exit no faster than 30 minutes and route half their withdrawals through exchange hot wallets.
+
+The transaction graph contains 60 flagged addresses, 400 layering wallets, 20 exchange hot wallets and 200 peer-to-peer
+merchants, plus a personal wallet per account and consolidation wallets for mules. Blacklists are incomplete by
+design: half of the layering wallets pay a flagged address directly, a fifth do so through another layering wallet and
+the rest belong to infrastructure nobody has flagged. Forty per cent of layering wallets cash out through exchange hot
+wallets, which therefore sit two undirected hops from a flagged address---the premise of \cref{prop:direction}.
+
+\subsection{Estimators and evaluation}
+
+The bunching-difference test uses 1,000-baht bins between 10,000 and 110,000 baht, an exclusion window from 45,000 to
+65,000 baht, a Poisson counterfactual that is cubic in $\log(z/T)$ with multiplicative round-number effects, and a
+Poisson bootstrap with 200 replications. The dwell score is an account's mean posterior probability of belonging to the
+fastest component of a BIC-selected Gaussian mixture on log dwell times. Exposure is \cref{eq:exposure} with $k=2$ on
+the undirected graph and $k=3$ on the directed graph. The red-flag composite averages the percentile ranks of eight
+indicators adapted from the FATF's red flags \citep{fatf2020redflags}: account youth, funding fan-in, stablecoin share,
+fast exits, deposits near the threshold, unlabelled destinations, daytime activity and directed exposure. The
+isolation forest uses the same indicators. ``Behaviour'' variants drop the exposure indicator, mimicking an exchange
+without blockchain-analytics data.
+
+Because mules are rare, I report the area under the ROC curve (AUC) and \emph{precision at $k$}, the share of mules
+among the $k$ highest-scored accounts when $k$ equals the number of mules. Precision at $k$ is what a compliance team
+with capacity to review $k$ accounts experiences; AUC averages over thresholds nobody uses. For tests, I report size
+(the rejection rate when no mules exist) and power.
+
+\subsection{Results}
+
+\paragraph{Structuring is visible as a difference}
+\Cref{fig:bunching} shows one simulated exchange-year with 2\% mules. Both channels bunch below the threshold because
+every population avoids the scan: the responding share is 0.34 for deposits funding other assets, close to the
+true honest response of 0.35, and 0.51 for deposits funding USDT. The difference, 0.17 (s.e.\ 0.06), rejects the null
+of no structuring with a one-sided $p$-value of 0.001. Across the Monte Carlo (\cref{tab:mc}, Panel C), the test rejects
+in 7.5\% of 200 null draws at a nominal 5\% level and in 10\%, 30\%, 38\%, 88\% and 100\% of draws as the mule share
+rises from 0.25\% to 4\%. The mild over-rejection reflects a bootstrap standard error about 12\% smaller than the
+Monte Carlo standard deviation; the plan therefore pairs the test with placebo thresholds. Because the standard error
+scales with the square root of the number of deposits near the threshold, a platform with a hundred times the
+simulated activity would detect a structuring share an order of magnitude smaller.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_bunching}
+\caption{Deposit amounts near the 50,000-baht face-verification threshold in one simulated exchange-year with 2\% mule
+accounts, by the asset the deposit funds. Dashed lines are counterfactual densities fitted outside the shaded window;
+coloured bars are the excess mass. \emph{Simulated data.}}
+\label{fig:bunching}
+\end{figure}
+
+\paragraph{Speed cannot separate mules from honest fast traders}
+\Cref{fig:dwellroc}(a) shows why. Arbitrageurs exit faster than most mules, and honest peer-to-peer merchants exit as
+fast as camouflaged ones. A speed-only score reaches an AUC of 0.83 but a precision at $k$ of only 0.06--0.21
+(\cref{tab:mc}), consistent with the bound of \cref{lem:speed}. Panel (b) shows the trade-off at the low false-positive
+rates that matter in practice.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_dwell_roc}
+\caption{(a) Kernel densities of the time from deposit to on-chain withdrawal by population, logarithmic scale.
+(b) ROC curves of five detectors in the same simulated exchange-year; the horizontal axis is logarithmic above 1\%.
+\emph{Simulated data.}}
+\label{fig:dwellroc}
+\end{figure}
+
+\paragraph{Direction matters}
+The undirected two-hop rule flags every bridge trader and honest merchant, because their withdrawals go to exchange hot
+wallets that sit, on average, 2.05 undirected hops from a flagged address (\cref{fig:galaxy}). Its precision at $k$ is
+0.02--0.06 at every prevalence---the worst of all detectors---even though its AUC of 0.77 looks respectable. Following
+funds forward removes this artefact: directed exposure reaches an AUC of 0.98. Its precision at $k$, however, rises
+only from 0.02 to 0.86 as prevalence grows, because honest remitters who use one of the tainted merchants are fully
+exposed and tie with mules at the top of the ranking. This is taint contagion, and it is the reason exposure should be
+one input to a score rather than a verdict.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_galaxy}
+\caption{A sample of the simulated transaction graph. Nodes are placed on rings by their forward distance to the
+nearest flagged address and grouped by type; blue lines are payments into exchange hot wallets. \emph{Simulated data.}}
+\label{fig:galaxy}
+\end{figure}
+
+\paragraph{Layered evidence holds up}
+Scores that combine behaviour and exposure dominate (\cref{fig:power} and \cref{tab:mc}). The isolation forest on all
+indicators attains a precision at $k$ of 0.78 at the lowest prevalence and 0.90--0.92 from 1\% upwards; without the
+exposure indicator it attains 0.70--0.83, so blockchain intelligence adds roughly eight to ten points of precision.
+The transparent red-flag composite is less precise (about 0.60 at every prevalence) but each of its components can be
+explained to an account holder or a court, a property that matters when accounts are frozen.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_power}
+\caption{Monte Carlo summary. (a) Precision at $k$ by detector and mule share (50 exchange-years per cell).
+(b) Rejection rate of the bunching-difference test (200 draws under the null). (c) Rejection rate of synthetic control
+by true effect size (200 country panels per effect). \emph{Simulated data.}}
+\label{fig:power}
+\end{figure}
+
+\begin{table}[!htbp]
+\centering\small
+\begin{threeparttable}
+\caption{Monte Carlo performance of detectors and of the bunching-difference test}
+\label{tab:mc}
+\input{tables/tab_mc}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} Means over 50 simulated exchange-years of 8,000 accounts per column. Precision at $k$ is the share of
+mules among the $k$ highest-scored accounts, with $k$ equal to the number of mules. Under the null of no mules, the
+bunching-difference test rejects in 7.5\% of 200 draws (mean difference $-0.007$). \emph{Simulated data.}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\paragraph{Synthetic control is well sized}
+For policy shocks I simulate weekly flow indices for a treated country and 19 donors driven by two persistent common
+factors, plant an effect after week 104, and apply synthetic control with rank-based placebo inference. In the example
+of \cref{fig:synth}, the method recovers a planted effect of $-0.150$ log points as $-0.155$ with seven donors receiving
+weight, and the treated unit ranks first among 20 ($p=0.05$). Across 200 panels per effect size (\cref{tab:scm}), the
+false-rejection rate is 2.5\%, power is 38\% for a 0.05 log-point effect and 82\% for 0.10, and the mean estimate is
+unbiased.
+
+\begin{figure}[!htbp]
+\centering
+\fig{0.98}{fig_synth}
+\caption{Synthetic control on a simulated country panel with a planted effect of $-0.15$ log points. (a) Treated unit
+and its synthetic counterpart. (b) The treated gap (red) against the gaps of 19 placebo units. \emph{Simulated data.}}
+\label{fig:synth}
+\end{figure}
+
+\begin{table}[!htbp]
+\centering\small
+\begin{threeparttable}
+\caption{Size and power of synthetic control in simulated country panels}
+\label{tab:scm}
+\input{tables/tab_scm}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} 200 panels per column, 20 units, 104 pre-treatment and 26 post-treatment weeks; rejection if the
+treated unit has the largest post/pre RMSPE ratio ($p\le 0.05$). \emph{Simulated data.}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{What transfers to real data}
+
+The absolute levels in \cref{tab:mc} depend on choices about populations and tradecraft that real data will revise.
+Four conclusions do not depend on them. First, a statistic that compares the stablecoin channel with another channel on
+the same platform is far more robust than one that measures the stablecoin channel alone, and its normalisation must
+not depend on the shape of the amount distribution. Second, speed and undirected proximity, the two heuristics most
+often described in compliance practice, fail by construction whenever honest fast traders and exchange hubs exist.
+Third, at low prevalence AUC flatters detectors and precision at $k$ should be reported. Fourth, combining behaviour
+with direction-aware blockchain intelligence is what makes detection precise; neither suffices alone.

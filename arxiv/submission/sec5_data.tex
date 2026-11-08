@@ -1,0 +1,57 @@
+\section{Data}\label{sec:data}
+
+The empirical sections use only data that anyone can download; the pre-registered plan specifies the additional data
+that would be needed. \Cref{tab:data} lists the sources. All files were retrieved on 8 November 2026 through the
+collectors in the replication package, which record the URL, retrieval time, size and SHA-256 hash of every file in a
+manifest (\cref{app:data}).
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Data sources used in this paper}
+\label{tab:data}
+\begin{tabularx}{\textwidth}{L{3.2cm}XL{3.0cm}}
+\toprule
+Source & Content and coverage & Use \\
+\midrule
+Coin Metrics Community Data \citep{coinmetrics2026} & Daily on-chain metrics by asset and chain: supply, addresses with a balance, active
+addresses, transfer counts. USDT on Tron (from 2019), Ethereum (2017), Omni and Avalanche; USDC on Ethereum and Tron;
+through 23 May 2026 & Rails, clienteles, USDC exit, event studies \\
+\addlinespace
+Federal Reserve H.10 \citep{fred2026h10} & Daily noon buying rates for 22 currencies including the
+baht, through 30 October 2026 & Exchange-rate volatility \\
+\addlinespace
+World Bank FP.CPI.TOTL.ZG \citep{worldbank2026cpi} & Annual consumer-price inflation; Thailand to 2023 & Macro motive \\
+\addlinespace
+OFAC SDN digital-currency addresses \citep{ofac2026sdn} & 1,073 addresses under 17 currency tags; mirror
+updated 7 November 2026 & Address formats on sanctions lists \\
+\addlinespace
+Author's event compilation & 16 dated policy and enforcement events, 2022--2025 & Timeline, event windows \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Coverage of on-chain data}
+The community files cover four USDT chains whose combined supply on 23 May 2026 was US\$189 billion, against US\$193
+billion in Coin Metrics' cross-chain USDT aggregate. Chains absent from the community files, notably TON, Solana and BNB
+Chain, are excluded from chain-level comparisons; shares reported for Tron are therefore shares of the covered supply.
+The community files do not contain transfer values, only counts, so I measure turnover as transfers per dollar of
+supply rather than as value velocity.
+
+\paragraph{A data-quality finding}
+The widely mirrored \texttt{datasets/inflation} package labels its two files the wrong way round: the file named for
+the GDP deflator contains consumer-price inflation and vice versa. I detected the transposition by checking known
+values---Thailand's consumer-price inflation in 2022 was 6.1\%, U.S.\ inflation 8.0\%, Türkiye's 72.3\%---and use the
+corrected file throughout. The World Bank series omits Argentina and Venezuela, and it reports Myanmar only to 2019;
+the figures mark sparse series explicitly.
+
+\paragraph{Sanctions data}
+OFAC tags digital-currency addresses by currency rather than by chain. I classify each address by its encoding (Tron
+base58 addresses begin with ``T'' and have 34 characters; EVM addresses are 42-character hexadecimal strings beginning
+with ``0x''), which identifies the chain on which a USDT address operates. The classification describes the list, not
+the volume of sanctioned activity.
+
+\paragraph{What is not used}
+The paper does not use proprietary attribution data, exchange account records or police case files, and it does not
+de-anonymise any address. The collectors for exchange order books and TronGrid transfers in the replication package
+were not executed in the environment in which the paper was compiled, because those services were not reachable from
+it; they are provided for researchers who obtain access.

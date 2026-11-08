@@ -1,0 +1,151 @@
+\section{Data appendix}\label{app:data}
+
+\Cref{tab:manifest} lists the raw files behind every number in \cref{sec:evidence}, with the first characters of their
+SHA-256 hashes. The full manifest, including retrieval timestamps and complete hashes, is
+\texttt{data/raw/MANIFEST.json} in the replication package.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{Raw data files used in the paper}
+\label{tab:manifest}
+\input{tables/tab_manifest}
+\begin{tablenotes}[flushleft]\footnotesize
+\item \emph{Notes:} Retrieved on 8 November 2026. Rows are data rows; for the OFAC lists, addresses.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\paragraph{Validating the inflation files}
+\Cref{tab:cpicheck} compares the two files of the \texttt{datasets/inflation} mirror with consumer-price inflation
+figures that are well known. The file labelled as the GDP deflator matches them; the file labelled as consumer prices
+does not. The analysis uses the former.
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\caption{The inflation files are mislabelled: values for 2022, per cent}
+\label{tab:cpicheck}
+\begin{tabular}{lccc}
+\toprule
+ & File labelled ``GDP deflator'' & File labelled ``consumer prices'' & Known CPI inflation \\
+\midrule
+Thailand & 6.08 & 4.8 & 6.1 \\
+United States & 8.00 & 7.1 & 8.0 \\
+Türkiye & 72.3 & 96.0 & 72.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Simulator parameters}\label{app:simparams}
+
+\begin{table}[!htbp]
+\centering\footnotesize
+\begin{threeparttable}
+\caption{Parameters of the agent-based exchange simulator}
+\label{tab:simparams}
+\begin{tabular}{lcccccccc}
+\toprule
+Population & \makecell{Share of\\honest} & \makecell{Cycles\\per year} & \makecell{Median\\deposit} & \makecell{$\sigma$ of\\log deposit} &
+\makecell{P(USDT)} & \makecell{P(exit $\mid$\\USDT)} & \makecell{Median\\exit (min)} & \makecell{Peak\\hour} \\
+\midrule
+Domestic traders & 0.534 & 11 & 4,000 & 1.0 & 0.15 & 0.15 & 4,320 & 20 \\
+Bridge traders & 0.214 & 21 & 20,000 & 0.9 & 0.90 & 0.95 & 20 (5)\tnote{a} & 21 \\
+Remitters & 0.097 & 11 & 6,000 & 0.6 & 0.95 & 0.95 & 360 & 19 \\
+Holders & 0.126 & 6 & 15,000 & 1.0 & 0.80 & 0.03 & 43,200 & 20 \\
+P2P merchants & 0.029 & 41 & 30,000 & 0.8 & 1.00 & 0.95 & 15 & 15 \\
+Mules & --- & 36\tnote{b} & structured\tnote{c} & 0.9 & 1.00 & 0.98 & 3--90\tnote{d} & 13 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]\footnotesize
+\item[a] 15\% of bridge accounts are arbitrageurs with a median exit of 5 minutes.
+\item[b] Within a 45-day active life. Cycles per year are Poisson means plus one.
+\item[c] Each mule structures a share of its deposits drawn from $U(0.2,0.9)$ (camouflaged: $U(0,0.4)$) into
+$U(0.8T,T)$; other deposits are log-normal with median 20,000 baht.
+\item[d] Log-uniform per mule; camouflaged mules no faster than 30 minutes.
+\item \emph{Other parameters:} 8,000 accounts; 365 days; threshold $T$ = 50,000 baht; honest relocation probability
+0.35 for intended amounts in $[T,1.25T)$; heaping at 1,000 (30\%) and 5,000 baht (12\%); exit-speed dispersion
+$\sigma$ between 0.7 and 1.2 by population; fresh funding sources for 70\% of merchant deposits and 40--95\% of
+non-camouflaged mule deposits; graph of 60 flagged, 400 layering, 20 exchange and 200 P2P-merchant wallets as described
+in \cref{sec:simdesign}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Proofs}\label{app:proofs}
+
+\begin{proof}[Proof of \cref{prop:bunching}]
+By \cref{as:a3}, the counterfactual densities $h_S$ and $h_O$, and hence $H_a([T,T+R))$ and the excess masses $B_a$,
+are identified from the observed densities outside the exclusion window. By \cref{eq:excess},
+$\beta_a=\bar\pi_a+I_a/H_a([T,T+R))$ for $a\in\{S,O\}$. \Cref{as:a2} gives $\beta_O=\bar\pi_O$, and \cref{as:a1} gives
+$\bar\pi_S=\bar\pi_O$. Subtracting, $\Delta\beta=I_S/H_S([T,T+R))$. Because $I_S\geq0$ and $H_S([T,T+R))>0$,
+$\Delta\beta\geq0$ with equality if and only if $I_S=0$, and $I_S=\Delta\beta\cdot H_S([T,T+R))$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:didib}]
+Before the rule there is no verification step at $T$ and, by assumption, no structuring at $T$, so
+$\Delta\beta^{\text{pre}}=\bar\pi_S^{\text{pre}}-\bar\pi_O^{\text{pre}}$. After it,
+$\Delta\beta^{\text{post}}=\bar\pi_S^{\text{post}}-\bar\pi_O^{\text{post}}+I_S^{\text{post}}/H_S^{\text{post}}$.
+If the asset gap in honest relocation is stable, the first terms cancel in the difference.
+\end{proof}
+
+\begin{proof}[Proof of \cref{lem:speed}]
+For a threshold $t$ with $G_M(t)>0$, the expected number of flagged mules is $n_MG_M(t)$ and the expected number of
+flagged honest fast accounts is $n_FG_F(t)\geq n_FG_M(t)$. Other honest accounts can only add to the denominator. Hence
+the ratio of expected flagged mules to expected flagged accounts is at most
+$n_MG_M(t)/\left(n_MG_M(t)+n_FG_M(t)\right)=n_M/(n_M+n_F)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:direction}]
+The path $h\leftarrow\ell\rightarrow f$ has two edges, so $d_u(h,F)\leq2$. By assumption every forward path from $h$ into
+$F$ has at least $m$ edges, or none exists, so $d_\to(h,F)\geq m$. For $2\leq k<m$ the indicator in \cref{eq:exposure}
+equals one under $d_u$ and zero under $d_\to$ for every withdrawal to $h$, so an account that withdraws only to $h$ has
+$X^{(k)}=1$ and $X^{(k)}=0$ respectively.
+\end{proof}
+
+\begin{proof}[Proof of \cref{prop:displacement}]
+The Lagrangian of \cref{eq:channels} is $\mathcal{L}=\sum_jc_j(q_j)+\tau q_E-\lambda\left(\sum_jq_j-M\right)$. At an
+interior optimum, $c_j'(q_j)+\tau\1\{j=E\}=\lambda$ for all $j$. Differentiating with respect to $\tau$ and imposing
+$\sum_j\partial q_j/\partial\tau=0$ (because $\sum_jq_j=M$),
+\begin{align*}
+c_j''\,\frac{\partial q_j}{\partial\tau}&=\frac{\partial\lambda}{\partial\tau}-\1\{j=E\},
+&
+\frac{\partial\lambda}{\partial\tau}\sum_{l\in J}\frac{1}{c_l''}-\frac{1}{c_E''}&=0
+\;\Longrightarrow\;\frac{\partial\lambda}{\partial\tau}=\omega_E .
+\end{align*}
+Substituting back, $\partial q_E/\partial\tau=-(1-\omega_E)/c_E''<0$ and $\partial q_j/\partial\tau=\omega_E/c_j''>0$ for
+$j\neq E$; the derivatives sum to zero by construction.
+\end{proof}
+
+\begin{proof}[Proof of \cref{cor:invisible}]
+Let chain-level volume be $V=\sum_jq_j+V_0$, where $V_0$ is unrelated activity. If every channel terminates in the
+same token, $\partial V/\partial\tau=\sum_j\partial q_j/\partial\tau=0$ by \cref{prop:displacement}. If instead $M$
+falls with $\tau$, $\partial V/\partial\tau=\partial M/\partial\tau$ and the proportional change in $V$ is at most
+$|\partial M/\partial\tau|/V\leq|\partial\log M/\partial\tau|\cdot M/V$, which is bounded by the network's share of
+chain-level volume, $M/V$.
+\end{proof}
+
+\section{Replication}\label{app:replication}
+
+The replication package, provided as ancillary files (folder \texttt{anc/}) with this arXiv submission, contains the Python package \texttt{shadowdollars} (collectors, metrics, detectors, simulator,
+Monte Carlo), the scripts that produce every figure and table, the raw data with their manifest, and the \LaTeX{}
+source of this paper. From the package root:
+
+\begin{center}\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Command & Purpose \\
+\midrule
+\texttt{pip install -e .} & install the package \\
+\texttt{python -m shadowdollars.collectors.public} & download raw data and write the manifest \\
+\texttt{python scripts/figures\_real.py} & figures and tables of Sections 2 and 6 \\
+\texttt{bash run\_mc.sh} & Monte Carlo (about 10 minutes on one core) \\
+\texttt{python scripts/figures\_sim.py} & figures and tables of Section 7 \\
+\texttt{pytest -q} & unit tests for the estimators \\
+\texttt{latexmk -pdf main} & compile this paper (pdf\LaTeX{}) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Exchange and TronGrid collectors (\texttt{collectors/local.py}) and the account-level schema used by the plan in
+\cref{sec:plan} are included but were not executed in the compilation environment. Random seeds are fixed, so the
+simulation results reproduce exactly.

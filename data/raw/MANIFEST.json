@@ -1,0 +1,275 @@
+{
+  "cm_btc.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/btc.csv",
+    "file": "cm_btc.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 2482497,
+    "sha256": "06495ff8e643432e6948b7b4686ce44fc106217287dabdc1b38351d9ddec46c3"
+  },
+  "cm_busd.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/busd.csv",
+    "file": "cm_busd.csv",
+    "retrieved_utc": "2026-11-08T04:13:39+00:00",
+    "bytes": 621685,
+    "sha256": "1a011a2690c424e52158cf47d9c0e4ac6d1b2b9e1ac4014e9961388995af5f3d"
+  },
+  "cm_dai.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/dai.csv",
+    "file": "cm_dai.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 847568,
+    "sha256": "9c2620fdeb8be72768b519ba338b3d1506aadcd6eaf605204f34e8fc41ae2444"
+  },
+  "cm_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/eth.csv",
+    "file": "cm_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 2121732,
+    "sha256": "46b18f3df967405374b1f6ee8a3d11ee1b7a5b176ac9fb4342caf6bf8648f2cc"
+  },
+  "cm_fdusd_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/fdusd_eth.csv",
+    "file": "cm_fdusd_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:39+00:00",
+    "bytes": 214622,
+    "sha256": "9b9738233b5215e476630109d8c684cf3a3b1b1eeaaefc641ea1b0ae19a954aa"
+  },
+  "cm_pyusd.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/pyusd.csv",
+    "file": "cm_pyusd.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 61977,
+    "sha256": "2f9510f2a6d1a30aedd414357ccb873769cc7a537ade01ead0ff8db813808871"
+  },
+  "cm_pyusd_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/pyusd_eth.csv",
+    "file": "cm_pyusd_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 253747,
+    "sha256": "174c3809942278cb7a06a011b367d1343bd96dea90b59588eb3e1be4046d6830"
+  },
+  "cm_trx.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/trx.csv",
+    "file": "cm_trx.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 557374,
+    "sha256": "5f7fb5591c2cc39911059bd28137b5e02e1e0368f46430e0e1116a06a536390b"
+  },
+  "cm_usdc.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdc.csv",
+    "file": "cm_usdc.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 876977,
+    "sha256": "6851af28f5e3f2f205090631063b969708c9d1135535a6d8cc085e2ed2932af2"
+  },
+  "cm_usdc_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdc_eth.csv",
+    "file": "cm_usdc_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 680151,
+    "sha256": "e08a8607cd78e4b5fbf17c0ee2f3cd4be2f55f3722da092d54fb1647508a34ce"
+  },
+  "cm_usdc_trx.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdc_trx.csv",
+    "file": "cm_usdc_trx.csv",
+    "retrieved_utc": "2026-11-08T04:13:59+00:00",
+    "bytes": 389572,
+    "sha256": "b96e0d1a28e24179ae876cc43ef6e0d5d8e9e712618d2be5da96fd0abe3bc848"
+  },
+  "cm_usde.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usde.csv",
+    "file": "cm_usde.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 57339,
+    "sha256": "035a9f5f8c5d086a88ca4bfdbb8da3740456407dbf0fbeef9e529c2d22a561e6"
+  },
+  "cm_usde_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usde_eth.csv",
+    "file": "cm_usde_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:38+00:00",
+    "bytes": 209334,
+    "sha256": "e5fe3a89ec862f171b909f33f831c63d15350ca06fd5e7a260b974e29e28f0b2"
+  },
+  "cm_usdt.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdt.csv",
+    "file": "cm_usdt.csv",
+    "retrieved_utc": "2026-11-08T04:13:36+00:00",
+    "bytes": 1085105,
+    "sha256": "bc6cec81ee5958009964d9fbb0f81f75f590869a7aabe2add5abcd10ced32b39"
+  },
+  "cm_usdt_avaxc.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdt_avaxc.csv",
+    "file": "cm_usdt_avaxc.csv",
+    "retrieved_utc": "2026-11-08T04:13:59+00:00",
+    "bytes": 341432,
+    "sha256": "cadec2e1a8babba07373edb9794678b5208c36c264642b0e916e9a245a014b7a"
+  },
+  "cm_usdt_eth.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdt_eth.csv",
+    "file": "cm_usdt_eth.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 680417,
+    "sha256": "700d5db4d59aec51a421a1f5dab47da61b38799e5ea6dff55ee1e9a17117e058"
+  },
+  "cm_usdt_omni.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdt_omni.csv",
+    "file": "cm_usdt_omni.csv",
+    "retrieved_utc": "2026-11-08T04:13:59+00:00",
+    "bytes": 766645,
+    "sha256": "298d09512e193a45ddb1e7ed1cec1cfdbd4ddc4d49fd8eb286ec5e0bf4c18d23"
+  },
+  "cm_usdt_trx.csv": {
+    "url": "https://raw.githubusercontent.com/coinmetrics/data/master/csv/usdt_trx.csv",
+    "file": "cm_usdt_trx.csv",
+    "retrieved_utc": "2026-11-08T04:13:37+00:00",
+    "bytes": 551155,
+    "sha256": "3d4b5f8ad8827a5320ae592b356afdec2862f0002d36620d3ba12f61ed98ab8d"
+  },
+  "fx_daily.csv": {
+    "url": "https://raw.githubusercontent.com/datasets/exchange-rates/main/data/daily.csv",
+    "file": "fx_daily.csv",
+    "retrieved_utc": "2026-11-08T04:14:13+00:00",
+    "bytes": 7651569,
+    "sha256": "013e19fbdcae7d2317bd01838974bdaa71d1db1020751940c6ec673e8e085641"
+  },
+  "wb_cpi.csv": {
+    "url": "https://raw.githubusercontent.com/datasets/inflation/main/data/inflation-gdp.csv",
+    "file": "wb_cpi.csv",
+    "retrieved_utc": "2026-11-08T04:28:46+00:00",
+    "bytes": 448667,
+    "sha256": "346d29c904c1087ca84ffa571e8ea1c58616474281108116f5e8414fe9357e83"
+  },
+  "wb_inflation.csv": {
+    "url": "https://raw.githubusercontent.com/datasets/inflation/main/data/inflation-consumer.csv",
+    "file": "wb_inflation.csv",
+    "retrieved_utc": "2026-11-08T04:14:13+00:00",
+    "bytes": 556356,
+    "sha256": "b47dbd6a5d44c4ea0e4eb9e9cd18548d5d2031ca250a21dd5355be952b034344"
+  },
+  "wb_inflation_gdp.csv": {
+    "url": "https://raw.githubusercontent.com/datasets/inflation/main/data/inflation-gdp.csv",
+    "file": "wb_inflation_gdp.csv",
+    "retrieved_utc": "2026-11-08T04:16:28+00:00",
+    "bytes": 448667,
+    "sha256": "346d29c904c1087ca84ffa571e8ea1c58616474281108116f5e8414fe9357e83"
+  },
+  "ofac/ARB.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ARB.txt",
+    "file": "ofac/ARB.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 43,
+    "sha256": "b52296adc8fabdcf907f581c90e65848e087cf33bb2b8cd2864ab77cda67f630"
+  },
+  "ofac/BCH.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_BCH.txt",
+    "file": "ofac/BCH.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 293,
+    "sha256": "eabf084a82ae515b5ef7f9ae5d2c3d08f8152ed53419e992ff412398d8174ef6"
+  },
+  "ofac/BSC.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_BSC.txt",
+    "file": "ofac/BSC.txt",
+    "retrieved_utc": "2026-11-08T04:14:02+00:00",
+    "bytes": 43,
+    "sha256": "b52296adc8fabdcf907f581c90e65848e087cf33bb2b8cd2864ab77cda67f630"
+  },
+  "ofac/BSV.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_BSV.txt",
+    "file": "ofac/BSV.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 35,
+    "sha256": "0647a257b7a57aa5ac1b502cd453e59c76cf7328ec8a5f94da5620e19cb7d86f"
+  },
+  "ofac/BTG.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_BTG.txt",
+    "file": "ofac/BTG.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 35,
+    "sha256": "8593e3a95714ce47de258966c0de4d8d1835e7e022afa2b3a3df2b1eb5f5594b"
+  },
+  "ofac/DASH.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_DASH.txt",
+    "file": "ofac/DASH.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 175,
+    "sha256": "ea4ade10472cb75944214516563ad9373af350b39dcb5c0a1639e77910ad5bc4"
+  },
+  "ofac/ETC.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ETC.txt",
+    "file": "ofac/ETC.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 43,
+    "sha256": "45c64cc6062e563f4437706fd7f0240dfebf57baee87f2861f545e080f238bdb"
+  },
+  "ofac/ETH.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ETH.txt",
+    "file": "ofac/ETH.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 5289,
+    "sha256": "5545c44c2e0b861181261327301c5b51242b7bec0d9c527dcc2a8d6af72b7918"
+  },
+  "ofac/LTC.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_LTC.txt",
+    "file": "ofac/LTC.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 464,
+    "sha256": "fff36d41edbf744f7d86bdf793fd151d545fbbac7c62e7c6205beaf59351a20b"
+  },
+  "ofac/SOL.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_SOL.txt",
+    "file": "ofac/SOL.txt",
+    "retrieved_utc": "2026-11-08T04:14:02+00:00",
+    "bytes": 180,
+    "sha256": "e3f37a2f7375b85c779c2f4ea75728f7d70b248c2933009feebae9fd3cbb14c9"
+  },
+  "ofac/TRX.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_TRX.txt",
+    "file": "ofac/TRX.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 9520,
+    "sha256": "cabf338c3c6d3baae5144e992019d3b68b6a42a546ccf0e542eb9fec42536923"
+  },
+  "ofac/USDC.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_USDC.txt",
+    "file": "ofac/USDC.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 86,
+    "sha256": "d7d534f0fca3e3685b1b84ae1eaeb81935d9bd181b9d73d5685f628705a64fd4"
+  },
+  "ofac/USDT.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_USDT.txt",
+    "file": "ofac/USDT.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 3354,
+    "sha256": "cfbff1789c42fcef339840ef635030e8c481d49ba1227d9250fe1c3230dd4e9f"
+  },
+  "ofac/XBT.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_XBT.txt",
+    "file": "ofac/XBT.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 19982,
+    "sha256": "a72d4f30fb2c30294c0040bd2a338efc3a5ed4c3679ab30057a90c6a8a48abc6"
+  },
+  "ofac/XMR.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_XMR.txt",
+    "file": "ofac/XMR.txt",
+    "retrieved_utc": "2026-11-08T04:14:00+00:00",
+    "bytes": 1025,
+    "sha256": "f488f36e2e4de818275018a284e80233044f2edf893900d77d763438da608c4a"
+  },
+  "ofac/XVG.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_XVG.txt",
+    "file": "ofac/XVG.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 35,
+    "sha256": "70d694b5181f8530319304667ab4b93ef31b0377dbe520c275014aa28f149134"
+  },
+  "ofac/ZEC.txt": {
+    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ZEC.txt",
+    "file": "ofac/ZEC.txt",
+    "retrieved_utc": "2026-11-08T04:14:01+00:00",
+    "bytes": 144,
+    "sha256": "ce830584b15a1be773f91e12a4aa178faad149a2833dc548cb5b484c78abde58"
+  }
+}

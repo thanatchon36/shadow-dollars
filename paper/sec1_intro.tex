@@ -1,0 +1,86 @@
+\section{Introduction}\label{sec:intro}
+
+Stablecoins have become the settlement asset of the crypto economy and, increasingly, a dollar substitute for people
+outside the United States. They have also become the preferred medium of the industrialised online fraud that grew
+out of Southeast Asia's border casinos and special economic zones. Regional and international bodies describe a
+system in which victims' bank transfers are converted, through networks of rented accounts, into USDT on the Tron
+blockchain and moved through informal ``guarantee'' marketplaces and underground bankers before being integrated into
+real assets \citep{unodc2024casinos,unodc2025inflection,fatf2023cyberfraud}. Thailand sits at the edge of this system.
+It hosts a licensed, identity-verified crypto exchange industry and a large retail investor base; it shares long land
+borders with the compounds of Myawaddy, the casinos of Poipet and the special economic zones of the Golden Triangle;
+and its banks, police and regulators have spent the past four years tightening controls on so-called mule accounts.
+
+This paper asks three questions that a Thai regulator, an exchange compliance officer or a researcher would want
+answered. First, is Thai stablecoin behaviour unusual---relative to other crypto-assets traded on the same platforms
+and relative to stablecoin use elsewhere? Second, is it plausible that criminal networks, including the ``call
+centre'' fraud gangs that target Thai victims, launder proceeds through USDT, and through Thai rails in particular?
+Third, and most important, how could either claim be tested in a way that separates criminal flows from the many
+legitimate reasons to hold and move digital dollars?
+
+The third question disciplines the first two. Unusual behaviour is not evidence of crime. Thai investors cannot trade
+crypto derivatives on licensed domestic venues, so buying USDT and withdrawing it to an offshore exchange is the
+ordinary route to leverage. Millions of migrant workers from Myanmar, Cambodia and Laos live in Thailand and send money
+home, and two of those countries have recently experienced the high inflation and capital controls that make dollar
+stablecoins attractive. Honest peer-to-peer dealers receive baht from many counterparties and withdraw quickly, which
+is exactly what a mule account does. A credible study must therefore name each legitimate motive, state the
+fingerprint it leaves in data, and show that the residual pattern attributed to laundering survives once those
+fingerprints are removed.
+
+\paragraph{What this paper does}
+I make four contributions. The first is \emph{descriptive and uses only public data}. Using the Coin Metrics community
+files through 23 May 2026, I document that USDT on Tron behaves as a retail payment rail that is economically distinct
+from USDT on Ethereum (\cref{sec:rails}). Tron carries 47\% of the USDT supply on the chains covered by the data, up
+from 19\% at the end of 2019. It hosts 74.5 million addresses with a positive balance---5.3 times as many as USDT on
+Ethereum---with a mean balance of about US\$1,200 against roughly US\$7,000, and it records 9.3 times as many transfers
+per dollar of supply. When Circle wound down USDC on Tron in 2024, USDC supply there fell from a peak of US\$3.5
+billion to under US\$30 million, leaving the cheapest high-liquidity dollar rail in the region to a single issuer. In
+the U.S.\ Treasury's sanctions list, 95\% of the addresses tagged USDT, TRX or USDC are Tron addresses. I also show that
+Thailand's macroeconomic fundamentals give its residents little reason to hold dollars on-chain---its consumer-price
+inflation averaged 1.7\% a year over 2019--2023, the fourth lowest of 23 comparators---whereas Laos (14.9\%) and Myanmar
+have strong legitimate demand (\cref{sec:macro}).
+
+The second contribution is \emph{a negative result with a methodological lesson}. Event studies on chain-wide activity
+are a tempting way to evaluate crackdowns because the data are free. I estimate abnormal Tron USDT activity around
+three dated shocks---Thailand's February 2025 power cut to border scam hubs, its June 2025 block on unlicensed offshore
+exchanges, and the October 2025 U.S.\ and U.K.\ sanctions on Prince Group---and calibrate inference against 149 placebo
+dates. Conventional bootstrap bands, which already account for serial correlation and trend uncertainty, reject the
+null at 58\% of random dates. Calibrated against the placebo distribution, none of the three shocks is distinguishable
+from an ordinary week ($p$ between 0.69 and 1.00). \Cref{sec:displacement} rationalises this: in a channel-choice model
+in which enforcement raises the cost of one rail, flows are displaced to substitutes and the aggregate is unchanged to
+first order.
+
+The third contribution is \emph{a set of estimators matched to the economics of structuring and pass-through}
+(\cref{sec:framework}). The central one exploits the Bank of Thailand's face-verification rule, which applies to
+transfers of 50,000 baht or more. Honest users also dislike the scan and bunch below the threshold, so bunching by
+itself proves nothing. Under an assumption that hassle avoidance is the same across the assets a deposit funds, the
+\emph{difference} in a slope-invariant bunching statistic between USDT-funding and other deposits identifies the volume
+of structured deposits (\cref{prop:bunching}). I complement it with dwell-time mixtures, a direction-aware measure of
+graph exposure to flagged addresses, and synthetic control for policy shocks, and I prove that undirected hop counts
+mechanically flag exchange hubs (\cref{prop:direction}).
+
+The fourth contribution is \emph{validation}. Because no public dataset links Thai exchange accounts to criminal
+outcomes, I build an agent-based simulator of an exchange-year with five honest populations (domestic traders,
+offshore bridge traders including arbitrageurs, cross-border remitters, holders and honest peer-to-peer merchants) and
+mule accounts whose tradecraft varies, including camouflaged mules on rented, aged accounts (\cref{sec:sim}). Against
+planted ground truth, the undirected two-hop rule attains a precision of 2--6\% among its top-ranked accounts; speed
+alone attains 6--21\%; a direction-aware exposure measure rises from 2\% to 86\% as prevalence grows; and multi-signal
+scoring reaches 78--92\%. The bunching-difference test rejects in 7.5\% of null simulations at a nominal 5\% level and
+in 88\% of simulations with 2\% mule accounts. Synthetic control has a 2.5\% false-rejection rate and 82\% power for a
+0.10 log-point effect. These magnitudes are properties of the simulator; the ranking of methods and their failure modes
+are the transferable result.
+
+\paragraph{What this paper does not claim}
+The paper does not estimate how much Thai stablecoin volume is criminal. Doing so requires account-level data that
+exchanges and the Anti-Money Laundering Office hold and that the Personal Data Protection Act rightly restricts.
+Instead, \cref{sec:plan} sets out a pre-registered plan---six hypotheses, the data tier each needs, the estimator and
+the decision rule---so that the question can be answered as soon as such data are available, without specification
+search. All code is open, every figure is regenerated from raw files whose checksums are recorded, and every
+simulated figure is marked as such.
+
+\paragraph{Roadmap}
+\Cref{sec:background} describes the Thai regime and the regional scam economy. \Cref{sec:literature} relates the paper
+to work on stablecoins, illicit crypto finance and blockchain forensics. \Cref{sec:framework} presents the conceptual
+framework, the model and the propositions. \Cref{sec:data} describes the data. \Cref{sec:evidence} reports the
+evidence from public data and \cref{sec:sim} the simulation study. \Cref{sec:plan} contains the pre-registered plan,
+policy implications, limitations and conclusions. Proofs, simulator parameters and replication instructions are in the
+appendix.
