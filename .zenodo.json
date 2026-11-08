@@ -1,0 +1,29 @@
+{
+  "title": "shadow-dollars",
+  "upload_type": "software",
+  "description": "Replication package for the preprint \"Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand\": collectors for public on-chain (Coin Metrics), exchange-rate (Federal Reserve H.10), inflation (World Bank) and sanctions (OFAC SDN) data with a hashed manifest; event studies with placebo-calibrated inference; detectors for structuring (difference-in-bunching), pass-through speed (dwell-time mixtures), direction-aware graph exposure, anomaly scoring and synthetic control; and an agent-based exchange simulator with planted mule accounts used to validate them by Monte Carlo.",
+  "creators": [
+    {
+      "name": "Chongmankhong, Thanatchon"
+    }
+  ],
+  "license": "mit",
+  "keywords": [
+    "stablecoins",
+    "USDT",
+    "Tron",
+    "money laundering",
+    "scam centres",
+    "bunching",
+    "synthetic control",
+    "Thailand"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://thanatchon36.github.io/shadow-dollars/paper/",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-preprint",
+      "scheme": "url"
+    }
+  ]
+}

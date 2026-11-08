@@ -15,6 +15,7 @@ paper/*.fls
 paper/*.fdb_latexmk
 paper/*.synctex.gz
 paper/main.pdf
+paper/.build/
 # OS
 .DS_Store
 # generated upload archive (rebuild with arxiv/make_arxiv_zip.sh)

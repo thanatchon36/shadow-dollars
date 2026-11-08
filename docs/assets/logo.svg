@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t">
+  <title id="t">shadow-dollars</title>
+  <rect width="128" height="128" rx="28" fill="#0b1020"/>
+  <!-- the Ethereum rail: large balances, settled rarely -->
+  <path d="M18 92 C40 90 52 82 66 74 C80 66 94 62 110 60" fill="none" stroke="#3d5a80" stroke-width="9" stroke-linecap="round"/>
+  <!-- the Tron rail: small balances, turned over often, with its shadow -->
+  <path d="M18 70 C40 66 52 52 66 46 C80 40 94 36 110 32" fill="none" stroke="#e4572e" stroke-width="16" stroke-linecap="round" opacity="0.25"/>
+  <path d="M18 70 C40 66 52 52 66 46 C80 40 94 36 110 32" fill="none" stroke="#e4572e" stroke-width="7" stroke-linecap="round"/>
+  <!-- a flagged transfer on the rail -->
+  <circle cx="66" cy="46" r="8" fill="#b5172b" stroke="#ffd7c7" stroke-width="3"/>
+</svg>

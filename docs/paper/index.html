@@ -1,0 +1,1465 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shadow Dollars</title>
+<meta name="description" content="Preprint: stablecoin rails, scam finance and the limits of detection in Thailand.">
+<meta name="author" content="Thanatchon Chongmankhong">
+<style>
+/* Web reader for the LaTeX paper (scripts/build_web.py), in the format of the thainowcast reader: one reading
+   column (~46rem) with a results strip up top. System font stacks only: the page is a single self-contained
+   file with no third-party requests. Colour tokens on :root, redefined for dark; the accent is the paper's
+   Thai red. */
+:root {
+  --paper: #fbfbf9; --ink: #17191c; --ink-2: #4c5058; --rule: #dcdcd6;
+  --accent: #b5172b; --accent-soft: #f8e7e9;
+  --pos: #1d6b52; --pos-soft: #e3f1ea; --null: #6b6f78; --null-soft: #eeeeea;
+  --find: #8a5a12; --find-soft: #f6eedd; --plate: #ffffff; --quote: #f3f3ef;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15171a; --ink: #e8e9ec; --ink-2: #a6abb4; --rule: #30343a;
+    --accent: #f08a96; --accent-soft: #3a1c21; --pos: #7dcfac; --pos-soft: #16302a;
+    --null: #a6abb4; --null-soft: #23262b; --find: #e7bd73; --find-soft: #33291a;
+    --plate: #f4f4f2; --quote: #1d2024; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15171a; --ink: #e8e9ec; --ink-2: #a6abb4; --rule: #30343a;
+  --accent: #f08a96; --accent-soft: #3a1c21; --pos: #7dcfac; --pos-soft: #16302a;
+  --null: #a6abb4; --null-soft: #23262b; --find: #e7bd73; --find-soft: #33291a;
+  --plate: #f4f4f2; --quote: #1d2024; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 17px/1.62 var(--font-body); }
+.page { max-width: 46rem; margin: 0 auto; padding-inline: 16px; padding-block: 48px 72px;
+  display: flex; flex-direction: column; gap: 40px; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 650; text-wrap: balance; line-height: 1.2; }
+h1 { font-size: clamp(1.7rem, 4.2vw, 2.35rem); margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 1.4rem; margin: 2.2em 0 0.5em; }
+h3 { font-size: 1.12rem; margin: 1.8em 0 0.4em; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+code { font: 500 0.84em var(--font-mono); overflow-wrap: anywhere; }
+pre { background: var(--quote); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px;
+  overflow-x: auto; font-size: 0.84rem; line-height: 1.5; }
+pre code { font-weight: 400; font-size: inherit; overflow-wrap: normal; }
+.masthead { display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 28px; }
+.kicker { margin: 0; font: 500 0.78rem var(--font-mono); text-transform: uppercase; letter-spacing: 0.09em; color: var(--accent); }
+.subtitle { margin: 0; font-style: italic; color: var(--ink-2); font-size: 1.05rem; }
+.byline { margin: 0; color: var(--ink-2); }
+.meta { margin: 0; font: 400 0.8rem/1.6 var(--font-mono); color: var(--ink-2); }
+.meta b { font-weight: 500; color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; list-style: none; }
+.actions a { display: inline-block; padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px;
+  font: 500 0.78rem var(--font-mono); text-decoration: none; color: var(--ink); }
+.actions a:hover { border-color: var(--accent); color: var(--accent); }
+.abstract h2, .results h2, .toc h2, .cite h2 { margin: 0 0 10px; font-size: 0.82rem; font-family: var(--font-mono);
+  font-weight: 500; text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-2); }
+.abstract-body p { margin: 0 0 0.8em; font-size: 1.04rem; }
+.abstract-body p:last-child { margin-bottom: 0; }
+.results .note { margin: 0 0 14px; color: var(--ink-2); font-size: 0.95rem; }
+.result-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 8px; }
+.r { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "id tag" "text text"; gap: 2px 10px;
+  align-content: start; padding: 10px 12px; border-radius: 6px; border-left: 3px solid; font-size: 0.9rem; line-height: 1.4; }
+.r-pos { background: var(--pos-soft); border-color: var(--pos); }
+.r-ref { background: var(--find-soft); border-color: var(--find); }
+.r-null, .r-nf { background: var(--null-soft); border-color: var(--null); }
+.r-id { grid-area: id; font: 500 0.85rem var(--font-mono); }
+.r-text { grid-area: text; }
+.r-text small { display: block; color: var(--ink-2); font-size: 0.8rem; margin-top: 2px; }
+.toc ul { margin: 0; padding-left: 1.2em; columns: 2 14rem; column-gap: 32px; }
+.toc li { break-inside: avoid; }
+.toc ul ul { columns: 1; padding-left: 1em; font-size: 0.92em; color: var(--ink-2); }
+.toc a { text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.paper h1 { font-size: 1.55rem; margin: 2em 0 0.5em; padding-top: 0.6em; border-top: 1px solid var(--rule); }
+.paper p, .paper li { hyphens: auto; }
+.paper p { margin: 0 0 1em; }
+.paper math[display="block"] { overflow-x: auto; max-width: 100%; }
+/* MathML does not line-break: a long inline formula scrolls on its own instead of widening the page */
+.paper p > math { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.paper .header-section-number { color: var(--accent); margin-right: 0.5em; font-family: var(--font-mono); font-size: 0.85em; font-weight: 500; }
+.paper blockquote { margin: 1.2em 0; padding: 10px 16px; border-left: 3px solid var(--rule); background: var(--quote);
+  border-radius: 0 6px 6px 0; font-size: 0.93rem; color: var(--ink-2); }
+.paper blockquote p:last-child { margin-bottom: 0; }
+/* theorem-like blocks and proofs */
+.paper .proposition, .paper .corollary, .paper .lemma, .paper .assumption, .paper .definition {
+  margin: 1.2em 0; padding: 10px 16px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 6px 6px 0; }
+.paper .proposition p:last-child, .paper .corollary p:last-child, .paper .lemma p:last-child, .paper .assumption p:last-child { margin-bottom: 0; }
+.paper .thm-head { font-weight: 650; }
+.paper .proof { margin: 0.6em 0 1.2em; }
+.paper .proof-head { font-style: italic; }
+/* numbered display equations: the formula scrolls on its own, the number stays right */
+.paper .eq { display: flex; align-items: center; gap: 12px; margin: 0.8em 0; }
+.paper .eq > math { flex: 1 1 auto; min-width: 0; overflow-x: auto; }
+.paper .eqno { flex: none; font: 400 0.85rem var(--font-mono); color: var(--ink-2); }
+.paper .tablenotes, .paper .tablenotes p { font-size: 0.82rem; color: var(--ink-2); line-height: 1.45; }
+.paper .tablenotes ul, .paper .tablenotes ol { padding-left: 0; list-style: none; }
+.paper .csl-entry { margin: 0 0 0.6em; padding-left: 1.6em; text-indent: -1.6em; font-size: 0.92rem; }
+figure { margin: 1.6em 0; display: flex; flex-direction: column; gap: 10px; }
+figure img { background: var(--plate); padding: 12px; border-radius: 6px; border: 1px solid var(--rule); max-width: 100%; height: auto; }
+figcaption, caption, .tcap { font-size: 0.88rem; color: var(--ink-2); line-height: 1.45; text-align: left; }
+caption { caption-side: top; padding-bottom: 8px; }
+.tbl { margin: 1.6em 0; }
+.paper .tcap { margin: 0 0 8px; hyphens: auto; }
+.tscroll { overflow-x: auto; }
+/* Tables keep their natural width (scrolling sideways when wider than the column); only long text cells wrap. */
+.paper table { border-collapse: collapse; width: max-content; min-width: 100%;
+  font: 400 0.78rem/1.45 var(--font-mono); font-variant-numeric: tabular-nums; }
+.paper td { max-width: 17em; }
+/* Code in table cells must not break per letter on phones; the table scrolls sideways instead. */
+.paper table code { overflow-wrap: normal; word-break: normal; white-space: nowrap; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+th { font-weight: 500; color: var(--ink-2); border-bottom-color: var(--ink-2); }
+.paper strong { font-weight: 650; }
+.cite { min-width: 0; }
+/* BibTeX keeps its lines intact (no mid-URL breaks); the block scrolls sideways on narrow screens. */
+.cite pre { overflow-x: auto; }
+.cite pre, .cite pre code { white-space: pre; overflow-wrap: normal; word-break: normal; }
+.colophon { border-top: 1px solid var(--rule); padding-top: 20px; color: var(--ink-2); font-size: 0.85rem; }
+.colophon p { margin: 0 0 0.7em; }
+@media (max-width: 480px) { body { font-size: 16px; } .page { padding-block: 28px 48px; gap: 28px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="page">
+<header class="masthead">
+  <p class="kicker">Preprint · shadow-dollars</p>
+  <h1>Shadow Dollars</h1>
+  <p class="subtitle">Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand</p>
+  <p class="byline">Thanatchon Chongmankhong · <a href="https://github.com/thanatchon36/shadow-dollars">github.com/thanatchon36/shadow-dollars</a></p>
+  <p class="meta"><b>November 8, 2026</b> · stablecoins, USDT, Tron, money laundering, scam centres, bunching, synthetic control, blockchain forensics, Thailand · JEL E42, G23, G28, K42, C63, O53</p>
+  <ul class="actions"><li><a href="paper.pdf">Download PDF</a></li><li><a href="https://github.com/thanatchon36/shadow-dollars">Code and replication</a></li><li><a href="https://github.com/thanatchon36/shadow-dollars/tree/main/data">Data and manifest</a></li></ul>
+</header>
+<section class="abstract" aria-label="Abstract">
+  <h2>Abstract</h2>
+  <div class="abstract-body"><p>Thailand combines low inflation, a licensed and identity-verified crypto exchange sector, and a long border with the scam-compound economy of Myanmar, Cambodia and Laos. I ask whether Thai stablecoin behaviour is anomalous, whether USDT is a plausible channel for laundering transnational fraud proceeds, and how either claim can be tested credibly. Public on-chain data through May 2026 show that USDT on Tron is a retail dollar rail distinct from USDT on Ethereum: it carries 47% of the covered USDT supply, 74.5 million funded addresses (5.3 times Ethereum), mean balances about six times smaller and 9.3 times the transfer intensity per dollar. Ninety-five per cent of U.S. sanctions-list addresses tagged USDT, TRX or USDC are Tron addresses. Thailand itself has little macroeconomic reason to hold dollars on-chain (2019–2023 inflation of 1.7% a year, fourth lowest of 23 comparators), unlike neighbouring Laos and Myanmar. Chain-wide data cannot evaluate national enforcement: nominal 95% bands reject at 58% of 149 placebo dates, and placebo-calibrated p-values for three crackdowns range from 0.69 to 1.00. I therefore develop a pre-registered design with four estimators—a difference-in-bunching test at the 50,000-baht face-verification threshold, dwell-time mixtures, direction-aware graph exposure and synthetic control—and validate them in an agent-based simulation with planted mule accounts. The common undirected two-hop exposure rule attains 2–6% precision among top-ranked accounts; multi-signal scoring reaches 78–92%; the bunching-difference test has close-to-nominal size and 88% power at a 2% mule share. A channel-choice model explains why enforcement that displaces flows leaves chain-wide totals unchanged. Code and data are released for replication.</p>
+</div>
+</section>
+<section class="results" aria-label="Results at a glance">
+  <h2>Results at a glance</h2>
+  <p class="note">Headline numbers, read from the result files. Green: public on-chain, sanctions and macro data; amber: simulation (method validation only); grey: pending.</p>
+  <ul class="result-list"><li class="r r-pos"><span class="r-id">Rails</span><span class="r-text">USDT on Tron carries 47% of covered USDT supply (US$89 bn, 2026-05-23)<small>74.5 million funded addresses, 5.3 times Ethereum; 9.3 times the transfers per dollar</small></span></li>
+<li class="r r-pos"><span class="r-id">Sanctions</span><span class="r-text">95% of OFAC addresses tagged USDT, TRX or USDC are Tron addresses<small>1,073 sanctioned digital-currency addresses in the SDN mirror</small></span></li>
+<li class="r r-pos"><span class="r-id">Macro motive</span><span class="r-text">Thai inflation 1.7% a year, 2019–2023: fourth lowest of 23 comparators<small>Lao PDR 14.9%, Myanmar 8.8%: the dollar demand is next door</small></span></li>
+<li class="r r-pos"><span class="r-id">Event studies</span><span class="r-text">Nominal 95% bands reject at 58% of 149 placebo dates<small>placebo-calibrated p-values for three crackdowns: 0.69 to 1.00</small></span></li>
+<li class="r r-ref"><span class="r-id">Graph exposure</span><span class="r-text">Undirected two-hop exposure: 2–6% precision among top-ranked accounts<small>multi-signal scoring reaches 78–92%; simulated exchange-years</small></span></li>
+<li class="r r-ref"><span class="r-id">Bunching test</span><span class="r-text">Difference-in-bunching test: size 7.5%, power 88% at a 2% mule share<small>200 null draws, 50 exchange-years per share; simulated data</small></span></li>
+<li class="r r-null"><span class="r-id">Thai exchange data</span><span class="r-text">Account-level results pending<small>the pre-registered plan runs as soon as exchange or regulator data are available under the PDPA</small></span></li></ul>
+</section>
+<nav class="toc" aria-label="Contents"><h2>Contents</h2>
+<ul>
+<li><a href="#sec:intro" id="toc-sec:intro"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#sec:background" id="toc-sec:background"><span class="toc-section-number">2</span> Institutional background</a></li>
+<li><a href="#sec:literature" id="toc-sec:literature"><span class="toc-section-number">3</span> Related literature</a></li>
+<li><a href="#sec:framework" id="toc-sec:framework"><span class="toc-section-number">4</span> Conceptual framework</a></li>
+<li><a href="#sec:data" id="toc-sec:data"><span class="toc-section-number">5</span> Data</a></li>
+<li><a href="#sec:evidence" id="toc-sec:evidence"><span class="toc-section-number">6</span> Evidence from public data</a></li>
+<li><a href="#sec:sim" id="toc-sec:sim"><span class="toc-section-number">7</span> Detection design and simulation evidence</a></li>
+<li><a href="#sec:plan" id="toc-sec:plan"><span class="toc-section-number">8</span> A pre-registered plan for Thailand</a></li>
+<li><a href="#sec:policy" id="toc-sec:policy"><span class="toc-section-number">9</span> Policy implications</a></li>
+<li><a href="#sec:limits" id="toc-sec:limits"><span class="toc-section-number">10</span> Limitations and ethics</a></li>
+<li><a href="#sec:conclusion" id="toc-sec:conclusion"><span class="toc-section-number">11</span> Conclusion</a></li>
+<li><a href="#data-and-code-availability" id="toc-data-and-code-availability">Data and code availability</a></li>
+<li><a href="#acknowledgments-and-disclosure" id="toc-acknowledgments-and-disclosure">Acknowledgments and disclosure</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+<li><a href="#app:data" id="toc-app:data"><span class="toc-section-number">A</span> Data appendix</a></li>
+<li><a href="#app:simparams" id="toc-app:simparams"><span class="toc-section-number">B</span> Simulator parameters</a></li>
+<li><a href="#app:proofs" id="toc-app:proofs"><span class="toc-section-number">C</span> Proofs</a></li>
+<li><a href="#app:replication" id="toc-app:replication"><span class="toc-section-number">D</span> Replication</a></li>
+</ul>
+</nav>
+<article class="paper">
+<h1 data-number="1" id="sec:intro"><span class="header-section-number">1</span> Introduction</h1>
+<p>Stablecoins have become the settlement asset of the crypto economy and, increasingly, a dollar substitute for people outside the United States. They have also become the preferred medium of the industrialised online fraud that grew out of Southeast Asia’s border casinos and special economic zones. Regional and international bodies describe a system in which victims’ bank transfers are converted, through networks of rented accounts, into USDT on the Tron blockchain and moved through informal “guarantee” marketplaces and underground bankers before being integrated into real assets <span class="citation" data-cites="unodc2024casinos unodc2025inflection fatf2023cyberfraud">(United Nations Office on Drugs and Crime 2024, 2025; Financial Action Task Force 2023)</span>. Thailand sits at the edge of this system. It hosts a licensed, identity-verified crypto exchange industry and a large retail investor base; it shares long land borders with the compounds of Myawaddy, the casinos of Poipet and the special economic zones of the Golden Triangle; and its banks, police and regulators have spent the past four years tightening controls on so-called mule accounts.</p>
+<p>This paper asks three questions that a Thai regulator, an exchange compliance officer or a researcher would want answered. First, is Thai stablecoin behaviour unusual—relative to other crypto-assets traded on the same platforms and relative to stablecoin use elsewhere? Second, is it plausible that criminal networks, including the “call centre” fraud gangs that target Thai victims, launder proceeds through USDT, and through Thai rails in particular? Third, and most important, how could either claim be tested in a way that separates criminal flows from the many legitimate reasons to hold and move digital dollars?</p>
+<p>The third question disciplines the first two. Unusual behaviour is not evidence of crime. Thai investors cannot trade crypto derivatives on licensed domestic venues, so buying USDT and withdrawing it to an offshore exchange is the ordinary route to leverage. Millions of migrant workers from Myanmar, Cambodia and Laos live in Thailand and send money home, and two of those countries have recently experienced the high inflation and capital controls that make dollar stablecoins attractive. Honest peer-to-peer dealers receive baht from many counterparties and withdraw quickly, which is exactly what a mule account does. A credible study must therefore name each legitimate motive, state the fingerprint it leaves in data, and show that the residual pattern attributed to laundering survives once those fingerprints are removed.</p>
+<h4 data-number="1.0.0.1" id="what-this-paper-does"><span class="header-section-number">1.0.0.1</span> What this paper does</h4>
+<p>I make four contributions. The first is <em>descriptive and uses only public data</em>. Using the Coin Metrics community files through 23 May 2026, I document that USDT on Tron behaves as a retail payment rail that is economically distinct from USDT on Ethereum (<a href="#sec:rails" class="xref">Section 6.1</a>). Tron carries 47% of the USDT supply on the chains covered by the data, up from 19% at the end of 2019. It hosts 74.5 million addresses with a positive balance—5.3 times as many as USDT on Ethereum—with a mean balance of about US$1,200 against roughly US$7,000, and it records 9.3 times as many transfers per dollar of supply. When Circle wound down USDC on Tron in 2024, USDC supply there fell from a peak of US$3.5 billion to under US$30 million, leaving the cheapest high-liquidity dollar rail in the region to a single issuer. In the U.S. Treasury’s sanctions list, 95% of the addresses tagged USDT, TRX or USDC are Tron addresses. I also show that Thailand’s macroeconomic fundamentals give its residents little reason to hold dollars on-chain—its consumer-price inflation averaged 1.7% a year over 2019–2023, the fourth lowest of 23 comparators—whereas Laos (14.9%) and Myanmar have strong legitimate demand (<a href="#sec:macro" class="xref">Section 6.3</a>).</p>
+<p>The second contribution is <em>a negative result with a methodological lesson</em>. Event studies on chain-wide activity are a tempting way to evaluate crackdowns because the data are free. I estimate abnormal Tron USDT activity around three dated shocks—Thailand’s February 2025 power cut to border scam hubs, its June 2025 block on unlicensed offshore exchanges, and the October 2025 U.S. and U.K. sanctions on Prince Group—and calibrate inference against 149 placebo dates. Conventional bootstrap bands, which already account for serial correlation and trend uncertainty, reject the null at 58% of random dates. Calibrated against the placebo distribution, none of the three shocks is distinguishable from an ordinary week (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> between 0.69 and 1.00). <a href="#sec:displacement" class="xref">Section 4.5</a> rationalises this: in a channel-choice model in which enforcement raises the cost of one rail, flows are displaced to substitutes and the aggregate is unchanged to first order.</p>
+<p>The third contribution is <em>a set of estimators matched to the economics of structuring and pass-through</em> (<a href="#sec:framework" class="xref">Section 4</a>). The central one exploits the Bank of Thailand’s face-verification rule, which applies to transfers of 50,000 baht or more. Honest users also dislike the scan and bunch below the threshold, so bunching by itself proves nothing. Under an assumption that hassle avoidance is the same across the assets a deposit funds, the <em>difference</em> in a slope-invariant bunching statistic between USDT-funding and other deposits identifies the volume of structured deposits (<a href="#prop:bunching" class="xref">Proposition 1</a>). I complement it with dwell-time mixtures, a direction-aware measure of graph exposure to flagged addresses, and synthetic control for policy shocks, and I prove that undirected hop counts mechanically flag exchange hubs (<a href="#prop:direction" class="xref">Proposition 2</a>).</p>
+<p>The fourth contribution is <em>validation</em>. Because no public dataset links Thai exchange accounts to criminal outcomes, I build an agent-based simulator of an exchange-year with five honest populations (domestic traders, offshore bridge traders including arbitrageurs, cross-border remitters, holders and honest peer-to-peer merchants) and mule accounts whose tradecraft varies, including camouflaged mules on rented, aged accounts (<a href="#sec:sim" class="xref">Section 7</a>). Against planted ground truth, the undirected two-hop rule attains a precision of 2–6% among its top-ranked accounts; speed alone attains 6–21%; a direction-aware exposure measure rises from 2% to 86% as prevalence grows; and multi-signal scoring reaches 78–92%. The bunching-difference test rejects in 7.5% of null simulations at a nominal 5% level and in 88% of simulations with 2% mule accounts. Synthetic control has a 2.5% false-rejection rate and 82% power for a 0.10 log-point effect. These magnitudes are properties of the simulator; the ranking of methods and their failure modes are the transferable result.</p>
+<h4 data-number="1.0.0.2" id="what-this-paper-does-not-claim"><span class="header-section-number">1.0.0.2</span> What this paper does not claim</h4>
+<p>The paper does not estimate how much Thai stablecoin volume is criminal. Doing so requires account-level data that exchanges and the Anti-Money Laundering Office hold and that the Personal Data Protection Act rightly restricts. Instead, <a href="#sec:plan" class="xref">Section 8</a> sets out a pre-registered plan—six hypotheses, the data tier each needs, the estimator and the decision rule—so that the question can be answered as soon as such data are available, without specification search. All code is open, every figure is regenerated from raw files whose checksums are recorded, and every simulated figure is marked as such.</p>
+<h4 data-number="1.0.0.3" id="roadmap"><span class="header-section-number">1.0.0.3</span> Roadmap</h4>
+<p><a href="#sec:background" class="xref">Section 2</a> describes the Thai regime and the regional scam economy. <a href="#sec:literature" class="xref">Section 3</a> relates the paper to work on stablecoins, illicit crypto finance and blockchain forensics. <a href="#sec:framework" class="xref">Section 4</a> presents the conceptual framework, the model and the propositions. <a href="#sec:data" class="xref">Section 5</a> describes the data. <a href="#sec:evidence" class="xref">Section 6</a> reports the evidence from public data and <a href="#sec:sim" class="xref">Section 7</a> the simulation study. <a href="#sec:plan" class="xref">Section 8</a> contains the pre-registered plan, policy implications, limitations and conclusions. Proofs, simulator parameters and replication instructions are in the appendix.</p>
+<h1 data-number="2" id="sec:background"><span class="header-section-number">2</span> Institutional background</h1>
+<p>This section summarises the rules that shape how stablecoins can be used in Thailand and the regional criminal economy that motivates the paper.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<h2 data-number="2.1" id="thailands-digital-asset-regime"><span class="header-section-number">2.1</span> Thailand’s digital-asset regime</h2>
+<p>Crypto exchanges, brokers and dealers serving Thai residents must be licensed by the Securities and Exchange Commission under the Emergency Decree on Digital Asset Businesses of 2018. The licensed market has long been concentrated, with Bitkub holding a dominant share, and it was joined in early 2024 by a joint venture between Gulf Energy and Binance. Five features of the regime matter for stablecoin behaviour.</p>
+<ol>
+<li><p><em>Baht-quoted trading.</em> Licensed venues have historically quoted assets against the baht; USDT and USDC were added to the list of crypto-assets that may serve as quote assets only in early 2025. Before then the USDT/THB pair was the main gate between baht and on-chain dollars.</p></li>
+<li><p><em>No domestic derivatives.</em> Licensed exchanges do not offer leveraged crypto derivatives. Residents who want leverage buy USDT at home and withdraw it to an offshore venue, which mechanically raises the withdrawal rate of USDT relative to other assets.</p></li>
+<li><p><em>No payments.</em> Since 2022 licensed businesses may not facilitate the use of crypto-assets to pay for goods and services, so payment use, where it exists, migrates to peer-to-peer and over-the-counter channels that are harder to observe.</p></li>
+<li><p><em>Tax.</em> In 2025 the government approved a five-year exemption from personal income tax on gains from sales through licensed Thai providers (2025–2029), raising the return to trading onshore.</p></li>
+<li><p><em>Access to offshore venues.</em> In mid-2025 the authorities blocked access to several unlicensed foreign exchanges, a shock that should displace some activity towards peer-to-peer markets and virtual private networks.</p></li>
+</ol>
+<h2 data-number="2.2" id="the-anti-fraud-architecture"><span class="header-section-number">2.2</span> The anti-fraud architecture</h2>
+<p>Thailand’s response to online fraud has concentrated on the bank accounts through which victims’ money first moves. The Emergency Decree on Measures for the Prevention and Suppression of Technology Crimes of 2023 made it an offence to open, rent out or sell accounts for others to use, and it allowed financial institutions to suspend suspicious transfers and share information. An amendment in 2025 extended these duties to digital-asset business operators and introduced liability for institutions whose negligence enables losses. The police established the Anti Online Scam Operation Center, reachable through the 1441 hotline, in late 2023. Since 2023 banks have also required facial biometric verification for transfers of roughly 50,000 baht or more per transaction, or 200,000 baht or more per day, and for raising transfer limits.</p>
+<p>These measures raise the cost of the classic chain in which a victim’s transfer passes through several layers of mule bank accounts before being withdrawn in cash. They create two predictions that this paper turns into tests. The verification threshold should generate structuring—deposits placed just below 50,000 baht—in the channel that launderers use (<a href="#sec:bunching" class="xref">Section 4.2</a>). And tighter bank-side controls should displace laundering towards channels in which baht leave the banking system quickly, of which converting them into USDT is the most liquid (<a href="#sec:displacement" class="xref">Section 4.5</a>).</p>
+<h2 data-number="2.3" id="the-regional-scam-economy"><span class="header-section-number">2.3</span> The regional scam economy</h2>
+<p>UNODC’s 2024 report on casinos, underground banking and transnational organised crime in East and Southeast Asia describes how criminal groups that grew out of junket and casino operations moved into large-scale online fraud run from compounds in Myanmar, Cambodia and Laos, staffed in part by trafficked workers, and how they settle and launder proceeds through underground banking and stablecoins, with USDT on Tron prominent among them <span class="citation" data-cites="unodc2024casinos">(United Nations Office on Drugs and Crime 2024)</span>. A 2025 follow-up documents the industry’s spread to other regions <span class="citation" data-cites="unodc2025inflection">(United Nations Office on Drugs and Crime 2025)</span>. The FATF’s report on cyber-enabled fraud describes the same pipeline from the perspective of financial intelligence units <span class="citation" data-cites="fatf2023cyberfraud">(Financial Action Task Force 2023)</span>, and its 2025 update on virtual assets highlights the growing use of stablecoins by illicit actors <span class="citation" data-cites="fatf2025targeted">(Financial Action Task Force 2025)</span>. Industry analysts report that stablecoins account for a majority of the transaction volume received by addresses they classify as illicit <span class="citation" data-cites="chainalysis2025crime">(Chainalysis 2025)</span>.</p>
+<p>Enforcement against this infrastructure intensified in 2024 and 2025. Tether, the Tron Foundation and TRM Labs formed a financial crime unit to freeze USDT linked to crime. Research by blockchain analytics firms exposed Telegram-based “guarantee” marketplaces associated with the Cambodian conglomerate Huione Group, several of which Telegram removed in 2025 <span class="citation" data-cites="elliptic2024huione">(Elliptic 2024)</span>. In February 2025 Thailand cut electricity, internet and fuel supplies to areas across the Myanmar border that host scam compounds. In October 2025 the U.S. and U.K. governments sanctioned the Cambodian Prince Group and associated individuals and entities, the U.S. Department of Justice filed a forfeiture complaint against roughly 127,000 bitcoin, and FinCEN acted to sever Huione Group from the U.S. financial system <span class="citation" data-cites="ustreasury2025prince fincen2025huione">(U.S. Department of the Treasury 2025; Financial Crimes Enforcement Network 2025)</span>. In the same month Myanmar’s military raided the KK Park compound.</p>
+<p><a href="#fig:timeline" class="xref">Figure 1</a> places these events on one time axis. Its message for empirical work is simple: nine of the sixteen events fall in the nine months between February and October 2025. Any design that attributes a change in Thai stablecoin flows to one of them must contend with the others, which is why the pre-registered plan relies on narrow windows, control assets and placebo inference.</p>
+<figure id="fig:timeline">
+<img loading="lazy" src="figures/fig_timeline.png" />
+<figcaption><b>Figure 1.</b> Policy, enforcement and market events relevant to Thai stablecoin flows, 2022–2025. Dots on the left axis sit at the true date; labels on the right are in chronological order. Colours mark the type of event. Month-level dates are shown without a day and should be verified against primary sources.</figcaption>
+</figure>
+<h1 data-number="3" id="sec:literature"><span class="header-section-number">3</span> Related literature</h1>
+<p>The paper connects four literatures.</p>
+<h4 data-number="3.0.0.1" id="the-economics-of-stablecoins"><span class="header-section-number">3.0.0.1</span> The economics of stablecoins</h4>
+<p>A first strand studies what keeps stablecoins at par and what they do to the rest of the financial system. <span class="citation" data-cites="lyons2023stable">Lyons and Viswanath-Natraj (2023)</span> show how arbitrage capacity and the issuer’s balance sheet determine deviations from the peg; <span class="citation" data-cites="gorton2023wildcat">Gorton and Zhang (2023)</span> draw the analogy with free-banking-era private money; <span class="citation" data-cites="arner2020stablecoins">Arner et al. (2020)</span> and the <span class="citation" data-cites="bis2025aer">Bank for International Settlements (2025)</span> discuss risks and regulation, and <span class="citation" data-cites="liao2022stablecoins">Liao and Caramichael (2022)</span> the implications for bank funding. Work on the interaction between stablecoin issuance and crypto prices includes <span class="citation" data-cites="griffin2020tether">Griffin and Shams (2020)</span>, <span class="citation" data-cites="ante2021issuance">Ante et al. (2021)</span> and <span class="citation" data-cites="kristoufek2021tethered">Kristoufek (2021)</span>. This literature treats stablecoins mostly as a single asset. I show that the same token on different blockchains serves different clienteles—USDT on Tron is a small-balance, high-turnover rail, USDT on Ethereum a large-balance one—which matters for any analysis of who uses stablecoins and why.</p>
+<h4 data-number="3.0.0.2" id="illicit-finance-in-crypto-assets"><span class="header-section-number">3.0.0.2</span> Illicit finance in crypto-assets</h4>
+<p><span class="citation" data-cites="foley2019sex">Foley et al. (2019)</span> estimate the share of bitcoin activity associated with illegal goods using network clustering. <span class="citation" data-cites="cong2023anatomy">Cong, Harvey, et al. (2023)</span> provide an anatomy of crypto-enabled cybercrime, and <span class="citation" data-cites="griffin2024slavery">Griffin and Mei (2024)</span> trace the flows of “pig-butchering” fraud from victims to exchanges, documenting the role of USDT and large centralised exchanges in cashing out. Policy reports by <span class="citation" data-cites="unodc2024casinos unodc2025inflection">United Nations Office on Drugs and Crime (2024, 2025)</span> and the <span class="citation" data-cites="fatf2020redflags fatf2023cyberfraud fatf2025targeted">Financial Action Task Force (2020, 2023, 2025)</span> describe typologies and red flags. Industry reports such as <span class="citation" data-cites="chainalysis2025crime">Chainalysis (2025)</span> provide aggregate estimates whose attribution methods are proprietary. Relative to this work I focus on a single jurisdiction at the boundary between the banking system and on-chain rails, and on the identification problem: how to distinguish laundering from the legitimate motives that produce similar data.</p>
+<h4 data-number="3.0.0.3" id="market-structure-and-data-quality"><span class="header-section-number">3.0.0.3</span> Market structure and data quality</h4>
+<p><span class="citation" data-cites="makarov2020arbitrage">Makarov and Schoar (2020)</span> document persistent cross-country price premia in crypto markets, such as the Korean “kimchi premium”, that reflect capital controls; I use the analogous USDT/THB premium as a fingerprint of the store-of-value motive. <span class="citation" data-cites="cong2023wash">Cong, Li, et al. (2023)</span> show that reported exchange volumes are inflated by wash trading, which is why the plan relies on ratios within a platform and on adjusted volumes rather than on raw cross-exchange comparisons. <span class="citation" data-cites="auer2022retail">Auer et al. (2022)</span> relate retail adoption to prices using app-download data.</p>
+<h4 data-number="3.0.0.4" id="blockchain-forensics-and-anomaly-detection"><span class="header-section-number">3.0.0.4</span> Blockchain forensics and anomaly detection</h4>
+<p>Address clustering and labelling go back to <span class="citation" data-cites="meiklejohn2013fistful">Meiklejohn et al. (2013)</span>; supervised and graph-based approaches to anti-money-laundering on transaction graphs include <span class="citation" data-cites="weber2019aml">Weber et al. (2019)</span>. I use unsupervised scores—the isolation forest of <span class="citation" data-cites="liu2008iforest">Liu et al. (2008)</span> and a transparent composite of red flags—because labels are scarce in practice, and I show formally and in simulation that the direction of fund flows must be respected when exposure to flagged addresses is measured. Community detection, used in the replication package for exploratory clustering, follows <span class="citation" data-cites="blondel2008louvain">Blondel et al. (2008)</span>.</p>
+<h4 data-number="3.0.0.5" id="methods"><span class="header-section-number">3.0.0.5</span> Methods</h4>
+<p>The bunching estimator adapts the notch and kink designs of <span class="citation" data-cites="saez2010bunch">Saez (2010)</span>, <span class="citation" data-cites="chetty2011adjustment">Chetty et al. (2011)</span> and <span class="citation" data-cites="kleven2013notches">Kleven and Waseem (2013)</span>, surveyed by <span class="citation" data-cites="kleven2016bunching">Kleven (2016)</span>, to a setting in which the notch is a verification step rather than a tax, and in which a within-platform comparison across assets removes the honest response. Policy evaluation relies on synthetic control <span class="citation" data-cites="abadie2010synth abadie2021using">(Abadie et al. 2010; Abadie 2021)</span> and, as a robustness check, synthetic difference-in-differences <span class="citation" data-cites="arkhangelsky2021sdid">(Arkhangelsky et al. 2021)</span>. Cross-country controls include the capital-account openness index of <span class="citation" data-cites="chinn2006capital">Chinn and Ito (2006)</span>.</p>
+<h1 data-number="4" id="sec:framework"><span class="header-section-number">4</span> Conceptual framework</h1>
+<h2 data-number="4.1" id="sec:motives"><span class="header-section-number">4.1</span> Four motives and their fingerprints</h2>
+<p>Observed stablecoin flows on Thai rails are the sum of four motives. <em>Trading and offshore bridging</em>: residents buy USDT as collateral or as the vehicle to reach offshore derivatives. <em>Dollar saving</em>: residents hold USDT as a store of value. <em>Cross-border transfer</em>: migrant workers, traders and tourists move value across borders. <em>Illicit pass-through</em>: criminal proceeds enter as baht and leave as USDT. Each motive leaves a distinct fingerprint, summarised in <a href="#tab:motives" class="xref">Table 1</a>, and the identification strategy is to remove the first three before interpreting the residual (<a href="#fig:funnel" class="xref">Figure 2</a>).</p>
+<div class="tbl" id="tab:motives"><p class="tcap"><b>Table 1.</b> Motives for holding and moving stablecoins on Thai rails, their fingerprints and how they are tested</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Motive</th>
+<th style="text-align: left;">Fingerprint in the data</th>
+<th style="text-align: left;">Main confounder</th>
+<th style="text-align: center;">Hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Trading and offshore bridge</td>
+<td style="text-align: left;">USDT volume co-moves with crypto volatility and offshore funding rates; withdrawals go to labelled exchange hot wallets and return after gains</td>
+<td style="text-align: left;">Arbitrageurs move as fast as mules</td>
+<td style="text-align: center;">H1, H2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dollar saving</td>
+<td style="text-align: left;">Long holding periods; USDT/THB premium over the official rate rises when the baht weakens</td>
+<td style="text-align: left;">Little in Thailand (low inflation)</td>
+<td style="text-align: center;">H1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cross-border transfer</td>
+<td style="text-align: left;">Small, regular amounts; peaks after paydays and before festivals; destinations are P2P desks in neighbouring countries</td>
+<td style="text-align: left;">Tainted P2P merchants</td>
+<td style="text-align: center;">H1, H6</td>
+</tr>
+<tr>
+<td style="text-align: left;">Illicit pass-through</td>
+<td style="text-align: left;">Young accounts funded by many bank accounts; deposits structured below 50,000 baht; exits within minutes; forward paths to flagged addresses; responds to crackdowns, not prices</td>
+<td style="text-align: left;">Honest P2P dealers, camouflaged mules</td>
+<td style="text-align: center;">H3–H6</td>
+</tr>
+</tbody>
+</table></div></div>
+<figure id="fig:funnel">
+<img loading="lazy" src="figures/fig_funnel.png" />
+<figcaption><b>Figure 2.</b> Identification strategy. Observed flows are the sum of four motives. Each legitimate motive is removed using its fingerprint (grey notes) before the residual is interpreted; red labels give the pre-registered hypotheses of <a href="#sec:plan" class="xref">Section 8</a> that test each step. Box heights are schematic, not estimates.</figcaption>
+</figure>
+<h2 data-number="4.2" id="sec:bunching"><span class="header-section-number">4.2</span> Structuring at a verification notch</h2>
+<p>Consider deposits of baht onto a licensed platform. Each deposit has an intended amount <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> and funds an asset class <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>S</mi><mo>,</mo><mi>O</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">a\in\{S,O\}</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> denotes USDT and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math> any other crypto-asset. Banks require face verification for transfers of at least <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> baht. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">h_a(z)</annotation></semantics></math> be the counterfactual density of intended amounts of honest deposits funding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>, and write <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mo>∫</mo><mi>A</mi></msub><msub><mi>h</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">H_a(A)=\int_A h_a(z)\,dz</annotation></semantics></math> for the counterfactual mass in a set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>.</p>
+<p>Honest depositors whose intended amount lies in a response window <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[T,T+R)</annotation></semantics></math> relocate to a bunching window <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>−</mo><mi>δ</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[T-\delta,T)</annotation></semantics></math> with probability <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_a(z)</annotation></semantics></math>; they find the scan a hassle, or simply prefer to split the transfer. Launderers add a mass <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>a</mi></msub><annotation encoding="application/x-tex">I_a</annotation></semantics></math> of <em>structured</em> deposits placed in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>−</mo><mi>δ</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[T-\delta,T)</annotation></semantics></math> to avoid the verification step that would expose a mule’s identity. The observed excess mass below the threshold and the responding share are <span class="eq" id="eq:excess"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>a</mi></msub><mo>=</mo><msubsup><mo>∫</mo><mi>T</mi><mrow><mi>T</mi><mo>+</mo><mi>R</mi></mrow></msubsup><msub><mi>π</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><msub><mi>h</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>z</mi><mo>+</mo><msub><mi>I</mi><mi>a</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>β</mi><mi>a</mi></msub><mo>=</mo><mfrac><msub><mi>B</mi><mi>a</mi></msub><mrow><msub><mi>H</mi><mi>a</mi></msub><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>a</mi></msub><mo>+</mo><mfrac><msub><mi>I</mi><mi>a</mi></msub><mrow><msub><mi>H</mi><mi>a</mi></msub><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:excess}
+B_a=\int_T^{T+R}\pi_a(z)\,h_a(z)\,dz + I_a,
+\qquad
+\beta_a=\frac{B_a}{H_a\!\left([T,T+R)\right)}=\bar\pi_a+\frac{I_a}{H_a\!\left([T,T+R)\right)},
+\end{equation}</annotation></semantics></math><span class="eqno">(1)</span></span> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>a</mi></msub><annotation encoding="application/x-tex">\bar\pi_a</annotation></semantics></math> is the average relocation probability over the response window.</p>
+<div class="assumption">
+<p><span id="as:a1" data-label="as:a1"></span> <span class="thm-head">Assumption A1 (Asset-invariant hassle avoidance).</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi></msub><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">\bar\pi_S=\bar\pi_O</annotation></semantics></math>: the share of honest deposits intended for the response window that relocate below <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> does not depend on which asset the deposit funds.</p>
+</div>
+<div class="assumption">
+<p><span id="as:a2" data-label="as:a2"></span> <span class="thm-head">Assumption A2 (Channel specificity).</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>O</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_O=0</annotation></semantics></math>: structured deposits fund the stablecoin channel, which offers immediate, liquid exit.</p>
+</div>
+<div class="assumption">
+<p><span id="as:a3" data-label="as:a3"></span> <span class="thm-head">Assumption A3 (Smooth counterfactual).</span> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>a</mi></msub><annotation encoding="application/x-tex">h_a</annotation></semantics></math> is smooth in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">\log z</annotation></semantics></math> on a neighbourhood of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>−</mo><mi>δ</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[T-\delta,T+R)</annotation></semantics></math>, so that it is identified from the observed density outside that window, up to multiplicative round-number effects.</p>
+</div>
+<div class="proposition">
+<p><span id="prop:bunching" data-label="prop:bunching"></span> <span class="thm-head">Proposition 1 (Difference in bunching).</span> Under <a href="#as:a1" class="xref">Assumptions A1, A2 and A3</a>, <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>β</mi><mo>≡</mo><msub><mi>β</mi><mi>S</mi></msub><mo>−</mo><msub><mi>β</mi><mi>O</mi></msub><mo>=</mo><mfrac><msub><mi>I</mi><mi>S</mi></msub><mrow><msub><mi>H</mi><mi>S</mi></msub><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>≥</mo><mn>0</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">\Delta\beta\equiv\beta_S-\beta_O=\frac{I_S}{H_S\!\left([T,T+R)\right)}\geq 0,</annotation></semantics></math> with equality if and only if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>S</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_S=0</annotation></semantics></math>. The structured stablecoin volume is identified as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>S</mi></msub><mo>=</mo><mi mathvariant="normal">Δ</mi><mi>β</mi><mo>⋅</mo><msub><mi>H</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I_S=\Delta\beta\cdot H_S([T,T+R))</annotation></semantics></math>.</p>
+</div>
+<p>The proof is immediate from <a href="#eq:excess" class="xref">Equation (1)</a> and is given in <a href="#app:proofs" class="xref">Appendix C</a>. Two features matter in practice. First, the normalisation: the classic statistic divides the excess by the counterfactual density just below <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>. When the two asset classes have amount distributions of different shapes—stablecoin deposits are larger—that statistic differs across assets even when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi></msub><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">\bar\pi_S=\bar\pi_O</annotation></semantics></math>. In the simulation below, a test based on it rejected a true null in 14% of draws at a nominal 5% level; the responding share <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>β</mi><mi>a</mi></msub><annotation encoding="application/x-tex">\beta_a</annotation></semantics></math> in <a href="#eq:excess" class="xref">Equation (1)</a> reduced this to 7.5%. Second, <a href="#as:a1" class="xref">Assumption A1</a> can be relaxed. If deposits observed before the verification rule exist, the change in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>β</mi></mrow><annotation encoding="application/x-tex">\Delta\beta</annotation></semantics></math> across the rule’s introduction identifies <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>S</mi></msub><annotation encoding="application/x-tex">I_S</annotation></semantics></math> under the weaker assumption that asset-specific differences in honest bunching are stable over time.</p>
+<div class="corollary">
+<p><span id="cor:didib" data-label="cor:didib"></span> <span class="thm-head">Corollary 1 (Difference-in-difference-in-bunching).</span> If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi></msub><mo>−</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">\bar\pi_S-\bar\pi_O</annotation></semantics></math> is the same before and after the rule’s introduction and no structuring occurs at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> before it, then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msup><mi>β</mi><mtext mathvariant="normal">post</mtext></msup><mo>−</mo><mi mathvariant="normal">Δ</mi><msup><mi>β</mi><mtext mathvariant="normal">pre</mtext></msup><mo>=</mo><msubsup><mi>I</mi><mi>S</mi><mtext mathvariant="normal">post</mtext></msubsup><mi>/</mi><msubsup><mi>H</mi><mi>S</mi><mtext mathvariant="normal">post</mtext></msubsup><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta\beta^{\text{post}}-\Delta\beta^{\text{pre}}=I_S^{\text{post}}/H_S^{\text{post}}([T,T+R))</annotation></semantics></math>.</p>
+</div>
+<p>A placebo version of the test at amounts where no verification step exists (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>T</mi><mo>′</mo></msup><annotation encoding="application/x-tex">T&#39;</annotation></semantics></math> = 30,000 or 70,000 baht) provides a specification check: under correct specification <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>β</mi><mo stretchy="false" form="prefix">(</mo><msup><mi>T</mi><mo>′</mo></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta\beta(T&#39;)</annotation></semantics></math> should be zero.</p>
+<h2 data-number="4.3" id="sec:speed"><span class="header-section-number">4.3</span> Pass-through and the limits of speed</h2>
+<p>A mule account exists to move value, so the time between a baht deposit and the withdrawal of the USDT it bought—its <em>dwell time</em>—is short. But speed is shared with honest populations: arbitrageurs exploit price gaps within minutes, and peer-to-peer dealers recycle inventory quickly. The following bound formalises why a speed-only rule cannot achieve high precision when such populations exist.</p>
+<div class="lemma">
+<p><span id="lem:speed" data-label="lem:speed"></span> <span class="thm-head">Lemma 1 (Speed is not sufficient).</span> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>M</mi></msub><annotation encoding="application/x-tex">n_M</annotation></semantics></math> mule accounts and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi>F</mi></msub><annotation encoding="application/x-tex">n_F</annotation></semantics></math> honest “fast” accounts have dwell times with distribution functions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>M</mi></msub><annotation encoding="application/x-tex">G_M</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>G</mi><mi>F</mi></msub><annotation encoding="application/x-tex">G_F</annotation></semantics></math>, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G_F(t)\geq G_M(t)</annotation></semantics></math> for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> (honest fast accounts are at least as fast). For any rule that flags accounts with dwell time below a threshold <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, the expected number of flagged mules divided by the expected number of flagged accounts is at most <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>M</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>M</mi></msub><mo>+</mo><msub><mi>n</mi><mi>F</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n_M/(n_M+n_F)</annotation></semantics></math>.</p>
+</div>
+<p>In the simulated economy of <a href="#sec:sim" class="xref">Section 7</a> with 2% mules, arbitrageurs and honest dealers make the bound about 0.25; the speed-only score attains a precision of 0.12. Speed is a useful input to a score, not a test.</p>
+<h2 data-number="4.4" id="sec:direction"><span class="header-section-number">4.4</span> Exposure to flagged addresses: direction matters</h2>
+<p>Compliance systems commonly flag an account if the destination of its withdrawals lies within <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> hops of a sanctioned or frozen address. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">G=(V,E)</annotation></semantics></math> be the directed graph of transfers, with edges pointing in the direction of funds, and let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>⊂</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">F\subset V</annotation></semantics></math> be the flagged set. Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>u</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_u(v,F)</annotation></semantics></math> be the undirected distance from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mo>→</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_\to(v,F)</annotation></semantics></math> the length of the shortest <em>forward</em> path from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>. For an account <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math> with withdrawals <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> of value <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>w</mi></msub><annotation encoding="application/x-tex">x_w</annotation></semantics></math> to destinations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>v</mi><mi>w</mi></msub><annotation encoding="application/x-tex">v_w</annotation></semantics></math>, define the value-weighted exposure <span class="eq" id="eq:exposure"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>X</mi><mi>i</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msubsup><mo>=</mo><mfrac><mrow><munder><mo>∑</mo><mi>w</mi></munder><msub><mi>x</mi><mi>w</mi></msub><mspace width="0.167em"></mspace><mn>𝟏</mn><mo stretchy="false" form="prefix">{</mo><mi>d</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>v</mi><mi>w</mi></msub><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mi>k</mi><mo stretchy="false" form="postfix">}</mo></mrow><mrow><munder><mo>∑</mo><mi>w</mi></munder><msub><mi>x</mi><mi>w</mi></msub></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>d</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>d</mi><mi>u</mi></msub><mo>,</mo><msub><mi>d</mi><mo>→</mo></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:exposure}
+X_i^{(k)}=\frac{\sum_w x_w\,\mathbf{1}\{d(v_w,F)\leq k\}}{\sum_w x_w},\qquad d\in\{d_u,d_\to\}.
+\end{equation}</annotation></semantics></math><span class="eqno">(2)</span></span></p>
+<div class="proposition">
+<p><span id="prop:direction" data-label="prop:direction"></span> <span class="thm-head">Proposition 2 (Hubs and undirected distance).</span> Let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> be an exchange hot wallet that receives at least one payment from a wallet <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℓ</mi><annotation encoding="application/x-tex">\ell</annotation></semantics></math> that pays a flagged address (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>→</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">\ell\to f</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">f\in F</annotation></semantics></math>), and suppose every forward path from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> has length at least <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">m&gt;2</annotation></semantics></math>, or none exists. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>u</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d_u(h,F)\leq 2</annotation></semantics></math> while <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mo>→</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">d_\to(h,F)\geq m</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">2\le k&lt;m</annotation></semantics></math>, every account that withdraws only to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X^{(k)}=1</annotation></semantics></math> under undirected distance and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X^{(k)}=0</annotation></semantics></math> under forward distance.</p>
+</div>
+<p>Large exchanges receive deposits from criminals cashing out, so in real data almost every exchange hot wallet satisfies the premise. Because Thai residents who bridge to offshore venues withdraw to exactly these wallets, the undirected rule generates false positives on the population that is largest and least suspicious. Forward distance removes this artefact but not <em>taint contagion</em>: an honest remitter who pays a peer-to-peer merchant that later pays a layering wallet is exposed under both definitions, which motivates value weighting and the combination with behavioural signals.</p>
+<h2 data-number="4.5" id="sec:displacement"><span class="header-section-number">4.5</span> Displacement across channels</h2>
+<p>Why might a crackdown leave no trace in chain-wide data? Suppose a laundering network must move a fixed volume <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> of proceeds through channels <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j\in J</annotation></semantics></math>—for example licensed-exchange mule accounts (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>), peer-to-peer desks (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>) and over-the-counter underground bankers (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>)—with strictly convex costs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">c_j(q_j)</annotation></semantics></math>. Enforcement raises the marginal cost of channel <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math> by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>. The network solves <span class="eq" id="eq:channels"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mi mathvariant="normal">min</mi><mrow><mo stretchy="false" form="prefix">{</mo><msub><mi>q</mi><mi>j</mi></msub><mo>≥</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo></mrow></munder><mspace width="0.222em"></mspace><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow></munder><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>τ</mi><msub><mi>q</mi><mi>E</mi></msub><mspace width="1.0em"></mspace><mtext mathvariant="normal">subject to</mtext><mspace width="1.0em"></mspace><munder><mo>∑</mo><mrow><mi>j</mi><mo>∈</mo><mi>J</mi></mrow></munder><msub><mi>q</mi><mi>j</mi></msub><mo>=</mo><mi>M</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\begin{equation}
+\label{eq:channels}
+\min_{\{q_j\geq0\}}\ \sum_{j\in J}c_j(q_j)+\tau q_E\quad\text{subject to}\quad\sum_{j\in J}q_j=M .
+\end{equation}</annotation></semantics></math><span class="eqno">(3)</span></span></p>
+<div class="proposition">
+<p><span id="prop:displacement" data-label="prop:displacement"></span> <span class="thm-head">Proposition 3 (Displacement).</span> At an interior optimum, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><msub><mi>q</mi><mi>E</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>ω</mi><mi>E</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>c</mi><msup><mi>E</mi><mo>″</mo></msup></msub><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\partial q_E/\partial\tau=-(1-\omega_E)/c_E&#39;&#39;&lt;0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><msub><mi>ω</mi><mi>E</mi></msub><mi>/</mi><msub><mi>c</mi><msup><mi>j</mi><mo>″</mo></msup></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\partial q_j/\partial\tau=\omega_E/c_j&#39;&#39;&gt;0</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≠</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">j\neq E</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>E</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>c</mi><msup><mi>E</mi><mo>″</mo></msup></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mo>∑</mo><mrow><mi>l</mi><mo>∈</mo><mi>J</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><msub><mi>c</mi><msup><mi>l</mi><mo>″</mo></msup></msub><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\omega_E=(1/c_E&#39;&#39;)/\sum_{l\in J}(1/c_l&#39;&#39;)\in(0,1)</annotation></semantics></math>. Total flow is unchanged: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_j\partial q_j/\partial\tau=0</annotation></semantics></math>.</p>
+</div>
+<div class="corollary">
+<p><span id="cor:invisible" data-label="cor:invisible"></span> <span class="thm-head">Corollary 2 (Invisible crackdowns).</span> If all channels terminate in the same on-chain asset, an enforcement shock that leaves <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> unchanged has no first-order effect on chain-level volume. If <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> responds through deterrence, the effect on chain-level volume is bounded by the network’s share of that volume.</p>
+</div>
+<p><a href="#cor:invisible" class="xref">Corollary 2</a> is the theoretical counterpart of the event-study result in <a href="#sec:eventstudy" class="xref">Section 6.5</a>. It also says where to look instead: the composition of flows—the share of fast, structured deposits on licensed platforms, the peer-to-peer premium, the network mix—moves even when the total does not.</p>
+<h2 data-number="4.6" id="sec:typology"><span class="header-section-number">4.6</span> Typology and control points</h2>
+<p><a href="#fig:typology" class="xref">Figure 3</a> summarises, at the level of generality used by the FATF and UNODC, the path of fraud proceeds and the points at which Thai institutions can intervene. The conversion step is the boundary: before it, funds sit in the domestic banking system where they can be frozen quickly; after it, they move on a public ledger where they can be traced indefinitely and, for USDT, frozen by the issuer.</p>
+<figure id="fig:typology">
+<img loading="lazy" src="figures/fig_typology.png" />
+<figcaption><b>Figure 3.</b> Laundering typology for fraud proceeds and the corresponding control points, at the level of generality of FATF and UNODC typologies. The description is deliberately non-operational. Stage 2 is where funds leave the banking system and where data held by Thai exchanges can observe them.</figcaption>
+</figure>
+<h1 data-number="5" id="sec:data"><span class="header-section-number">5</span> Data</h1>
+<p>The empirical sections use only data that anyone can download; the pre-registered plan specifies the additional data that would be needed. <a href="#tab:data" class="xref">Table 2</a> lists the sources. All files were retrieved on 8 November 2026 through the collectors in the replication package, which record the URL, retrieval time, size and SHA-256 hash of every file in a manifest (<a href="#app:data" class="xref">Appendix A</a>).</p>
+<div class="tbl" id="tab:data"><p class="tcap"><b>Table 2.</b> Data sources used in this paper</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Source</th>
+<th style="text-align: left;">Content and coverage</th>
+<th style="text-align: left;">Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Coin Metrics Community Data <span class="citation" data-cites="coinmetrics2026">(Coin Metrics 2026)</span></td>
+<td style="text-align: left;">Daily on-chain metrics by asset and chain: supply, addresses with a balance, active addresses, transfer counts. USDT on Tron (from 2019), Ethereum (2017), Omni and Avalanche; USDC on Ethereum and Tron; through 23 May 2026</td>
+<td style="text-align: left;">Rails, clienteles, USDC exit, event studies</td>
+</tr>
+<tr>
+<td style="text-align: left;">Federal Reserve H.10 <span class="citation" data-cites="fred2026h10">(Board of Governors of the Federal Reserve System 2026)</span></td>
+<td style="text-align: left;">Daily noon buying rates for 22 currencies including the baht, through 30 October 2026</td>
+<td style="text-align: left;">Exchange-rate volatility</td>
+</tr>
+<tr>
+<td style="text-align: left;">World Bank FP.CPI.TOTL.ZG <span class="citation" data-cites="worldbank2026cpi">(World Bank 2026)</span></td>
+<td style="text-align: left;">Annual consumer-price inflation; Thailand to 2023</td>
+<td style="text-align: left;">Macro motive</td>
+</tr>
+<tr>
+<td style="text-align: left;">OFAC SDN digital-currency addresses <span class="citation" data-cites="ofac2026sdn">(Office of Foreign Assets Control 2026)</span></td>
+<td style="text-align: left;">1,073 addresses under 17 currency tags; mirror updated 7 November 2026</td>
+<td style="text-align: left;">Address formats on sanctions lists</td>
+</tr>
+<tr>
+<td style="text-align: left;">Author’s event compilation</td>
+<td style="text-align: left;">16 dated policy and enforcement events, 2022–2025</td>
+<td style="text-align: left;">Timeline, event windows</td>
+</tr>
+</tbody>
+</table></div></div>
+<h4 data-number="5.0.0.1" id="coverage-of-on-chain-data"><span class="header-section-number">5.0.0.1</span> Coverage of on-chain data</h4>
+<p>The community files cover four USDT chains whose combined supply on 23 May 2026 was US$189 billion, against US$193 billion in Coin Metrics’ cross-chain USDT aggregate. Chains absent from the community files, notably TON, Solana and BNB Chain, are excluded from chain-level comparisons; shares reported for Tron are therefore shares of the covered supply. The community files do not contain transfer values, only counts, so I measure turnover as transfers per dollar of supply rather than as value velocity.</p>
+<h4 data-number="5.0.0.2" id="a-data-quality-finding"><span class="header-section-number">5.0.0.2</span> A data-quality finding</h4>
+<p>The widely mirrored <code>datasets/inflation</code> package labels its two files the wrong way round: the file named for the GDP deflator contains consumer-price inflation and vice versa. I detected the transposition by checking known values—Thailand’s consumer-price inflation in 2022 was 6.1%, U.S. inflation 8.0%, Türkiye’s 72.3%—and use the corrected file throughout. The World Bank series omits Argentina and Venezuela, and it reports Myanmar only to 2019; the figures mark sparse series explicitly.</p>
+<h4 data-number="5.0.0.3" id="sanctions-data"><span class="header-section-number">5.0.0.3</span> Sanctions data</h4>
+<p>OFAC tags digital-currency addresses by currency rather than by chain. I classify each address by its encoding (Tron base58 addresses begin with “T” and have 34 characters; EVM addresses are 42-character hexadecimal strings beginning with “0x”), which identifies the chain on which a USDT address operates. The classification describes the list, not the volume of sanctioned activity.</p>
+<h4 data-number="5.0.0.4" id="what-is-not-used"><span class="header-section-number">5.0.0.4</span> What is not used</h4>
+<p>The paper does not use proprietary attribution data, exchange account records or police case files, and it does not de-anonymise any address. The collectors for exchange order books and TronGrid transfers in the replication package were not executed in the environment in which the paper was compiled, because those services were not reachable from it; they are provided for researchers who obtain access.</p>
+<h1 data-number="6" id="sec:evidence"><span class="header-section-number">6</span> Evidence from public data</h1>
+<h2 data-number="6.1" id="sec:rails"><span class="header-section-number">6.1</span> USDT on Tron is a retail dollar rail</h2>
+<p><a href="#fig:supply" class="xref">Figure 4</a> shows the migration of USDT onto Tron. At the end of 2019 Tron carried 19% of the USDT supply on the covered chains; by mid-2021 it carried half, and on 23 May 2026 it carried 47% (US$89 billion) against 51% on Ethereum (US$97 billion). The share has oscillated around one half since 2021, so “Tron versus Ethereum” is not a story of one chain displacing the other but of two rails of similar size.</p>
+<figure id="fig:supply">
+<img loading="lazy" src="figures/fig_rails_supply.png" />
+<figcaption><b>Figure 4.</b> USDT supply by blockchain. Top: US$ billions, stacked. Bottom: Tron’s share of the covered supply.</figcaption>
+</figure>
+<p>The two rails serve different clienteles. <a href="#tab:onchain" class="xref">Table 3</a> reports a snapshot and <a href="#fig:tworails" class="xref">Figure 5</a> the history. On 23 May 2026, 74.5 million addresses held USDT on Tron, 5.3 times the 14.0 million on Ethereum, and the mean balance per holding address was about US$1,200 against about US$6,900. Tron recorded 2.1 million USDT transfers that day, 3.1 times Ethereum’s 0.67 million, with less supply. Measured as transfers per US$1 million of supply—a count-based turnover rate—Tron’s median since January 2024 is 32 a day, 9.3 times that of USDT on Ethereum (3.4) and 6.7 times that of USDC on Ethereum (4.8). Small balances turned over often are the signature of a payments rail; large balances turned over rarely are the signature of a settlement and treasury rail.</p>
+<div class="threeparttable">
+<div class="tbl" id="tab:onchain"><p class="tcap"><b>Table 3.</b> On-chain snapshot of the main dollar-stablecoin rails, 23 May 2026</p><div class="tscroll"><table>
+<tbody>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">Supply</td>
+<td style="text-align: right;">1-yr</td>
+<td style="text-align: right;">Holders</td>
+<td style="text-align: right;">1-yr</td>
+<td style="text-align: right;">Active</td>
+<td style="text-align: right;">Transfers</td>
+<td style="text-align: right;">Mean</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">US$bn</td>
+<td style="text-align: right;">%</td>
+<td style="text-align: right;">m</td>
+<td style="text-align: right;">%</td>
+<td style="text-align: right;">k/day</td>
+<td style="text-align: right;">k/day</td>
+<td style="text-align: right;">balance US$</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT on Tron</td>
+<td style="text-align: right;">89.36</td>
+<td style="text-align: right;">+21</td>
+<td style="text-align: right;">74.49</td>
+<td style="text-align: right;">+13</td>
+<td style="text-align: right;">941</td>
+<td style="text-align: right;">2,071</td>
+<td style="text-align: right;">1,200</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT on Ethereum</td>
+<td style="text-align: right;">97.07</td>
+<td style="text-align: right;">+33</td>
+<td style="text-align: right;">14.01</td>
+<td style="text-align: right;">+83</td>
+<td style="text-align: right;">212</td>
+<td style="text-align: right;">667</td>
+<td style="text-align: right;">6,926</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDC on Ethereum</td>
+<td style="text-align: right;">52.72</td>
+<td style="text-align: right;">+31</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">+118</td>
+<td style="text-align: right;">118</td>
+<td style="text-align: right;">505</td>
+<td style="text-align: right;">7,543</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDC on Tron</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">-30</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">+0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">74</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> Supply in US$ billions; holders are addresses with a positive balance (millions); active addresses and transfers are daily counts (thousands); 1-yr columns give percentage changes over 365 days. Mean balance is supply divided by holders. Source: Coin Metrics Community Data; author’s calculations.</p>
+</div>
+</div>
+<figure id="fig:tworails">
+<img loading="lazy" src="figures/fig_two_rails.png" />
+<figcaption><b>Figure 5.</b> Holders, mean balances and turnover of USDT on Tron and Ethereum and of USDC on Ethereum. 30-day rolling medians; the middle and right panels use logarithmic scales.</figcaption>
+</figure>
+<p>Two caveats apply. An address is not a person: exchanges hold customer funds in omnibus wallets, and individuals hold many addresses. Both biases are, if anything, larger on Tron, where exchanges custody much of the retail float and address creation is cheap, so the comparison of balances per address is indicative rather than exact. The turnover comparison does not depend on address counts and is the more robust of the two.</p>
+<h2 data-number="6.2" id="sec:usdcexit"><span class="header-section-number">6.2</span> Circle’s exit left the cheapest rail to a single issuer</h2>
+<p>USDC on Tron grew to US$3.5 billion in August 2022 and then shrank. After Circle announced that it would stop minting USDC on Tron in early 2024, supply fell below US$30 million (<a href="#fig:usdcexit" class="xref">Figure 6</a>). For users in Southeast Asia who need a cheap, liquid dollar token, USDT on Tron is now, in practice, the only option at scale. This concentration cuts both ways for enforcement: one issuer with the technical ability to freeze tokens sits on the main rail, but regulatory regimes that would restrict USDT, such as the European Union’s, have no regional substitute to push users towards.</p>
+<figure id="fig:usdcexit">
+<img loading="lazy" src="figures/fig_usdc_exit.png" />
+<figcaption><b>Figure 6.</b> USDC and USDT supply on the Tron blockchain, logarithmic scale. The shaded band marks the approximate wind-down period.</figcaption>
+</figure>
+<h2 data-number="6.3" id="sec:macro"><span class="header-section-number">6.3</span> Thailand has little macroeconomic reason to hold dollars on-chain</h2>
+<p>Where inflation is high, currencies are volatile or capital is controlled, people hold dollar stablecoins for reasons that have nothing to do with crime. <a href="#fig:macro" class="xref">Figure 7</a> shows that Thailand is not such a place. Its consumer-price inflation averaged 1.7% a year over 2019–2023, the fourth lowest of 23 economies after Japan, China and Malaysia. The baht’s volatility against the dollar since January 2021, 7.8% a year, is in the middle of the 21 currencies in the Federal Reserve’s H.10 release—below the yen, the won and the Australian dollar.</p>
+<p>The neighbourhood is different. Inflation averaged 14.9% in Laos over 2019–2024 and was 8.8% in Myanmar in 2019, the last year the World Bank reports, before a period of currency collapse and capital controls. Cambodia is largely dollarised already. Legitimate dollar demand on the other side of Thailand’s borders can and plausibly does flow through Thai platforms and peer-to-peer markets, especially given the millions of migrant workers from these countries in Thailand. This is the most important legitimate confounder for any claim that Thai stablecoin flows are “excessive”, and the pre-registered plan treats it as such (H1 and H6 in <a href="#tab:prereg" class="xref">Table 8</a>).</p>
+<figure id="fig:macro">
+<img loading="lazy" src="figures/fig_macro.png" />
+<figcaption><b>Figure 7.</b> (a) Consumer-price inflation, mean of available years 2019–2024 (dot) and range (bar); hollow markers denote fewer than three observations. (b) Annualised volatility of daily log changes in each currency’s exchange rate against the US dollar, January 2021 to October 2026.</figcaption>
+</figure>
+<h2 data-number="6.4" id="sec:ofac"><span class="header-section-number">6.4</span> Sanctions lists point to Tron</h2>
+<p><a href="#tab:ofac" class="xref">Table 4</a> classifies the 1,073 digital-currency addresses on the OFAC list by the currency tag OFAC assigns and by address encoding. Of the 368 addresses tagged USDT, TRX or USDC, 351 (95%) are Tron addresses; among the 94 tagged USDT, 79 are Tron addresses, eight are Ethereum-style addresses and seven are Bitcoin-style addresses that operated on the legacy Omni layer. Counts of listed addresses are a crude measure: one listing can cover a single wallet or the hub of a large network, and listings reflect enforcement priorities. They nonetheless confirm that, for the authority with the most active crypto-sanctions programme, the stablecoin activity worth sanctioning happens mainly on Tron.</p>
+<div class="threeparttable">
+<div class="tbl" id="tab:ofac"><p class="tcap"><b>Table 4.</b> OFAC-listed digital-currency addresses by currency tag and address encoding</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Listed under</th>
+<th style="text-align: right;">Bitcoin</th>
+<th style="text-align: right;">EVM (0x…)</th>
+<th style="text-align: right;">Other</th>
+<th style="text-align: right;">Tron (T…)</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">XBT</td>
+<td style="text-align: right;">531</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">532</td>
+</tr>
+<tr>
+<td style="text-align: left;">TRX</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">272</td>
+<td style="text-align: right;">272</td>
+</tr>
+<tr>
+<td style="text-align: left;">ETH</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">123</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">94</td>
+</tr>
+<tr>
+<td style="text-align: left;">LTC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr>
+<td style="text-align: left;">XMR</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">BCH</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">DASH</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> The eight currency tags with the most listed addresses; the remaining nine tags hold 34 addresses. Encoding is inferred from address syntax. Source: OFAC SDN list via the <code>0xB10C</code> mirror, updated 7 November 2026; author’s classification.</p>
+</div>
+</div>
+<h2 data-number="6.5" id="sec:eventstudy"><span class="header-section-number">6.5</span> What chain-wide data cannot do</h2>
+<p>It is tempting to evaluate crackdowns with the free data used above. For each of three shocks dated to the day—the power cut to border scam hubs on 5 February 2025, the block on unlicensed offshore exchanges on 28 June 2025 and the Prince Group sanctions on 14 October 2025—I estimate a counterfactual for the log of daily Tron USDT transfers from a linear trend with day-of-week effects fitted over days <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>150</mn></mrow><annotation encoding="application/x-tex">-150</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>31</mn></mrow><annotation encoding="application/x-tex">-31</annotation></semantics></math>, and cumulate abnormal activity over days 0 to 30. Bands come from a moving-block bootstrap (14-day blocks) that redraws both the estimation residuals, so that the uncertainty of the extrapolated trend is included, and the future shocks.</p>
+<figure id="fig:eventstudy">
+<img loading="lazy" src="figures/fig_event_study.png" />
+<figcaption><b>Figure 8.</b> Top: cumulative abnormal log transfers of USDT on Tron after three enforcement shocks, with moving-block bootstrap 95% bands; grey dots are daily abnormal values before the event. Bottom: distribution of the 30-day cumulative abnormal value at 149 placebo dates at least 45 days from any of the three shocks.</figcaption>
+</figure>
+<p><a href="#fig:eventstudy" class="xref">Figure 8</a> reports the result. Two of the three shocks appear “significant” with opposite signs: after the offshore block, activity falls below the band (cumulative abnormal value <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>2.83</mn></mrow><annotation encoding="application/x-tex">-2.83</annotation></semantics></math> log points by day 30); after the sanctions it rises above it (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>2.54</mn></mrow><annotation encoding="application/x-tex">+2.54</annotation></semantics></math>). The bottom panel shows why neither should be believed. Repeating the exercise at 149 placebo dates spaced a week apart, the nominal bands exclude zero at 58% of them. Chain-wide activity is driven by global market events—the sanctions date, for instance, falls days after one of the largest liquidation episodes in crypto history—and by structural breaks that no trend model anticipates. Calibrated against the placebo distribution, the shocks have <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values of 1.00, 0.69 and 0.73. The 95th percentile of the absolute placebo values is 11.1 log points, so a shock would have to move global Tron USDT activity by about 36 log points a day, sustained for a month, to stand out. A national crackdown cannot plausibly do that, and by <a href="#prop:displacement" class="xref">Proposition 3</a> it need not change the total at all.</p>
+<p>The lesson is general. Evaluations of anti-laundering policy that rely on chain-wide aggregates, or on any series dominated by global activity, should report placebo-calibrated inference, and null results from such data say little about whether a policy worked. Credible evaluation needs data on the composition of flows through the channel that the policy targets.</p>
+<h1 data-number="7" id="sec:sim"><span class="header-section-number">7</span> Detection design and simulation evidence</h1>
+<p>No public dataset links Thai exchange accounts to criminal outcomes, and the data that do exist cannot be shared. To learn how the estimators of <a href="#sec:framework" class="xref">Section 4</a> behave before such data are available, I simulate exchange-years in which the truth is known. The simulator is a method-validation device: it is built to make detection <em>hard</em>, its parameters are stylised rather than calibrated to any proprietary dataset, and none of its outputs is evidence about real markets.</p>
+<h2 data-number="7.1" id="sec:simdesign"><span class="header-section-number">7.1</span> The simulated economy</h2>
+<p>Each draw simulates 8,000 accounts on one licensed platform over 365 days. An account generates <em>cycles</em>: a baht deposit, the purchase it funds and, possibly, an on-chain withdrawal. Honest accounts belong to five populations that embody the legitimate motives of <a href="#sec:motives" class="xref">Section 4.1</a>; <a href="#tab:populations" class="xref">Table 5</a> summarises them and <a href="#app:simparams" class="xref">Appendix B</a> lists every parameter.</p>
+<div class="threeparttable">
+<div class="tbl" id="tab:populations"><p class="tcap"><b>Table 5.</b> Populations in the simulated exchange-year</p><div class="tscroll"><table>
+<tbody>
+<tr>
+<td style="text-align: left;">Population</td>
+<td style="text-align: center;">Share</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">deposit (THB)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">exit</td>
+<td style="text-align: center;">Distinguishing behaviour</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Domestic traders</td>
+<td style="text-align: center;">53%</td>
+<td style="text-align: center;">4,000</td>
+<td style="text-align: center;">3 days</td>
+<td style="text-align: left;">Mostly non-stablecoin purchases; rarely withdraw</td>
+</tr>
+<tr>
+<td style="text-align: left;">Offshore bridge traders</td>
+<td style="text-align: center;">21%</td>
+<td style="text-align: center;">20,000</td>
+<td style="text-align: center;">20 min</td>
+<td style="text-align: left;">90% USDT; withdraw to exchange hot wallets; 15% are arbitrageurs exiting in about 5 min</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cross-border remitters</td>
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">6,000</td>
+<td style="text-align: center;">6 hours</td>
+<td style="text-align: left;">Small regular USDT purchases forwarded to P2P merchants abroad, 10% of whom are tainted</td>
+</tr>
+<tr>
+<td style="text-align: left;">Holders</td>
+<td style="text-align: center;">13%</td>
+<td style="text-align: center;">15,000</td>
+<td style="text-align: center;">30 days</td>
+<td style="text-align: left;">Buy USDT and keep it on the platform</td>
+</tr>
+<tr>
+<td style="text-align: left;">Honest P2P merchants</td>
+<td style="text-align: center;">3%</td>
+<td style="text-align: center;">30,000</td>
+<td style="text-align: center;">15 min</td>
+<td style="text-align: left;">Many counterparties (70% of deposits from new bank accounts); fast exits</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mules</td>
+<td style="text-align: center;">0.25–4%</td>
+<td style="text-align: center;">structured</td>
+<td style="text-align: center;">3–90 min</td>
+<td style="text-align: left;">Draw their own tradecraft; 40% camouflaged on rented aged accounts with pre-layered funding</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> Shares of honest accounts are normalised to sum to one; mules are added at the stated share of all accounts. 35% of honest deposits intended for 50,000–62,500 baht relocate just below 50,000 baht in every population (<a href="#as:a1" class="xref">Assumption A1</a>). Amounts heap at multiples of 1,000 (30% of deposits) and 5,000 baht (12%).</p>
+</div>
+</div>
+<p>Mules differ from honest accounts on several dimensions at once, but never on all of them. Each mule draws its own exit speed (log-uniform between 3 and 90 minutes), its propensity to structure deposits into the 40,000–50,000-baht band (20–90%) and its share of deposits from fresh bank accounts (40–95%). Forty per cent are <em>camouflaged</em>: they operate rented accounts opened up to three years earlier, receive pre-layered funds from one or two bank accounts, structure little, exit no faster than 30 minutes and route half their withdrawals through exchange hot wallets.</p>
+<p>The transaction graph contains 60 flagged addresses, 400 layering wallets, 20 exchange hot wallets and 200 peer-to-peer merchants, plus a personal wallet per account and consolidation wallets for mules. Blacklists are incomplete by design: half of the layering wallets pay a flagged address directly, a fifth do so through another layering wallet and the rest belong to infrastructure nobody has flagged. Forty per cent of layering wallets cash out through exchange hot wallets, which therefore sit two undirected hops from a flagged address—the premise of <a href="#prop:direction" class="xref">Proposition 2</a>.</p>
+<h2 data-number="7.2" id="estimators-and-evaluation"><span class="header-section-number">7.2</span> Estimators and evaluation</h2>
+<p>The bunching-difference test uses 1,000-baht bins between 10,000 and 110,000 baht, an exclusion window from 45,000 to 65,000 baht, a Poisson counterfactual that is cubic in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>z</mi><mi>/</mi><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(z/T)</annotation></semantics></math> with multiplicative round-number effects, and a Poisson bootstrap with 200 replications. The dwell score is an account’s mean posterior probability of belonging to the fastest component of a BIC-selected Gaussian mixture on log dwell times. Exposure is <a href="#eq:exposure" class="xref">Equation (2)</a> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k=2</annotation></semantics></math> on the undirected graph and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">k=3</annotation></semantics></math> on the directed graph. The red-flag composite averages the percentile ranks of eight indicators adapted from the FATF’s red flags <span class="citation" data-cites="fatf2020redflags">(Financial Action Task Force 2020)</span>: account youth, funding fan-in, stablecoin share, fast exits, deposits near the threshold, unlabelled destinations, daytime activity and directed exposure. The isolation forest uses the same indicators. “Behaviour” variants drop the exposure indicator, mimicking an exchange without blockchain-analytics data.</p>
+<p>Because mules are rare, I report the area under the ROC curve (AUC) and <em>precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math></em>, the share of mules among the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> highest-scored accounts when <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> equals the number of mules. Precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> is what a compliance team with capacity to review <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> accounts experiences; AUC averages over thresholds nobody uses. For tests, I report size (the rejection rate when no mules exist) and power.</p>
+<h2 data-number="7.3" id="results"><span class="header-section-number">7.3</span> Results</h2>
+<h4 data-number="7.3.0.1" id="structuring-is-visible-as-a-difference"><span class="header-section-number">7.3.0.1</span> Structuring is visible as a difference</h4>
+<p><a href="#fig:bunching" class="xref">Figure 9</a> shows one simulated exchange-year with 2% mules. Both channels bunch below the threshold because every population avoids the scan: the responding share is 0.34 for deposits funding other assets, close to the true honest response of 0.35, and 0.51 for deposits funding USDT. The difference, 0.17 (s.e. 0.06), rejects the null of no structuring with a one-sided <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value of 0.001. Across the Monte Carlo (<a href="#tab:mc" class="xref">Table 6</a>, Panel C), the test rejects in 7.5% of 200 null draws at a nominal 5% level and in 10%, 30%, 38%, 88% and 100% of draws as the mule share rises from 0.25% to 4%. The mild over-rejection reflects a bootstrap standard error about 12% smaller than the Monte Carlo standard deviation; the plan therefore pairs the test with placebo thresholds. Because the standard error scales with the square root of the number of deposits near the threshold, a platform with a hundred times the simulated activity would detect a structuring share an order of magnitude smaller.</p>
+<figure id="fig:bunching">
+<img loading="lazy" src="figures/fig_bunching.png" />
+<figcaption><b>Figure 9.</b> Deposit amounts near the 50,000-baht face-verification threshold in one simulated exchange-year with 2% mule accounts, by the asset the deposit funds. Dashed lines are counterfactual densities fitted outside the shaded window; coloured bars are the excess mass. <em>Simulated data.</em></figcaption>
+</figure>
+<h4 data-number="7.3.0.2" id="speed-cannot-separate-mules-from-honest-fast-traders"><span class="header-section-number">7.3.0.2</span> Speed cannot separate mules from honest fast traders</h4>
+<p><a href="#fig:dwellroc" class="xref">Figure 10</a>(a) shows why. Arbitrageurs exit faster than most mules, and honest peer-to-peer merchants exit as fast as camouflaged ones. A speed-only score reaches an AUC of 0.83 but a precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> of only 0.06–0.21 (<a href="#tab:mc" class="xref">Table 6</a>), consistent with the bound of <a href="#lem:speed" class="xref">Lemma 1</a>. Panel (b) shows the trade-off at the low false-positive rates that matter in practice.</p>
+<figure id="fig:dwellroc">
+<img loading="lazy" src="figures/fig_dwell_roc.png" />
+<figcaption><b>Figure 10.</b> (a) Kernel densities of the time from deposit to on-chain withdrawal by population, logarithmic scale. (b) ROC curves of five detectors in the same simulated exchange-year; the horizontal axis is logarithmic above 1%. <em>Simulated data.</em></figcaption>
+</figure>
+<h4 data-number="7.3.0.3" id="direction-matters"><span class="header-section-number">7.3.0.3</span> Direction matters</h4>
+<p>The undirected two-hop rule flags every bridge trader and honest merchant, because their withdrawals go to exchange hot wallets that sit, on average, 2.05 undirected hops from a flagged address (<a href="#fig:galaxy" class="xref">Figure 11</a>). Its precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> is 0.02–0.06 at every prevalence—the worst of all detectors—even though its AUC of 0.77 looks respectable. Following funds forward removes this artefact: directed exposure reaches an AUC of 0.98. Its precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>, however, rises only from 0.02 to 0.86 as prevalence grows, because honest remitters who use one of the tainted merchants are fully exposed and tie with mules at the top of the ranking. This is taint contagion, and it is the reason exposure should be one input to a score rather than a verdict.</p>
+<figure id="fig:galaxy">
+<img loading="lazy" src="figures/fig_galaxy.png" />
+<figcaption><b>Figure 11.</b> A sample of the simulated transaction graph. Nodes are placed on rings by their forward distance to the nearest flagged address and grouped by type; blue lines are payments into exchange hot wallets. <em>Simulated data.</em></figcaption>
+</figure>
+<h4 data-number="7.3.0.4" id="layered-evidence-holds-up"><span class="header-section-number">7.3.0.4</span> Layered evidence holds up</h4>
+<p>Scores that combine behaviour and exposure dominate (<a href="#fig:power" class="xref">Figure 12</a> and <a href="#tab:mc" class="xref">Table 6</a>). The isolation forest on all indicators attains a precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> of 0.78 at the lowest prevalence and 0.90–0.92 from 1% upwards; without the exposure indicator it attains 0.70–0.83, so blockchain intelligence adds roughly eight to ten points of precision. The transparent red-flag composite is less precise (about 0.60 at every prevalence) but each of its components can be explained to an account holder or a court, a property that matters when accounts are frozen.</p>
+<figure id="fig:power">
+<img loading="lazy" src="figures/fig_power.png" />
+<figcaption><b>Figure 12.</b> Monte Carlo summary. (a) Precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> by detector and mule share (50 exchange-years per cell). (b) Rejection rate of the bunching-difference test (200 draws under the null). (c) Rejection rate of synthetic control by true effect size (200 country panels per effect). <em>Simulated data.</em></figcaption>
+</figure>
+<div class="threeparttable">
+<div class="tbl" id="tab:mc"><p class="tcap"><b>Table 6.</b> Monte Carlo performance of detectors and of the bunching-difference test</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th colspan="5" style="text-align: center;">Share of accounts that are mules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><span>2-6</span> Detector</td>
+<td style="text-align: center;">0.25%</td>
+<td style="text-align: center;">0.5%</td>
+<td style="text-align: center;">1%</td>
+<td style="text-align: center;">2%</td>
+<td style="text-align: center;">4%</td>
+</tr>
+<tr>
+<td colspan="6" style="text-align: left;"><em>Panel A. Area under the ROC curve</em></td>
+</tr>
+<tr>
+<td style="text-align: left;">Undirected 2-hop exposure</td>
+<td style="text-align: center;">0.774</td>
+<td style="text-align: center;">0.775</td>
+<td style="text-align: center;">0.775</td>
+<td style="text-align: center;">0.773</td>
+<td style="text-align: center;">0.775</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dwell time only</td>
+<td style="text-align: center;">0.826</td>
+<td style="text-align: center;">0.827</td>
+<td style="text-align: center;">0.828</td>
+<td style="text-align: center;">0.829</td>
+<td style="text-align: center;">0.827</td>
+</tr>
+<tr>
+<td style="text-align: left;">Directed 3-hop exposure</td>
+<td style="text-align: center;">0.981</td>
+<td style="text-align: center;">0.981</td>
+<td style="text-align: center;">0.980</td>
+<td style="text-align: center;">0.981</td>
+<td style="text-align: center;">0.982</td>
+</tr>
+<tr>
+<td style="text-align: left;">Red-flag composite, behaviour</td>
+<td style="text-align: center;">0.958</td>
+<td style="text-align: center;">0.960</td>
+<td style="text-align: center;">0.959</td>
+<td style="text-align: center;">0.960</td>
+<td style="text-align: center;">0.959</td>
+</tr>
+<tr>
+<td style="text-align: left;">Red-flag composite, all</td>
+<td style="text-align: center;">0.982</td>
+<td style="text-align: center;">0.982</td>
+<td style="text-align: center;">0.982</td>
+<td style="text-align: center;">0.983</td>
+<td style="text-align: center;">0.982</td>
+</tr>
+<tr>
+<td style="text-align: left;">Isolation forest, behaviour</td>
+<td style="text-align: center;">0.996</td>
+<td style="text-align: center;">0.997</td>
+<td style="text-align: center;">0.997</td>
+<td style="text-align: center;">0.997</td>
+<td style="text-align: center;">0.995</td>
+</tr>
+<tr>
+<td style="text-align: left;">Isolation forest, all</td>
+<td style="text-align: center;">0.999</td>
+<td style="text-align: center;">0.999</td>
+<td style="text-align: center;">0.999</td>
+<td style="text-align: center;">0.999</td>
+<td style="text-align: center;">0.999</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Undirected 2-hop exposure</td>
+<td style="text-align: center;">0.02</td>
+<td style="text-align: center;">0.02</td>
+<td style="text-align: center;">0.03</td>
+<td style="text-align: center;">0.05</td>
+<td style="text-align: center;">0.06</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dwell time only</td>
+<td style="text-align: center;">0.06</td>
+<td style="text-align: center;">0.07</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0.12</td>
+<td style="text-align: center;">0.21</td>
+</tr>
+<tr>
+<td style="text-align: left;">Directed 3-hop exposure</td>
+<td style="text-align: center;">0.02</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0.45</td>
+<td style="text-align: center;">0.71</td>
+<td style="text-align: center;">0.86</td>
+</tr>
+<tr>
+<td style="text-align: left;">Red-flag composite, behaviour</td>
+<td style="text-align: center;">0.58</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.60</td>
+</tr>
+<tr>
+<td style="text-align: left;">Red-flag composite, all</td>
+<td style="text-align: center;">0.59</td>
+<td style="text-align: center;">0.61</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">0.60</td>
+</tr>
+<tr>
+<td style="text-align: left;">Isolation forest, behaviour</td>
+<td style="text-align: center;">0.70</td>
+<td style="text-align: center;">0.76</td>
+<td style="text-align: center;">0.80</td>
+<td style="text-align: center;">0.83</td>
+<td style="text-align: center;">0.81</td>
+</tr>
+<tr>
+<td style="text-align: left;">Isolation forest, all</td>
+<td style="text-align: center;">0.78</td>
+<td style="text-align: center;">0.84</td>
+<td style="text-align: center;">0.90</td>
+<td style="text-align: center;">0.92</td>
+<td style="text-align: center;">0.92</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Rejection rate at 5%</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0.30</td>
+<td style="text-align: center;">0.38</td>
+<td style="text-align: center;">0.88</td>
+<td style="text-align: center;">1.00</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mean <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mrow><mi mathvariant="normal">U</mi><mi mathvariant="normal">S</mi><mi mathvariant="normal">D</mi><mi mathvariant="normal">T</mi></mrow></msub><mo>−</mo><msub><mover><mi>β</mi><mo accent="true">̂</mo></mover><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\hat\beta_{\mathrm{USDT}}-\hat\beta_{\mathrm{other}}</annotation></semantics></math></td>
+<td style="text-align: center;">0.014</td>
+<td style="text-align: center;">0.056</td>
+<td style="text-align: center;">0.088</td>
+<td style="text-align: center;">0.180</td>
+<td style="text-align: center;">0.281</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> Means over 50 simulated exchange-years of 8,000 accounts per column. Precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> is the share of mules among the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> highest-scored accounts, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> equal to the number of mules. Under the null of no mules, the bunching-difference test rejects in 7.5% of 200 draws (mean difference <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.007</mn></mrow><annotation encoding="application/x-tex">-0.007</annotation></semantics></math>). <em>Simulated data.</em></p>
+</div>
+</div>
+<h4 data-number="7.3.0.5" id="synthetic-control-is-well-sized"><span class="header-section-number">7.3.0.5</span> Synthetic control is well sized</h4>
+<p>For policy shocks I simulate weekly flow indices for a treated country and 19 donors driven by two persistent common factors, plant an effect after week 104, and apply synthetic control with rank-based placebo inference. In the example of <a href="#fig:synth" class="xref">Figure 13</a>, the method recovers a planted effect of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.150</mn></mrow><annotation encoding="application/x-tex">-0.150</annotation></semantics></math> log points as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.155</mn></mrow><annotation encoding="application/x-tex">-0.155</annotation></semantics></math> with seven donors receiving weight, and the treated unit ranks first among 20 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>=</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p=0.05</annotation></semantics></math>). Across 200 panels per effect size (<a href="#tab:scm" class="xref">Table 7</a>), the false-rejection rate is 2.5%, power is 38% for a 0.05 log-point effect and 82% for 0.10, and the mean estimate is unbiased.</p>
+<figure id="fig:synth">
+<img loading="lazy" src="figures/fig_synth.png" />
+<figcaption><b>Figure 13.</b> Synthetic control on a simulated country panel with a planted effect of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0.15</mn></mrow><annotation encoding="application/x-tex">-0.15</annotation></semantics></math> log points. (a) Treated unit and its synthetic counterpart. (b) The treated gap (red) against the gaps of 19 placebo units. <em>Simulated data.</em></figcaption>
+</figure>
+<div class="threeparttable">
+<div class="tbl" id="tab:scm"><p class="tcap"><b>Table 7.</b> Size and power of synthetic control in simulated country panels</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">True effect (log points <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>×</mi><annotation encoding="application/x-tex">\times</annotation></semantics></math> 100)</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">15</th>
+<th style="text-align: center;">20</th>
+<th style="text-align: center;">30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Rejection rate (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≤</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p \le 0.05</annotation></semantics></math>)</td>
+<td style="text-align: center;">0.025</td>
+<td style="text-align: center;">0.380</td>
+<td style="text-align: center;">0.820</td>
+<td style="text-align: center;">0.970</td>
+<td style="text-align: center;">0.995</td>
+<td style="text-align: center;">1.000</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mean estimated effect</td>
+<td style="text-align: center;">-0.001</td>
+<td style="text-align: center;">-0.051</td>
+<td style="text-align: center;">-0.101</td>
+<td style="text-align: center;">-0.151</td>
+<td style="text-align: center;">-0.201</td>
+<td style="text-align: center;">-0.301</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> 200 panels per column, 20 units, 104 pre-treatment and 26 post-treatment weeks; rejection if the treated unit has the largest post/pre RMSPE ratio (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≤</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p\le 0.05</annotation></semantics></math>). <em>Simulated data.</em></p>
+</div>
+</div>
+<h2 data-number="7.4" id="what-transfers-to-real-data"><span class="header-section-number">7.4</span> What transfers to real data</h2>
+<p>The absolute levels in <a href="#tab:mc" class="xref">Table 6</a> depend on choices about populations and tradecraft that real data will revise. Four conclusions do not depend on them. First, a statistic that compares the stablecoin channel with another channel on the same platform is far more robust than one that measures the stablecoin channel alone, and its normalisation must not depend on the shape of the amount distribution. Second, speed and undirected proximity, the two heuristics most often described in compliance practice, fail by construction whenever honest fast traders and exchange hubs exist. Third, at low prevalence AUC flatters detectors and precision at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> should be reported. Fourth, combining behaviour with direction-aware blockchain intelligence is what makes detection precise; neither suffices alone.</p>
+<h1 data-number="8" id="sec:plan"><span class="header-section-number">8</span> A pre-registered plan for Thailand</h1>
+<p>The evidence so far establishes the rail, the weak macroeconomic motive, the regional threat and the limits of aggregate data. Whether Thai stablecoin flows actually carry fraud proceeds, and how much, is an empirical question that requires data held by exchanges, the Securities and Exchange Commission and the Anti-Money Laundering Office. To prevent the specification search that such sensitive questions invite, <a href="#tab:prereg" class="xref">Table 8</a> commits in advance to six hypotheses, the data each needs, the estimator, the primary statistic and the decision rule.</p>
+<div class="tbl" id="tab:prereg"><p class="tcap"><b>Table 8.</b> Pre-registered hypotheses, data, estimators and decision rules</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Hypothesis</th>
+<th style="text-align: left;">Data (tier)</th>
+<th style="text-align: left;">Estimator</th>
+<th style="text-align: left;">Decision rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">H1 Excess stablecoin demand</td>
+<td style="text-align: left;">Exchange volumes by quote asset across 20+ countries; inflation, FX volatility, remittances, migrant stock, capital-account openness, derivatives access (1–2)</td>
+<td style="text-align: left;">Panel regression of the stablecoin share of volume on fundamentals; Thailand’s standardised residual</td>
+<td style="text-align: left;">Residual positive and in the top decile of a leave-one-country-out distribution</td>
+</tr>
+<tr>
+<td style="text-align: left;">H2 USDT exits more than other assets</td>
+<td style="text-align: left;">Daily purchases and on-chain withdrawals by asset on Thai platforms (2–3)</td>
+<td style="text-align: left;">Difference between USDT and BTC withdrawal-to-purchase ratios, controlling for volatility and offshore funding rates</td>
+<td style="text-align: left;">One-sided test of a positive difference at 5%; reported net of exchange-labelled destinations</td>
+</tr>
+<tr>
+<td style="text-align: left;">H3 Fast pass-through concentrated in young, fan-in accounts</td>
+<td style="text-align: left;">Account-level deposit–purchase–withdrawal cycles (3)</td>
+<td style="text-align: left;">Gaussian mixture on log dwell; fast-component share by account age and fan-in</td>
+<td style="text-align: left;">Difference positive with a bootstrap interval excluding zero, after removing withdrawals to labelled exchanges</td>
+</tr>
+<tr>
+<td style="text-align: left;">H4 Structuring below 50,000 baht</td>
+<td style="text-align: left;">Deposit amounts by funded asset, ideally before and after the verification rule (3)</td>
+<td style="text-align: left;">Difference in responding shares (<a href="#prop:bunching" class="xref">Proposition 1</a>); difference-in-difference if pre-rule data exist (<a href="#cor:didib" class="xref">Corollary 1</a>)</td>
+<td style="text-align: left;">One-sided <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p&lt;0.05</annotation></semantics></math> at 50,000 baht and no significant difference at placebo thresholds of 30,000 and 70,000 baht</td>
+</tr>
+<tr>
+<td style="text-align: left;">H5 Crackdowns change the composition of flows</td>
+<td style="text-align: left;">Weekly composition series (share of fast structured deposits, peer-to-peer premium, network mix) for Thailand and donor countries (2–3)</td>
+<td style="text-align: left;">Synthetic control and synthetic difference-in-differences; triple difference USDT versus BTC</td>
+<td style="text-align: left;">Rank-based placebo <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≤</mo><mn>0.05</mn></mrow><annotation encoding="application/x-tex">p\le0.05</annotation></semantics></math> with pre-period fit no worse than the median donor’s</td>
+</tr>
+<tr>
+<td style="text-align: left;">H6 Thai withdrawals are more exposed than peers’</td>
+<td style="text-align: left;">Tron transfers from labelled Thai and peer-country exchange hot wallets; issuer freezes; OFAC list (1–3)</td>
+<td style="text-align: left;">Directed, value-weighted three-hop exposure (<a href="#eq:exposure" class="xref">Equation (2)</a>)</td>
+<td style="text-align: left;">Thai exposure above the 75th percentile of peer exchanges with a bootstrap interval excluding the peer median</td>
+</tr>
+</tbody>
+</table></div></div>
+<h4 data-number="8.0.0.1" id="interpretation"><span class="header-section-number">8.0.0.1</span> Interpretation</h4>
+<p>The hypotheses are ordered to separate structure from crime. If H1 and H2 hold but H3–H6 do not, Thai stablecoin behaviour is unusual because of market structure: the absence of domestic derivatives, the baht-quoted market and cross-border demand. If H3–H6 also hold, the residual pattern carries the fingerprints of pass-through laundering, and <a href="#prop:bunching" class="xref">Proposition 1</a> converts the bunching estimate into a lower bound on structured volume, since unstructured illicit deposits are not counted.</p>
+<h4 data-number="8.0.0.2" id="data-access-and-privacy"><span class="header-section-number">8.0.0.2</span> Data access and privacy</h4>
+<p>Tier-3 analyses should follow a “code goes to the data” model: the replication package runs on the simulator’s synthetic ledger, which has the same schema as the exchange data required, so code can be reviewed, tested and approved before it touches personal data inside a regulator’s or exchange’s secure environment. Only aggregate, disclosure-controlled outputs leave that environment. No address of a person who has not been charged is published.</p>
+<h1 data-number="9" id="sec:policy"><span class="header-section-number">9</span> Policy implications</h1>
+<p>Six implications follow, each conditional on the evidence that the plan would produce.</p>
+<ol>
+<li><p><strong>Monitor differences, not levels.</strong> Supervisors and exchanges should track structuring and pass-through as contrasts between the stablecoin channel and other channels on the same platform, with normalisations that do not depend on the shape of the amount distribution. Levels confound crime with hassle avoidance and market structure.</p></li>
+<li><p><strong>Make exposure screening direction-aware.</strong> Screening that counts undirected hops to flagged addresses mechanically flags the exchange hubs to which ordinary investors withdraw. Exposure should follow funds forward, weight by value and decay with distance.</p></li>
+<li><p><strong>Protect honest peer-to-peer dealers.</strong> Honest dealers are the population most easily mistaken for mules and the usual victims of “triangle” fraud, in which a criminal has a victim pay the dealer directly. Requiring that baht payments for peer-to-peer trades come from a bank account in the buyer’s verified name, and creating a fast channel to review frozen dealer accounts, would reduce both the fraud and its collateral damage.</p></li>
+<li><p><strong>Evaluate crackdowns with composition data and honest inference.</strong> Chain-wide aggregates cannot show whether a crackdown worked (<a href="#sec:eventstudy" class="xref">Section 6.5</a>). Publishing weekly, anonymised composition indicators—the share of deposits just below verification thresholds, the share of fast exits, the peer-to-peer premium—would make evaluation possible without disclosing personal data.</p></li>
+<li><p><strong>Anticipate displacement.</strong> Fixed, publicly known thresholds create the notch that structuring exploits, and pressure on one channel moves flows to others (<a href="#prop:displacement" class="xref">Proposition 3</a>). Risk-based verification and coordinated action across banks, licensed exchanges and peer-to-peer markets limit the gain from switching.</p></li>
+<li><p><strong>Use the issuer and the ledger.</strong> Because the region’s main dollar rail has a single issuer able to freeze tokens and a public ledger, regional cooperation with the issuer and with neighbouring authorities can act after the conversion boundary, where Thai banks no longer can.</p></li>
+</ol>
+<h1 data-number="10" id="sec:limits"><span class="header-section-number">10</span> Limitations and ethics</h1>
+<p>The descriptive evidence covers the chains in the Coin Metrics community files and measures turnover by transfer counts, not values. Address-based statistics are affected by custodial omnibus wallets. Event dates and institutional details were compiled without access to primary legal databases and must be verified. The simulation’s absolute results depend on stylised parameters; its purpose is to rank methods and reveal failure modes, not to estimate prevalence. Statistical anomalies are not evidence of wrongdoing by any person, dealer or exchange, and the paper names entities only where public authorities have acted. The laundering typology is described at the level of published FATF and UNODC material and omits operational detail.</p>
+<h1 data-number="11" id="sec:conclusion"><span class="header-section-number">11</span> Conclusion</h1>
+<p>Thailand’s stablecoin question is easy to pose and hard to answer. Public data establish that the region’s dominant digital dollar, USDT on Tron, is a high-turnover retail rail on which sanctioned activity concentrates; that Thailand, unlike its neighbours, has little macroeconomic reason to use it heavily; and that chain-wide data cannot tell whether crackdowns work. The answer to whether Thai rails carry scam proceeds lies in the composition of flows at the boundary where baht become tokens. This paper supplies the estimators for that boundary—a slope-invariant difference in bunching at the face-verification threshold, dwell-time mixtures, direction-aware exposure and synthetic control—shows in simulation which of them work and why the common heuristics fail, and commits in advance to how the answer will be read once the data are in hand.</p>
+<h1 class="unnumbered" id="data-and-code-availability">Data and code availability</h1>
+<p>All data are public. Replication code—the Python package <code>shadowdollars</code>, the scripts that produce every figure and table, unit tests and the data manifest—is provided as ancillary files with this submission. The manifest records the URL, retrieval time and SHA-256 hash of each raw file in the vintage used here; some sources are updated daily, so a fresh download yields a later vintage.</p>
+<h1 class="unnumbered" id="acknowledgments-and-disclosure">Acknowledgments and disclosure</h1>
+<p>The author used Claude (Anthropic), an AI assistant, to help draft the text, write the replication code and produce the figures. All quantitative results are computed by the code in the replication package from the data it documents. Simulated results validate methods against planted ground truth and are not evidence about real markets. No individual is accused of wrongdoing; entities are named only where public authorities have acted. Responsibility for any errors remains with the author.</p>
+<h1 class="unnumbered" id="references">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-abadie2021using" class="csl-entry" role="listitem">
+Abadie, Alberto. 2021. <span>“Using Synthetic Controls: Feasibility, Data Requirements, and Methodological Aspects.”</span> <em>Journal of Economic Literature</em> 59 (2): 391–425.
+</div>
+<div id="ref-abadie2010synth" class="csl-entry" role="listitem">
+Abadie, Alberto, Alexis Diamond, and Jens Hainmueller. 2010. <span>“Synthetic Control Methods for Comparative Case Studies: Estimating the Effect of <span>California</span>’s Tobacco Control Program.”</span> <em>Journal of the American Statistical Association</em> 105 (490): 493–505.
+</div>
+<div id="ref-ante2021issuance" class="csl-entry" role="listitem">
+Ante, Lennart, Ingo Fiedler, and Elias Strehle. 2021. <span>“The Influence of Stablecoin Issuances on Cryptocurrency Markets.”</span> <em>Finance Research Letters</em> 41: 101867.
+</div>
+<div id="ref-arkhangelsky2021sdid" class="csl-entry" role="listitem">
+Arkhangelsky, Dmitry, Susan Athey, David A. Hirshberg, Guido W. Imbens, and Stefan Wager. 2021. <span>“Synthetic Difference-in-Differences.”</span> <em>American Economic Review</em> 111 (12): 4088–118.
+</div>
+<div id="ref-arner2020stablecoins" class="csl-entry" role="listitem">
+Arner, Douglas W., Raphael Auer, and Jon Frost. 2020. <em>Stablecoins: Risks, Potential and Regulation</em>. BIS Working Papers No. 905. Bank for International Settlements.
+</div>
+<div id="ref-auer2022retail" class="csl-entry" role="listitem">
+Auer, Raphael, Giulio Cornelli, Sebastian Doerr, Jon Frost, and Leonardo Gambacorta. 2022. <em>Crypto Trading and <span>Bitcoin</span> Prices: Evidence from a New Database of Retail Adoption</em>. BIS Working Papers No. 1049. Bank for International Settlements.
+</div>
+<div id="ref-bis2025aer" class="csl-entry" role="listitem">
+Bank for International Settlements. 2025. <span>“The Next-Generation Monetary and Financial System.”</span> III in <em>Annual Economic Report 2025</em>. BIS.
+</div>
+<div id="ref-blondel2008louvain" class="csl-entry" role="listitem">
+Blondel, Vincent D., Jean-Loup Guillaume, Renaud Lambiotte, and Etienne Lefebvre. 2008. <span>“Fast Unfolding of Communities in Large Networks.”</span> <em>Journal of Statistical Mechanics: Theory and Experiment</em> 2008 (10): P10008.
+</div>
+<div id="ref-fred2026h10" class="csl-entry" role="listitem">
+Board of Governors of the Federal Reserve System. 2026. <em>Foreign Exchange Rates (<span>H.10</span>): Daily Noon Buying Rates</em>. Mirrored in GitHub repository <code>datasets/exchange-rates</code>.
+</div>
+<div id="ref-chainalysis2025crime" class="csl-entry" role="listitem">
+Chainalysis. 2025. <em>The 2025 Crypto Crime Report</em>. Chainalysis Inc.
+</div>
+<div id="ref-chetty2011adjustment" class="csl-entry" role="listitem">
+Chetty, Raj, John N. Friedman, Tore Olsen, and Luigi Pistaferri. 2011. <span>“Adjustment Costs, Firm Responses, and Micro Vs. Macro Labor Supply Elasticities: Evidence from <span>Danish</span> Tax Records.”</span> <em>Quarterly Journal of Economics</em> 126 (2): 749–804.
+</div>
+<div id="ref-chinn2006capital" class="csl-entry" role="listitem">
+Chinn, Menzie D., and Hiro Ito. 2006. <span>“What Matters for Financial Development? <span>Capital</span> Controls, Institutions, and Interactions.”</span> <em>Journal of Development Economics</em> 81 (1): 163–92.
+</div>
+<div id="ref-coinmetrics2026" class="csl-entry" role="listitem">
+Coin Metrics. 2026. <em>Coin Metrics Community Data</em>. GitHub repository <code>coinmetrics/data</code>.
+</div>
+<div id="ref-cong2023anatomy" class="csl-entry" role="listitem">
+Cong, Lin William, Campbell R. Harvey, Daniel Rabetti, and Zong-Yu Wu. 2023. <em>An Anatomy of Crypto-Enabled Cybercrimes</em>. NBER Working Paper No. 30834. National Bureau of Economic Research.
+</div>
+<div id="ref-cong2023wash" class="csl-entry" role="listitem">
+Cong, Lin William, Xi Li, Ke Tang, and Yang Yang. 2023. <span>“Crypto Wash Trading.”</span> <em>Management Science</em> 69 (11): 6427–54.
+</div>
+<div id="ref-elliptic2024huione" class="csl-entry" role="listitem">
+Elliptic. 2024. <em>Research Notes on <span>Huione Guarantee</span> and <span>Telegram</span>-Based Guarantee Marketplaces</em>.
+</div>
+<div id="ref-fatf2020redflags" class="csl-entry" role="listitem">
+Financial Action Task Force. 2020. <em>Virtual Assets: Red Flag Indicators of Money Laundering and Terrorist Financing</em>. FATF.
+</div>
+<div id="ref-fatf2023cyberfraud" class="csl-entry" role="listitem">
+Financial Action Task Force. 2023. <em>Illicit Financial Flows from Cyber-Enabled Fraud</em>. FATF.
+</div>
+<div id="ref-fatf2025targeted" class="csl-entry" role="listitem">
+Financial Action Task Force. 2025. <em>Targeted Update on Implementation of the <span>FATF</span> Standards on Virtual Assets and Virtual Asset Service Providers</em>. FATF.
+</div>
+<div id="ref-fincen2025huione" class="csl-entry" role="listitem">
+Financial Crimes Enforcement Network. 2025. <em>Action Against <span>Huione Group</span> Under Section 311 of the <span>USA PATRIOT Act</span></em>.
+</div>
+<div id="ref-foley2019sex" class="csl-entry" role="listitem">
+Foley, Sean, Jonathan R. Karlsen, and Tālis J. Putniņš. 2019. <span>“Sex, Drugs, and Bitcoin: How Much Illegal Activity Is Financed Through Cryptocurrencies?”</span> <em>Review of Financial Studies</em> 32 (5): 1798–853.
+</div>
+<div id="ref-gorton2023wildcat" class="csl-entry" role="listitem">
+Gorton, Gary B., and Jeffery Y. Zhang. 2023. <span>“Taming Wildcat Stablecoins.”</span> <em>University of Chicago Law Review</em> 90 (3): 909–71.
+</div>
+<div id="ref-griffin2024slavery" class="csl-entry" role="listitem">
+Griffin, John M., and Kevin Mei. 2024. <span>“How Do Crypto Flows Finance Slavery? <span>The</span> Economics of Pig Butchering.”</span> Unpublished manuscript.
+</div>
+<div id="ref-griffin2020tether" class="csl-entry" role="listitem">
+Griffin, John M., and Amin Shams. 2020. <span>“Is <span>Bitcoin</span> Really Untethered?”</span> <em>Journal of Finance</em> 75 (4): 1913–64.
+</div>
+<div id="ref-kleven2016bunching" class="csl-entry" role="listitem">
+Kleven, Henrik J. 2016. <span>“Bunching.”</span> <em>Annual Review of Economics</em> 8: 435–64.
+</div>
+<div id="ref-kleven2013notches" class="csl-entry" role="listitem">
+Kleven, Henrik J., and Mazhar Waseem. 2013. <span>“Using Notches to Uncover Optimization Frictions and Structural Elasticities: Theory and Evidence from <span>Pakistan</span>.”</span> <em>Quarterly Journal of Economics</em> 128 (2): 669–723.
+</div>
+<div id="ref-kristoufek2021tethered" class="csl-entry" role="listitem">
+Kristoufek, Ladislav. 2021. <span>“Tethered, or Untethered? <span>On</span> the Interplay Between Stablecoins and Major Cryptoassets.”</span> <em>Finance Research Letters</em> 43: 101991.
+</div>
+<div id="ref-liao2022stablecoins" class="csl-entry" role="listitem">
+Liao, Gordon Y., and John Caramichael. 2022. <em>Stablecoins: Growth Potential and Impact on Banking</em>. International Finance Discussion Papers No. 1334. Board of Governors of the Federal Reserve System.
+</div>
+<div id="ref-liu2008iforest" class="csl-entry" role="listitem">
+Liu, Fei Tony, Kai Ming Ting, and Zhi-Hua Zhou. 2008. <span>“Isolation Forest.”</span> <em>Proceedings of the Eighth IEEE International Conference on Data Mining</em>, 413–22.
+</div>
+<div id="ref-lyons2023stable" class="csl-entry" role="listitem">
+Lyons, Richard K., and Ganesh Viswanath-Natraj. 2023. <span>“What Keeps Stablecoins Stable?”</span> <em>Journal of International Money and Finance</em> 131: 102777.
+</div>
+<div id="ref-makarov2020arbitrage" class="csl-entry" role="listitem">
+Makarov, Igor, and Antoinette Schoar. 2020. <span>“Trading and Arbitrage in Cryptocurrency Markets.”</span> <em>Journal of Financial Economics</em> 135 (2): 293–319.
+</div>
+<div id="ref-meiklejohn2013fistful" class="csl-entry" role="listitem">
+Meiklejohn, Sarah, Marjori Pomarole, Grant Jordan, et al. 2013. <span>“A Fistful of Bitcoins: Characterizing Payments Among Men with No Names.”</span> <em>Proceedings of the 2013 Internet Measurement Conference</em>, 127–40.
+</div>
+<div id="ref-ofac2026sdn" class="csl-entry" role="listitem">
+Office of Foreign Assets Control. 2026. <em>Specially Designated Nationals List: Digital Currency Addresses</em>. Extracted lists in GitHub repository <code>0xB10C/ofac-sanctioned-digital-currency-addresses</code>.
+</div>
+<div id="ref-saez2010bunch" class="csl-entry" role="listitem">
+Saez, Emmanuel. 2010. <span>“Do Taxpayers Bunch at Kink Points?”</span> <em>American Economic Journal: Economic Policy</em> 2 (3): 180–212.
+</div>
+<div id="ref-unodc2024casinos" class="csl-entry" role="listitem">
+United Nations Office on Drugs and Crime. 2024. <em>Casinos, Money Laundering, Underground Banking, and Transnational Organized Crime in <span>East</span> and <span>Southeast Asia</span>: A Hidden and Accelerating Threat</em>. UNODC Regional Office for Southeast Asia; the Pacific.
+</div>
+<div id="ref-unodc2025inflection" class="csl-entry" role="listitem">
+United Nations Office on Drugs and Crime. 2025. <em>Inflection Point: Global Implications of Scam Centres, Underground Banking and Illicit Online Marketplaces in <span>Southeast Asia</span></em>. UNODC.
+</div>
+<div id="ref-ustreasury2025prince" class="csl-entry" role="listitem">
+U.S. Department of the Treasury. 2025. <em>Press Release on Sanctions Against the <span>Prince Group</span> Transnational Criminal Organization</em>.
+</div>
+<div id="ref-weber2019aml" class="csl-entry" role="listitem">
+Weber, Mark, Giacomo Domeniconi, Jie Chen, et al. 2019. <em>Anti-Money Laundering in <span>Bitcoin</span>: Experimenting with Graph Convolutional Networks for Financial Forensics</em>. arXiv Preprint 1908.02591. KDD Workshop on Anomaly Detection in Finance.
+</div>
+<div id="ref-worldbank2026cpi" class="csl-entry" role="listitem">
+World Bank. 2026. <em>Inflation, Consumer Prices (Annual %), Indicator <span>FP.CPI.TOTL.ZG</span></em>. Mirrored in GitHub repository <code>datasets/inflation</code>.
+</div>
+</div>
+<h1 data-number="A" id="app:data"><span class="header-section-number">A</span> Data appendix</h1>
+<p><a href="#tab:manifest" class="xref">Table 9</a> lists the raw files behind every number in <a href="#sec:evidence" class="xref">Section 6</a>, with the first characters of their SHA-256 hashes. The full manifest, including retrieval timestamps and complete hashes, is <code>data/raw/MANIFEST.json</code> in the replication package.</p>
+<div class="threeparttable">
+<div class="tbl" id="tab:manifest"><p class="tcap"><b>Table 9.</b> Raw data files used in the paper</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Series</th>
+<th style="text-align: left;">File</th>
+<th style="text-align: right;">Rows</th>
+<th style="text-align: center;">From</th>
+<th style="text-align: center;">To</th>
+<th style="text-align: left;">SHA-256 (prefix)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">USDT on Tron</td>
+<td style="text-align: left;">cm_usdt_trx.csv</td>
+<td style="text-align: right;">2,595</td>
+<td style="text-align: center;">2019-04-16</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">3d4b5f8ad882</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT on Ethereum</td>
+<td style="text-align: left;">cm_usdt_eth.csv</td>
+<td style="text-align: right;">3,099</td>
+<td style="text-align: center;">2017-11-28</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">700d5db4d59a</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT on Omni</td>
+<td style="text-align: left;">cm_usdt_omni.csv</td>
+<td style="text-align: right;">4,248</td>
+<td style="text-align: center;">2014-10-06</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">298d09512e19</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT on Avalanche</td>
+<td style="text-align: left;">cm_usdt_avaxc.csv</td>
+<td style="text-align: right;">1,706</td>
+<td style="text-align: center;">2021-09-21</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">cadec2e1a8ba</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDC on Ethereum</td>
+<td style="text-align: left;">cm_usdc_eth.csv</td>
+<td style="text-align: right;">2,851</td>
+<td style="text-align: center;">2018-08-03</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">e08a8607cd78</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDC on Tron</td>
+<td style="text-align: left;">cm_usdc_trx.csv</td>
+<td style="text-align: right;">1,810</td>
+<td style="text-align: center;">2021-06-09</td>
+<td style="text-align: center;">2026-05-23</td>
+<td style="text-align: left;">b96e0d1a28e2</td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT, all chains</td>
+<td style="text-align: left;">cm_usdt.csv</td>
+<td style="text-align: right;">4,531</td>
+<td style="text-align: center;">2013-12-28</td>
+<td style="text-align: center;">2026-05-24</td>
+<td style="text-align: left;">bc6cec81ee59</td>
+</tr>
+<tr>
+<td style="text-align: left;">FX rates, H.10</td>
+<td style="text-align: left;">fx_daily.csv</td>
+<td style="text-align: right;">274,031</td>
+<td style="text-align: center;">1971-01-04</td>
+<td style="text-align: center;">2026-10-30</td>
+<td style="text-align: left;">013e19fbdcae</td>
+</tr>
+<tr>
+<td style="text-align: left;">CPI inflation</td>
+<td style="text-align: left;">wb_cpi.csv</td>
+<td style="text-align: right;">11,182</td>
+<td style="text-align: center;">1960</td>
+<td style="text-align: center;">2024</td>
+<td style="text-align: left;">346d29c904c1</td>
+</tr>
+<tr>
+<td style="text-align: left;">OFAC addresses</td>
+<td style="text-align: left;">ofac/*.txt (17)</td>
+<td style="text-align: right;">1,073</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: left;">see manifest</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p><em>Notes:</em> Retrieved on 8 November 2026. Rows are data rows; for the OFAC lists, addresses.</p>
+</div>
+</div>
+<h4 data-number="12.0.0.1" id="validating-the-inflation-files"><span class="header-section-number">12.0.0.1</span> Validating the inflation files</h4>
+<p><a href="#tab:cpicheck" class="xref">Table 10</a> compares the two files of the <code>datasets/inflation</code> mirror with consumer-price inflation figures that are well known. The file labelled as the GDP deflator matches them; the file labelled as consumer prices does not. The analysis uses the former.</p>
+<div class="tbl" id="tab:cpicheck"><p class="tcap"><b>Table 10.</b> The inflation files are mislabelled: values for 2022, per cent</p><div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: center;">File labelled “GDP deflator”</th>
+<th style="text-align: center;">File labelled “consumer prices”</th>
+<th style="text-align: center;">Known CPI inflation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Thailand</td>
+<td style="text-align: center;">6.08</td>
+<td style="text-align: center;">4.8</td>
+<td style="text-align: center;">6.1</td>
+</tr>
+<tr>
+<td style="text-align: left;">United States</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">7.1</td>
+<td style="text-align: center;">8.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">Türkiye</td>
+<td style="text-align: center;">72.3</td>
+<td style="text-align: center;">96.0</td>
+<td style="text-align: center;">72.3</td>
+</tr>
+</tbody>
+</table></div></div>
+<h1 data-number="B" id="app:simparams"><span class="header-section-number">B</span> Simulator parameters</h1>
+<div class="threeparttable">
+<div class="tbl" id="tab:simparams"><p class="tcap"><b>Table 11.</b> Parameters of the agent-based exchange simulator</p><div class="tscroll"><table>
+<tbody>
+<tr>
+<td style="text-align: left;">Population</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">honest</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">per year</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">deposit</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">log deposit</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">USDT)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">exit (min)</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">hour</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Domestic traders</td>
+<td style="text-align: center;">0.534</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">4,000</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">4,320</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bridge traders</td>
+<td style="text-align: center;">0.214</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20,000</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">0.90</td>
+<td style="text-align: center;">0.95</td>
+<td style="text-align: center;">20 (5)</td>
+<td style="text-align: center;">21</td>
+</tr>
+<tr>
+<td style="text-align: left;">Remitters</td>
+<td style="text-align: center;">0.097</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">6,000</td>
+<td style="text-align: center;">0.6</td>
+<td style="text-align: center;">0.95</td>
+<td style="text-align: center;">0.95</td>
+<td style="text-align: center;">360</td>
+<td style="text-align: center;">19</td>
+</tr>
+<tr>
+<td style="text-align: left;">Holders</td>
+<td style="text-align: center;">0.126</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">15,000</td>
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">0.80</td>
+<td style="text-align: center;">0.03</td>
+<td style="text-align: center;">43,200</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">P2P merchants</td>
+<td style="text-align: center;">0.029</td>
+<td style="text-align: center;">41</td>
+<td style="text-align: center;">30,000</td>
+<td style="text-align: center;">0.8</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.95</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">15</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mules</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;">structured</td>
+<td style="text-align: center;">0.9</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.98</td>
+<td style="text-align: center;">3–90</td>
+<td style="text-align: center;">13</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="tablenotes">
+<p>15% of bridge accounts are arbitrageurs with a median exit of 5 minutes.</p>
+<p>Within a 45-day active life. Cycles per year are Poisson means plus one.</p>
+<p>Each mule structures a share of its deposits drawn from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0.2</mn><mo>,</mo><mn>0.9</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U(0.2,0.9)</annotation></semantics></math> (camouflaged: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0.4</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U(0,0.4)</annotation></semantics></math>) into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo stretchy="false" form="prefix">(</mo><mn>0.8</mn><mi>T</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">U(0.8T,T)</annotation></semantics></math>; other deposits are log-normal with median 20,000 baht.</p>
+<p>Log-uniform per mule; camouflaged mules no faster than 30 minutes.</p>
+<p><em>Other parameters:</em> 8,000 accounts; 365 days; threshold <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> = 50,000 baht; honest relocation probability 0.35 for intended amounts in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mn>1.25</mn><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">[T,1.25T)</annotation></semantics></math>; heaping at 1,000 (30%) and 5,000 baht (12%); exit-speed dispersion <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> between 0.7 and 1.2 by population; fresh funding sources for 70% of merchant deposits and 40–95% of non-camouflaged mule deposits; graph of 60 flagged, 400 layering, 20 exchange and 200 P2P-merchant wallets as described in <a href="#sec:simdesign" class="xref">Section 7.1</a>.</p>
+</div>
+</div>
+<h1 data-number="C" id="app:proofs"><span class="header-section-number">C</span> Proofs</h1>
+<div class="proof">
+<p><em>Proof of <a href="#prop:bunching" class="xref">Proposition 1</a>.</em> By <a href="#as:a3" class="xref">Assumption A3</a>, the counterfactual densities <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>S</mi></msub><annotation encoding="application/x-tex">h_S</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>O</mi></msub><annotation encoding="application/x-tex">h_O</annotation></semantics></math>, and hence <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H_a([T,T+R))</annotation></semantics></math> and the excess masses <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>a</mi></msub><annotation encoding="application/x-tex">B_a</annotation></semantics></math>, are identified from the observed densities outside the exclusion window. By <a href="#eq:excess" class="xref">Equation (1)</a>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mi>a</mi></msub><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>a</mi></msub><mo>+</mo><msub><mi>I</mi><mi>a</mi></msub><mi>/</mi><msub><mi>H</mi><mi>a</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\beta_a=\bar\pi_a+I_a/H_a([T,T+R))</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mi>S</mi><mo>,</mo><mi>O</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">a\in\{S,O\}</annotation></semantics></math>. <a href="#as:a2" class="xref">Assumption A2</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>β</mi><mi>O</mi></msub><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">\beta_O=\bar\pi_O</annotation></semantics></math>, and <a href="#as:a1" class="xref">Assumption A1</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi></msub><mo>=</mo><msub><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi></msub></mrow><annotation encoding="application/x-tex">\bar\pi_S=\bar\pi_O</annotation></semantics></math>. Subtracting, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>β</mi><mo>=</mo><msub><mi>I</mi><mi>S</mi></msub><mi>/</mi><msub><mi>H</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\Delta\beta=I_S/H_S([T,T+R))</annotation></semantics></math>. Because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>S</mi></msub><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_S\geq0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">H_S([T,T+R))&gt;0</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>β</mi><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Delta\beta\geq0</annotation></semantics></math> with equality if and only if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>S</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I_S=0</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>I</mi><mi>S</mi></msub><mo>=</mo><mi mathvariant="normal">Δ</mi><mi>β</mi><mo>⋅</mo><msub><mi>H</mi><mi>S</mi></msub><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">[</mo><mi>T</mi><mo>,</mo><mi>T</mi><mo>+</mo><mi>R</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I_S=\Delta\beta\cdot H_S([T,T+R))</annotation></semantics></math>. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of <a href="#cor:didib" class="xref">Corollary 1</a>.</em> Before the rule there is no verification step at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> and, by assumption, no structuring at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msup><mi>β</mi><mtext mathvariant="normal">pre</mtext></msup><mo>=</mo><msubsup><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi><mtext mathvariant="normal">pre</mtext></msubsup><mo>−</mo><msubsup><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi><mtext mathvariant="normal">pre</mtext></msubsup></mrow><annotation encoding="application/x-tex">\Delta\beta^{\text{pre}}=\bar\pi_S^{\text{pre}}-\bar\pi_O^{\text{pre}}</annotation></semantics></math>. After it, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msup><mi>β</mi><mtext mathvariant="normal">post</mtext></msup><mo>=</mo><msubsup><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>S</mi><mtext mathvariant="normal">post</mtext></msubsup><mo>−</mo><msubsup><mover><mi>π</mi><mo accent="true">‾</mo></mover><mi>O</mi><mtext mathvariant="normal">post</mtext></msubsup><mo>+</mo><msubsup><mi>I</mi><mi>S</mi><mtext mathvariant="normal">post</mtext></msubsup><mi>/</mi><msubsup><mi>H</mi><mi>S</mi><mtext mathvariant="normal">post</mtext></msubsup></mrow><annotation encoding="application/x-tex">\Delta\beta^{\text{post}}=\bar\pi_S^{\text{post}}-\bar\pi_O^{\text{post}}+I_S^{\text{post}}/H_S^{\text{post}}</annotation></semantics></math>. If the asset gap in honest relocation is stable, the first terms cancel in the difference. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of <a href="#lem:speed" class="xref">Lemma 1</a>.</em> For a threshold <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">G_M(t)&gt;0</annotation></semantics></math>, the expected number of flagged mules is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>M</mi></msub><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n_MG_M(t)</annotation></semantics></math> and the expected number of flagged honest fast accounts is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>F</mi></msub><msub><mi>G</mi><mi>F</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><msub><mi>n</mi><mi>F</mi></msub><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n_FG_F(t)\geq n_FG_M(t)</annotation></semantics></math>. Other honest accounts can only add to the denominator. Hence the ratio of expected flagged mules to expected flagged accounts is at most <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mi>M</mi></msub><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>n</mi><mi>M</mi></msub><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>n</mi><mi>F</mi></msub><msub><mi>G</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>n</mi><mi>M</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>n</mi><mi>M</mi></msub><mo>+</mo><msub><mi>n</mi><mi>F</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">n_MG_M(t)/\left(n_MG_M(t)+n_FG_M(t)\right)=n_M/(n_M+n_F)</annotation></semantics></math>. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of <a href="#prop:direction" class="xref">Proposition 2</a>.</em> The path <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>←</mo><mi>ℓ</mi><mo>→</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">h\leftarrow\ell\rightarrow f</annotation></semantics></math> has two edges, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>u</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">d_u(h,F)\leq2</annotation></semantics></math>. By assumption every forward path from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> into <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> has at least <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> edges, or none exists, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mo>→</mo></msub><mo stretchy="false" form="prefix">(</mo><mi>h</mi><mo>,</mo><mi>F</mi><mo stretchy="false" form="postfix">)</mo><mo>≥</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">d_\to(h,F)\geq m</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>≤</mo><mi>k</mi><mo>&lt;</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">2\leq k&lt;m</annotation></semantics></math> the indicator in <a href="#eq:exposure" class="xref">Equation (2)</a> equals one under <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mi>u</mi></msub><annotation encoding="application/x-tex">d_u</annotation></semantics></math> and zero under <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mo>→</mo></msub><annotation encoding="application/x-tex">d_\to</annotation></semantics></math> for every withdrawal to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>, so an account that withdraws only to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">X^{(k)}=1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>X</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">X^{(k)}=0</annotation></semantics></math> respectively. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of <a href="#prop:displacement" class="xref">Proposition 3</a>.</em> The Lagrangian of <a href="#eq:channels" class="xref">Equation (3)</a> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℒ</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>τ</mi><msub><mi>q</mi><mi>E</mi></msub><mo>−</mo><mi>λ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>q</mi><mi>j</mi></msub><mo>−</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}=\sum_jc_j(q_j)+\tau q_E-\lambda\left(\sum_jq_j-M\right)</annotation></semantics></math>. At an interior optimum, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><msup><mi>j</mi><mo>′</mo></msup></msub><mo stretchy="false" form="prefix">(</mo><msub><mi>q</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mi>τ</mi><mn>𝟏</mn><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo>=</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mo>=</mo><mi>λ</mi></mrow><annotation encoding="application/x-tex">c_j&#39;(q_j)+\tau\mathbf{1}\{j=E\}=\lambda</annotation></semantics></math> for all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>. Differentiating with respect to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> and imposing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\sum_j\partial q_j/\partial\tau=0</annotation></semantics></math> (because <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>q</mi><mi>j</mi></msub><mo>=</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">\sum_jq_j=M</annotation></semantics></math>), <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><msub><mi>c</mi><msup><mi>j</mi><mo>″</mo></msup></msub><mspace width="0.167em"></mspace><mfrac><mrow><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub></mrow><mrow><mi>∂</mi><mi>τ</mi></mrow></mfrac></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mfrac><mrow><mi>∂</mi><mi>λ</mi></mrow><mrow><mi>∂</mi><mi>τ</mi></mrow></mfrac><mo>−</mo><mn>𝟏</mn><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo>=</mo><mi>E</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mtd><mtd columnalign="right" style="text-align: right; padding-right: 0"><mfrac><mrow><mi>∂</mi><mi>λ</mi></mrow><mrow><mi>∂</mi><mi>τ</mi></mrow></mfrac><munder><mo>∑</mo><mrow><mi>l</mi><mo>∈</mo><mi>J</mi></mrow></munder><mfrac><mn>1</mn><msub><mi>c</mi><msup><mi>l</mi><mo>″</mo></msup></msub></mfrac><mo>−</mo><mfrac><mn>1</mn><msub><mi>c</mi><msup><mi>E</mi><mo>″</mo></msup></msub></mfrac></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>=</mo><mn>0</mn><mspace width="0.278em"></mspace><mo>⇒</mo><mspace width="0.278em"></mspace><mfrac><mrow><mi>∂</mi><mi>λ</mi></mrow><mrow><mi>∂</mi><mi>τ</mi></mrow></mfrac><mo>=</mo><msub><mi>ω</mi><mi>E</mi></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}
+c_j&#39;&#39;\,\frac{\partial q_j}{\partial\tau}&amp;=\frac{\partial\lambda}{\partial\tau}-\mathbf{1}\{j=E\},
+&amp;
+\frac{\partial\lambda}{\partial\tau}\sum_{l\in J}\frac{1}{c_l&#39;&#39;}-\frac{1}{c_E&#39;&#39;}&amp;=0
+\;\Longrightarrow\;\frac{\partial\lambda}{\partial\tau}=\omega_E .
+\end{align*}</annotation></semantics></math> Substituting back, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><msub><mi>q</mi><mi>E</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mi>−</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>ω</mi><mi>E</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><msub><mi>c</mi><msup><mi>E</mi><mo>″</mo></msup></msub><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\partial q_E/\partial\tau=-(1-\omega_E)/c_E&#39;&#39;&lt;0</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><msub><mi>ω</mi><mi>E</mi></msub><mi>/</mi><msub><mi>c</mi><msup><mi>j</mi><mo>″</mo></msup></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\partial q_j/\partial\tau=\omega_E/c_j&#39;&#39;&gt;0</annotation></semantics></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>j</mi><mo>≠</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">j\neq E</annotation></semantics></math>; the derivatives sum to zero by construction. ◻</p>
+</div>
+<div class="proof">
+<p><em>Proof of <a href="#cor:invisible" class="xref">Corollary 2</a>.</em> Let chain-level volume be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><msub><mi>q</mi><mi>j</mi></msub><mo>+</mo><msub><mi>V</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">V=\sum_jq_j+V_0</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>V</mi><mn>0</mn></msub><annotation encoding="application/x-tex">V_0</annotation></semantics></math> is unrelated activity. If every channel terminates in the same token, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>V</mi><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><msub><mo>∑</mo><mi>j</mi></msub><mi>∂</mi><msub><mi>q</mi><mi>j</mi></msub><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\partial V/\partial\tau=\sum_j\partial q_j/\partial\tau=0</annotation></semantics></math> by <a href="#prop:displacement" class="xref">Proposition 3</a>. If instead <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> falls with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∂</mi><mi>V</mi><mi>/</mi><mi>∂</mi><mi>τ</mi><mo>=</mo><mi>∂</mi><mi>M</mi><mi>/</mi><mi>∂</mi><mi>τ</mi></mrow><annotation encoding="application/x-tex">\partial V/\partial\tau=\partial M/\partial\tau</annotation></semantics></math> and the proportional change in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> is at most <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>∂</mi><mi>M</mi><mi>/</mi><mi>∂</mi><mi>τ</mi><mo stretchy="false" form="prefix">|</mo><mi>/</mi><mi>V</mi><mo>≤</mo><mo stretchy="false" form="prefix">|</mo><mi>∂</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mi>M</mi><mi>/</mi><mi>∂</mi><mi>τ</mi><mo stretchy="false" form="prefix">|</mo><mi>⋅</mi><mi>M</mi><mi>/</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">|\partial M/\partial\tau|/V\leq|\partial\log M/\partial\tau|\cdot M/V</annotation></semantics></math>, which is bounded by the network’s share of chain-level volume, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>/</mi><mi>V</mi></mrow><annotation encoding="application/x-tex">M/V</annotation></semantics></math>. ◻</p>
+</div>
+<h1 data-number="D" id="app:replication"><span class="header-section-number">D</span> Replication</h1>
+<p>The replication package, provided as ancillary files (folder <code>anc/</code>) with this arXiv submission, contains the Python package <code>shadowdollars</code> (collectors, metrics, detectors, simulator, Monte Carlo), the scripts that produce every figure and table, the raw data with their manifest, and the LaTeX source of this paper. From the package root:</p>
+<div class="center">
+<div class="tscroll"><table>
+<thead>
+<tr>
+<th style="text-align: left;">Command</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>pip install -e .</code></td>
+<td style="text-align: left;">install the package</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>python -m shadowdollars.collectors.public</code></td>
+<td style="text-align: left;">download raw data and write the manifest</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>python scripts/figures_real.py</code></td>
+<td style="text-align: left;">figures and tables of Sections 2 and 6</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>bash run_mc.sh</code></td>
+<td style="text-align: left;">Monte Carlo (about 10 minutes on one core)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>python scripts/figures_sim.py</code></td>
+<td style="text-align: left;">figures and tables of Section 7</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pytest -q</code></td>
+<td style="text-align: left;">unit tests for the estimators</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>latexmk -pdf main</code></td>
+<td style="text-align: left;">compile this paper (pdfLaTeX)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Exchange and TronGrid collectors (<code>collectors/local.py</code>) and the account-level schema used by the plan in <a href="#sec:plan" class="xref">Section 8</a> are included but were not executed in the compilation environment. Random seeds are fixed, so the simulation results reproduce exactly.</p>
+
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Institutional details and dates in this section were compiled from public announcements and are stated at the precision available, often the month. They should be checked against primary legal sources before being relied upon.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</article>
+<section class="cite" aria-label="How to cite"><h2>How to cite</h2><pre><code>@misc{chongmankhong2026shadowdollars,
+  author = {Chongmankhong, Thanatchon},
+  title  = {Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand},
+  year   = {2026},
+  note   = {Preprint},
+  url    = {https://thanatchon36.github.io/shadow-dollars/paper/}
+}</code></pre></section>
+<footer class="colophon">
+<p>Rendered from the LaTeX source in <code>paper/</code> by <code>scripts/build_web.py</code> (<code>make web</code>). Figure, table, equation and section numbers come from the LaTeX run, and the results strip reads <code>data/processed/facts_*.json</code>, the same files the paper quotes. The PDF is authoritative. Results marked simulated validate methods against planted ground truth and are not evidence about real markets.</p>
+</footer>
+</div>
+</body>
+</html>
