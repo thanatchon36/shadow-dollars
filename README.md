@@ -7,12 +7,14 @@
 <a href="paper/paper.pdf"><img src="https://img.shields.io/badge/paper-PDF-e4572e?style=flat-square&labelColor=0b1020" alt="Paper PDF"></a>
 <a href="docs/data_sources.md"><img src="https://img.shields.io/badge/data-public%20%2B%20simulated-3d5a80?style=flat-square&labelColor=0b1020" alt="Data: public + simulated"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-ffd7c7?style=flat-square&labelColor=0b1020" alt="License MIT"></a>
+<a href="https://huggingface.co/datasets/thanatchon36/shadow-dollars"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20dataset-shadow--dollars-e4572e?style=flat-square&labelColor=0b1020" alt="Hugging Face dataset"></a>
 </p>
 
 <p align="center">
 📖 <b><a href="https://thanatchon36.github.io/shadow-dollars/paper/">Read the paper online</a></b> ·
 📄 <b><a href="paper/paper.pdf">Download the PDF</a></b> ·
 🗂️ <b><a href="docs/data_sources.md">Data sources</a></b> ·
+🤗 <b><a href="https://huggingface.co/datasets/thanatchon36/shadow-dollars">Dataset</a></b> ·
 📦 <b><a href="arxiv/">arXiv package</a></b> ·
 📝 <b><a href="CHANGELOG.md">Changelog</a></b>
 </p>
@@ -85,6 +87,9 @@ the web version at <https://thanatchon36.github.io/shadow-dollars/paper/>, and i
 [`paper/arxiv.sty`](paper/arxiv.sty)). `make arxiv` packs the source and the replication code into
 `arxiv/arxiv_submission.zip`; [`arxiv/arxiv_metadata.txt`](arxiv/arxiv_metadata.txt) holds the title, abstract and
 comments for the arXiv form. Every number in the text is read from `data/processed/facts_*.json`.
+
+- Dataset on Hugging Face: [`thanatchon36/shadow-dollars`](https://huggingface.co/datasets/thanatchon36/shadow-dollars), with the raw public data and its manifest, the
+  derived tables behind the public-data results, and the Monte Carlo results (simulated)
 
 Key findings:
 

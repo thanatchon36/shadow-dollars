@@ -22,6 +22,9 @@ All notable changes to this project are documented here. The format follows
   match the PDF.
 - `Makefile` with targets for every pipeline step (replaces `run_all.sh`); `make paper` falls back to tectonic when
   `pdflatex` is not installed.
+- Dataset on Hugging Face, [`thanatchon36/shadow-dollars`](https://huggingface.co/datasets/thanatchon36/shadow-dollars): the raw public data with its manifest
+  and checksums, the derived tables behind the public-data results, and the Monte Carlo results (simulated);
+  Coin Metrics files and their derivatives under CC BY-NC 4.0, the rest as listed in its `LICENSE`.
 - README banner from real data (`make banner`, `docs/assets/banner.png`), logo, `docs/data_sources.md`,
   `.zenodo.json` and this changelog.
 

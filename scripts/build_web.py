@@ -26,6 +26,7 @@ OUT = ROOT / "docs" / "paper"
 
 REPO_URL = "https://github.com/thanatchon36/shadow-dollars"
 PAPER_URL = "https://thanatchon36.github.io/shadow-dollars/paper/"
+DATA_URL = "https://huggingface.co/datasets/thanatchon36/shadow-dollars"
 TITLE = "Shadow Dollars"
 SUBTITLE = "Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand"
 
@@ -413,7 +414,7 @@ def build() -> Path:
     actions = (
         '<li><a href="paper.pdf">Download PDF</a></li>'
         f'<li><a href="{REPO_URL}">Code and replication</a></li>'
-        f'<li><a href="{REPO_URL}/tree/main/data">Data and manifest</a></li>'
+        f'<li><a href="{DATA_URL}">Data (Hugging Face)</a></li>'
     )
     bib = (
         "@misc{chongmankhong2026shadowdollars,\n"

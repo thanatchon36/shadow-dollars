@@ -2,7 +2,8 @@
 
 Every input is public. `make data` (`python -m shadowdollars.collectors.public`) downloads only the files missing from
 `data/raw/` and records each one in [`data/raw/MANIFEST.json`](../data/raw/MANIFEST.json): URL, retrieval time, size and
-SHA-256. The vintage used in the paper was retrieved on 8 November 2026. Some sources update daily, so deleting
+SHA-256. The same files, with the derived tables and the Monte Carlo results, are on Hugging Face:
+[`thanatchon36/shadow-dollars`](https://huggingface.co/datasets/thanatchon36/shadow-dollars). The vintage used in the paper was retrieved on 8 November 2026. Some sources update daily, so deleting
 `data/raw/` and downloading again gives a later vintage than the one in the manifest.
 
 | Source | Content | Files | Terms |
