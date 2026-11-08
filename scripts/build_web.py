@@ -26,6 +26,7 @@ OUT = ROOT / "docs" / "paper"
 
 REPO_URL = "https://github.com/thanatchon36/shadow-dollars"
 PAPER_URL = "https://thanatchon36.github.io/shadow-dollars/paper/"
+CONCEPT_DOI = "10.5281/zenodo.24050717"
 DATA_URL = "https://huggingface.co/datasets/thanatchon36/shadow-dollars"
 TITLE = "Shadow Dollars"
 SUBTITLE = "Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand"
@@ -415,6 +416,7 @@ def build() -> Path:
         '<li><a href="paper.pdf">Download PDF</a></li>'
         f'<li><a href="{REPO_URL}">Code and replication</a></li>'
         f'<li><a href="{DATA_URL}">Data (Hugging Face)</a></li>'
+        f'<li><a href="https://doi.org/{CONCEPT_DOI}">Zenodo archive</a></li>'
     )
     bib = (
         "@misc{chongmankhong2026shadowdollars,\n"
@@ -422,6 +424,7 @@ def build() -> Path:
         f"  title  = {{{TITLE}: {SUBTITLE}}},\n"
         "  year   = {2026},\n"
         "  note   = {Preprint},\n"
+        f"  doi    = {{{CONCEPT_DOI}}},\n"
         f"  url    = {{{PAPER_URL}}}\n"
         "}"
     )

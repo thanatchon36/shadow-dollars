@@ -7,6 +7,7 @@
 <a href="paper/paper.pdf"><img src="https://img.shields.io/badge/paper-PDF-e4572e?style=flat-square&labelColor=0b1020" alt="Paper PDF"></a>
 <a href="docs/data_sources.md"><img src="https://img.shields.io/badge/data-public%20%2B%20simulated-3d5a80?style=flat-square&labelColor=0b1020" alt="Data: public + simulated"></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-ffd7c7?style=flat-square&labelColor=0b1020" alt="License MIT"></a>
+<a href="https://zenodo.org/badge/latestdoi/1450099754"><img src="https://zenodo.org/badge/1450099754.svg" alt="DOI"></a>
 <a href="https://huggingface.co/datasets/thanatchon36/shadow-dollars"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20dataset-shadow--dollars-e4572e?style=flat-square&labelColor=0b1020" alt="Hugging Face dataset"></a>
 </p>
 
@@ -15,7 +16,6 @@
 📄 <b><a href="paper/paper.pdf">Download the PDF</a></b> ·
 🗂️ <b><a href="docs/data_sources.md">Data sources</a></b> ·
 🤗 <b><a href="https://huggingface.co/datasets/thanatchon36/shadow-dollars">Dataset</a></b> ·
-📦 <b><a href="arxiv/">arXiv package</a></b> ·
 📝 <b><a href="CHANGELOG.md">Changelog</a></b>
 </p>
 
@@ -148,7 +148,8 @@ section of the paper.
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button), or:
+See [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button); each release is archived on
+Zenodo ([10.5281/zenodo.24050717](https://doi.org/10.5281/zenodo.24050717), DOI badge above). Or:
 
 ```bibtex
 @misc{chongmankhong2026shadowdollars,
@@ -156,6 +157,7 @@ See [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button
   title  = {Shadow Dollars: Stablecoin Rails, Scam Finance and the Limits of Detection in Thailand},
   year   = {2026},
   note   = {Preprint},
+  doi    = {10.5281/zenodo.24050717},
   url    = {https://thanatchon36.github.io/shadow-dollars/paper/}
 }
 ```

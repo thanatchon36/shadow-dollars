@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- Zenodo archive: release 0.1.0 is [10.5281/zenodo.24050718](https://doi.org/10.5281/zenodo.24050718), and the
+  concept DOI for all versions is [10.5281/zenodo.24050717](https://doi.org/10.5281/zenodo.24050717); DOI badge in the
+  README, `doi` in `CITATION.cff`, and the archive linked from the web reader and the Hugging Face dataset.
+
 ## [0.1.0] - 2026-11-08
 
 ### Added
