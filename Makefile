@@ -1,6 +1,6 @@
 PY ?= .venv/bin/python
 
-.PHONY: setup data figures mc sim test paper web banner arxiv all clean
+.PHONY: setup data figures mc sim test paper web banner poster arxiv all clean
 
 setup:          ## create venv and install the package (needs uv)
 	uv venv .venv --python 3.12
@@ -40,6 +40,9 @@ web:            ## web reader -> docs/paper/index.html (pandoc, tectonic, pdftop
 
 banner:         ## README banner -> docs/assets/banner.png (real data)
 	$(PY) scripts/make_banner.py
+
+poster:         ## LinkedIn launch poster -> docs/assets/linkedin_poster.png (1440 x 1800; headless Chrome)
+	$(PY) scripts/make_poster.py
 
 arxiv:          ## arXiv upload -> arxiv/arxiv_submission.zip (paper source + replication code as anc/)
 	bash arxiv/make_arxiv_zip.sh

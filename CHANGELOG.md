@@ -10,6 +10,8 @@ All notable changes to this project are documented here. The format follows
 - Zenodo archive: release 0.1.0 is [10.5281/zenodo.24050718](https://doi.org/10.5281/zenodo.24050718), and the
   concept DOI for all versions is [10.5281/zenodo.24050717](https://doi.org/10.5281/zenodo.24050717); DOI badge in the
   README, `doi` in `CITATION.cff`, and the archive linked from the web reader and the Hugging Face dataset.
+- LinkedIn launch poster, `docs/assets/linkedin_poster.png` (1440 x 1800, 4:5), built by `make poster` from
+  `data/processed/facts_*.json` and the Coin Metrics USDT supply series.
 
 ## [0.1.0] - 2026-11-08
 

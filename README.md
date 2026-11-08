@@ -54,6 +54,7 @@ paper), `figures/` (vector PDF and PNG), `paper/tables/`, `paper/paper.pdf` and 
 | `paper` | Compile `paper/paper.pdf` (pdflatex + bibtex when installed, otherwise tectonic) |
 | `web` | Web reader → `docs/paper/index.html`, served at <https://thanatchon36.github.io/shadow-dollars/paper/> (pandoc, tectonic, pdftoppm) |
 | `banner` | README banner → `docs/assets/banner.png` (real data) |
+| `poster` | LinkedIn poster → `docs/assets/linkedin_poster.png` (1440 × 1800, headless Chrome) |
 | `arxiv` | arXiv upload → `arxiv/arxiv_submission.zip` (paper source, with the replication code as `anc/`) |
 
 Random seeds are fixed, so simulation results reproduce exactly. Some data sources update daily, so deleting
@@ -125,6 +126,7 @@ scripts/
   run_mc.py                 Monte Carlo in resumable chunks (driven by run_mc.sh)
   build_web.py              web reader docs/paper/ from the LaTeX source
   make_banner.py            README banner
+  make_poster.py            LinkedIn poster
 data/raw/                   raw public data + MANIFEST.json
 data/processed/             derived series, Monte Carlo results, facts_*.json
 figures/                    all figures (PDF + PNG), qa_overlaps.json
